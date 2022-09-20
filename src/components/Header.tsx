@@ -12,6 +12,7 @@ const Contaier = styled.header`
     padding: 0.5rem 1.5rem;
     background: var(--color-block);
     color: var(--color-block-body);
+    user-select: none;
 `;
 const ContentWrapper = styled.div`
     display: flex;
@@ -55,6 +56,7 @@ const NavigationItem = styled.div`
     font-size: 1rem;
     letter-spacing: 0.05rem;
     transition: 150ms;
+    cursor: pointer;
 
     &:hover {
         color: var(--color-primary);
@@ -77,13 +79,15 @@ const AccountToggle = styled(MenuToggle)`
     justify-content: flex-end;
 `;
 
-export type HeaderProps = {};
-export const Header: FunctionComponent<HeaderProps> = () => {
+export type HeaderProps = {
+    toggleMenu: () => void;
+};
+export const Header: FunctionComponent<HeaderProps> = ({ toggleMenu }) => {
     return (
         <Contaier>
             <ContentWrapper>
                 <Content>
-                    <MenuToggle>
+                    <MenuToggle onClick={toggleMenu}>
                         <FiMenu />
                     </MenuToggle>
 
@@ -93,15 +97,11 @@ export const Header: FunctionComponent<HeaderProps> = () => {
                                 <a>Hem</a>
                             </Link>
                         </NavigationItem>
-                        <NavigationItem>
-                            <Link href="/">
-                                <a>Om Oss</a>
-                            </Link>
+                        <NavigationItem onClick={toggleMenu}>
+                            Om Oss
                         </NavigationItem>
-                        <NavigationItem>
-                            <Link href="/">
-                                <a>Event</a>
-                            </Link>
+                        <NavigationItem onClick={toggleMenu}>
+                            Event
                         </NavigationItem>
                     </Navigation>
                     <Logo>

@@ -14,14 +14,7 @@ const App = ({ Component, pageProps }: AppProps) => {
 
     return (
         <>
-            <DefaultSeo
-                {...SEO}
-                twitter={{
-                    cardType: 'summary_large_image',
-                    handle: '@candybysweden',
-                    site: '@candybysweden'
-                }}
-            />
+            <DefaultSeo {...SEO} />
             <Head>
                 <meta
                     name="viewport"
