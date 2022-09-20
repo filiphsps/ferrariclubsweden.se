@@ -13,6 +13,29 @@ const Contaier = styled.header`
     background: var(--color-block);
     color: var(--color-block-body);
     user-select: none;
+    transition: 300ms ease-in-out;
+
+    &.sticky {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
+        z-index: 999;
+
+        //text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.75);
+        background: linear-gradient(
+            to top,
+            rgba(0, 0, 0, 0),
+            rgba(0, 0, 0, 0.2) 25%,
+            rgba(0, 0, 0, 0.55) 70%,
+            rgba(0, 0, 0, 0.75)
+        );
+    }
+
+    &.hide {
+        margin-top: -5rem;
+    }
 `;
 const ContentWrapper = styled.div`
     display: flex;
@@ -70,6 +93,7 @@ const MenuToggle = styled.div`
     text-transform: uppercase;
     font-size: 1.5rem;
     letter-spacing: 0.05rem;
+    cursor: pointer;
 
     @media (min-width: 992px) {
         display: none;
@@ -80,11 +104,21 @@ const AccountToggle = styled(MenuToggle)`
 `;
 
 export type HeaderProps = {
+    sticky?: boolean;
+    navigationMenuOpen?: boolean;
     toggleMenu: () => void;
 };
-export const Header: FunctionComponent<HeaderProps> = ({ toggleMenu }) => {
+export const Header: FunctionComponent<HeaderProps> = ({
+    toggleMenu,
+    sticky,
+    navigationMenuOpen
+}) => {
     return (
-        <Contaier>
+        <Contaier
+            className={`${sticky ? 'sticky' : ''} ${
+                navigationMenuOpen ? 'hide' : ''
+            }`}
+        >
             <ContentWrapper>
                 <Content>
                     <MenuToggle onClick={toggleMenu}>
@@ -105,23 +139,34 @@ export const Header: FunctionComponent<HeaderProps> = ({ toggleMenu }) => {
                         </NavigationItem>
                     </Navigation>
                     <Logo>
-                        <Image src={LogoImage} alt="Ferrari Club Sweden" />
+                        <Link href="/">
+                            <a>
+                                <Image
+                                    src={LogoImage}
+                                    alt="Ferrari Club Sweden"
+                                />
+                            </a>
+                        </Link>
                     </Logo>
                     <Actions>
                         <NavigationItem>
-                            <Link href="/members/login">
+                            <Link href="/members/login/">
                                 <a>Logga In</a>
                             </Link>
                         </NavigationItem>
                         <NavigationItem>
-                            <Link href="/">
+                            <Link href="/members/register/">
                                 <a>Bli Medlem</a>
                             </Link>
                         </NavigationItem>
                     </Actions>
 
                     <AccountToggle>
-                        <FiUser />
+                        <Link href="/members/">
+                            <a>
+                                <FiUser />
+                            </a>
+                        </Link>
                     </AccountToggle>
                 </Content>
             </ContentWrapper>

@@ -1,8 +1,6 @@
 import { FiXCircle } from 'react-icons/fi';
 import { FunctionComponent } from 'react';
-import Image from 'next/future/image';
 import Link from 'next/link';
-import LogoImage from '../../public/img/logo.png';
 import styled from 'styled-components';
 
 const Primary = styled.div`
@@ -28,14 +26,9 @@ const Header = styled.div`
     font-size: 1.5rem;
     text-transform: uppercase;
     letter-spacing: 0.05rem;
-
-    img {
-        height: 2rem;
-        width: 2rem;
-    }
 `;
 const Content = styled.div`
-    padding: 1rem;
+    padding: 1rem 2rem;
 
     @media (min-width: 992px) {
         width: 33vw;
@@ -82,6 +75,7 @@ const NavigationItem = styled.div`
 `;
 
 const Contaier = styled.div`
+    z-index: 9999;
     position: fixed;
     top: 100vh;
     right: 0px;
@@ -100,6 +94,7 @@ const Contaier = styled.div`
             rotate: 15deg;
         }
         45% {
+            opacity: 0.65;
             rotate: 0deg;
         }
         75% {
@@ -116,7 +111,7 @@ const Contaier = styled.div`
         ${NavigationItem} {
             opacity: 0;
             animation-name: MenuItemsSlideIn;
-            animation-duration: 1s;
+            animation-duration: 750ms;
             animation-fill-mode: forwards;
             transform-origin: left center;
         }
@@ -142,29 +137,26 @@ export const NavigationMenu: FunctionComponent<NavigationMenuProps> = ({
         },
         {
             title: 'Om Oss',
-            href: '/om-oss'
+            href: '/om-oss/'
         },
         {
             title: 'Kontakta Oss',
-            href: '/kontakta-oss'
+            href: '/kontakta-oss/'
         },
         {
             title: 'Vår Historia',
-            href: '/var-historia'
+            href: '/var-historia/'
         },
         {
             title: 'Kalender',
-            href: '/kalender'
+            href: '/kalender/'
         }
     ];
 
     return (
         <Contaier className={open ? 'open' : ''}>
             <Primary>
-                <Header>
-                    <Image src={LogoImage} alt="Ferrari Club Sweden" />
-                    Ferrari Club Sweden
-                </Header>
+                <Header>Ferrari Club Sweden</Header>
                 <Content>
                     <Toggle onClick={toggleMenu}>
                         <FiXCircle />
@@ -176,7 +168,7 @@ export const NavigationMenu: FunctionComponent<NavigationMenuProps> = ({
                                 key={href}
                                 onClick={toggleMenu}
                                 style={{
-                                    animationDelay: `${500 + 150 * index}ms`
+                                    animationDelay: `${400 + 150 * index}ms`
                                 }}
                             >
                                 <Link href={href}>

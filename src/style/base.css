@@ -11,6 +11,8 @@ body {
     background: var(--color-block-body);
     font-size: 14px;
     font-family: 'PT Sans', sans-serif;
+    font-smooth: always;
+    -webkit-font-smoothing: antialiased ;
 }
 
 #nprogress {
