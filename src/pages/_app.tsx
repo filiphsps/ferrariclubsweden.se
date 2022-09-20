@@ -1,6 +1,10 @@
+import 'destyle.css';
+import '../style/base.css';
+
 import type { AppProps } from 'next/app';
 import { DefaultSeo } from 'next-seo';
 import Head from 'next/head';
+import { PageProvider } from '../components/PageProvider';
 import SEO from '../../nextseo.config';
 import { appWithTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
@@ -30,7 +34,9 @@ const App = ({ Component, pageProps }: AppProps) => {
                 />
             </Head>
 
-            <Component key={router.asPath} {...pageProps} />
+            <PageProvider>
+                <Component key={router.asPath} {...pageProps} />
+            </PageProvider>
         </>
     );
 };

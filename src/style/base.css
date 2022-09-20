@@ -1,0 +1,13 @@
+body {
+    --color-primary: #cc0003;
+    --color-block: #1B1B1B;
+    --color-block-body: #efefef;
+    --color-body: #0e0e0e;
+
+    --size-page-width: 1256px;
+
+    color: var(--color-body);
+    background: var(--color-block-body);
+    font-size: 14px;
+    font-family: 'PT Sans', sans-serif;
+}
