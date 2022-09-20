@@ -1,7 +1,10 @@
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
-const Contaier = styled.div``;
+const Contaier = styled.div`
+    height: 100%;
+    width: 100%;
+`;
 
 export type PageProps = {
     children: JSX.Element | JSX.Element[];

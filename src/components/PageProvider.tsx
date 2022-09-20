@@ -36,8 +36,8 @@ const Content = styled.div`
         border-top-width: 8rem;
 
         @media (max-width: 992px) {
-            border-width: 3rem;
-            border-top-width: 6rem;
+            border-width: 2rem;
+            border-top-width: 4rem;
         }
 
         ${ContentContainer} {

@@ -26,10 +26,10 @@ const Contaier = styled.header`
         //text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.75);
         background: linear-gradient(
             to top,
-            rgba(0, 0, 0, 0),
-            rgba(0, 0, 0, 0.2) 25%,
-            rgba(0, 0, 0, 0.55) 70%,
-            rgba(0, 0, 0, 0.75)
+            rgba(27, 27, 27, 0),
+            rgba(27, 27, 27, 0.2) 25%,
+            rgba(27, 27, 27, 0.55) 70%,
+            rgba(27, 27, 27, 0.75)
         );
     }
 
