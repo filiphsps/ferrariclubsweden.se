@@ -109,6 +109,11 @@ export const Header: FunctionComponent<HeaderProps> = ({ toggleMenu }) => {
                     </Logo>
                     <Actions>
                         <NavigationItem>
+                            <Link href="/members/login">
+                                <a>Logga In</a>
+                            </Link>
+                        </NavigationItem>
+                        <NavigationItem>
                             <Link href="/">
                                 <a>Bli Medlem</a>
                             </Link>

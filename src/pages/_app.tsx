@@ -1,13 +1,22 @@
 import 'destyle.css';
 import '../style/base.css';
 
+import Router, { useRouter } from 'next/router';
+
 import type { AppProps } from 'next/app';
 import { DefaultSeo } from 'next-seo';
 import Head from 'next/head';
+import NProgress from 'nprogress';
 import { PageProvider } from '../components/PageProvider';
 import SEO from '../../nextseo.config';
 import { appWithTranslation } from 'next-i18next';
-import { useRouter } from 'next/router';
+
+Router.events.on('routeChangeStart', () => NProgress.start());
+Router.events.on('routeChangeComplete', () => NProgress.done());
+Router.events.on('routeChangeError', (err) => {
+    console.error(err);
+    NProgress.done();
+});
 
 const App = ({ Component, pageProps }: AppProps) => {
     const router = useRouter();

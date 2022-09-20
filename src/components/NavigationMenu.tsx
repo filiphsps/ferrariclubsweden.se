@@ -1,6 +1,7 @@
 import { FiXCircle } from 'react-icons/fi';
 import { FunctionComponent } from 'react';
 import Image from 'next/future/image';
+import Link from 'next/link';
 import LogoImage from '../../public/img/logo.png';
 import styled from 'styled-components';
 
@@ -173,11 +174,14 @@ export const NavigationMenu: FunctionComponent<NavigationMenuProps> = ({
                         {items.map(({ title, href }, index) => (
                             <NavigationItem
                                 key={href}
+                                onClick={toggleMenu}
                                 style={{
                                     animationDelay: `${500 + 150 * index}ms`
                                 }}
                             >
-                                {title}
+                                <Link href={href}>
+                                    <a>{title}</a>
+                                </Link>
                             </NavigationItem>
                         ))}
                     </Navigation>
