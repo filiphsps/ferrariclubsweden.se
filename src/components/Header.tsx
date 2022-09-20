@@ -7,10 +7,11 @@ import LogoImage from '../../public/img/logo.png';
 import styled from 'styled-components';
 
 const Contaier = styled.header`
+    grid-area: header;
+    height: 5rem;
+    padding: 0.5rem 1.5rem;
     background: var(--color-block);
     color: var(--color-block-body);
-    padding: 0.5rem 1.5rem;
-    height: 5rem;
 `;
 const ContentWrapper = styled.div`
     display: flex;
