@@ -108,7 +108,7 @@ const MemebersLoginPage: FunctionComponent<MemebersLoginPageProps> = () => {
                         </Form>
 
                         <Notice>
-                            <p>Inte medlemm ännu?</p>
+                            <p>Inte medlem ännu?</p>
                             <Link href="/members/register">
                                 <a>Bli Medlem</a>
                             </Link>
