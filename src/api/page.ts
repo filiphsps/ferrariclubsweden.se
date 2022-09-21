@@ -4,6 +4,7 @@ import { gql } from '@apollo/client';
 interface PageApiProps {
     uri: string;
 }
+// FIXME: PageModel
 export const PageApi = async ({ uri }: PageApiProps): Promise<any> => {
     return new Promise(async (resolve, reject) => {
         try {
