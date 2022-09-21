@@ -25,22 +25,18 @@ const ContentContainer = styled.main`
     height: 100%;
     width: 100%;
     padding: 0.5rem;
+    transition: 300ms ease-in-out all;
+    transform: scale(1);
+    background: var(--color-block-body);
 `;
 
 const Content = styled.div`
     grid-area: main;
-    transition: 300ms ease-in-out;
+    background: var(--color-light-block);
 
     &.menu-open {
-        border: 4rem solid var(--color-light-block);
-        border-top-width: 8rem;
-
-        @media (max-width: 992px) {
-            border-width: 2rem;
-            border-top-width: 4rem;
-        }
-
         ${ContentContainer} {
+            transform: scale(0.85);
             box-shadow: 0px 0px 25px 10px rgba(0, 0, 0, 0.25);
         }
     }
