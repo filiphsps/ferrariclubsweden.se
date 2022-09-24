@@ -1,11 +1,13 @@
 @font-face {
     font-family: "Ferrari";
     font-weight: 500;
+    font-display: swap;
     src: url('/fonts/Ferrari-SansRegular.woff') format('woff');
 }
 @font-face {
     font-family: "Ferrari";
     font-weight: 600;
+    font-display: swap;
     src: url('/fonts/Ferrari-SansMedium.woff') format('woff');
 }
 

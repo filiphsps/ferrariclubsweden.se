@@ -131,7 +131,7 @@ const IndexPage: FunctionComponent<IndexPageProps> = () => {
                     showThumbs={false}
                 >
                     <Slide>
-                        <Image src={Slide1} alt="Ferrari" />
+                        <Image src={Slide1} alt="Ferrari" loading="eager" />
                     </Slide>
                     <Slide>
                         <Image src={Slide2} alt="Gruppträff" />
