@@ -36,6 +36,7 @@ const App = ({ Component, pageProps }: AppProps) => {
                     name="apple-mobile-web-app-status-bar-style"
                     content="black-translucent"
                 />
+                <link rel="icon" type="image/png" href="/img/logo.png" />
             </Head>
 
             <ApolloProvider client={Client}>
