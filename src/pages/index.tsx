@@ -1,12 +1,13 @@
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 import { Carousel } from 'react-responsive-carousel';
+import { FiChevronDown } from 'react-icons/fi';
 import { FunctionComponent } from 'react';
-import { GetStaticProps } from 'next';
 import Image from 'next/future/image';
+import { ImageBlocks } from '../components/ImageBlocks';
+import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 import { Page } from '../components/Page';
-import { PageApi } from '../api/page';
 import Slide1 from '../../public/img/carousel/slide-1.jpg';
 import Slide2 from '../../public/img/carousel/slide-2.jpg';
 import Slide3 from '../../public/img/carousel/slide-3.jpg';
@@ -19,10 +20,11 @@ const Slider = styled(Carousel)`
 `;
 const Slide = styled.div`
     z-index: -1;
-    height: calc(100vh - 10rem);
+    height: calc(100vh - 2rem);
+    height: calc(calc(100vh - env(safe-area-inset-bottom)) - 2rem);
 
     @media (max-width: 992px) {
-        height: 40vh;
+        //height: 40vh;
     }
 
     img {
@@ -34,10 +36,8 @@ const Slide = styled.div`
 
 const Header = styled.div`
     position: relative;
-    width: calc(100% + 1rem);
-    max-width: calc(100% + 1rem);
-    margin: -0.5rem;
-    border-bottom: 6rem solid var(--color-block);
+    width: 100%;
+    border-bottom: 2rem solid var(--color-block);
 `;
 const HeaderContent = styled.div`
     position: absolute;
@@ -60,21 +60,53 @@ const HeaderContent = styled.div`
 `;
 const HeaderContentContainer = styled.div`
     display: flex;
-    width: 42rem;
-    max-width: 100%;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    max-width: 44rem;
+    padding: 0px 0.5rem;
     color: var(--color-block-body);
 
     @media (max-width: 992px) {
-        translate: 0px 6rem;
+        translate: 0px 2rem;
     }
 
     h1 {
-        font-family: 'PT Sans', sans-serif;
-        font-size: 3rem;
+        font-family: 'Ferrari', sans-serif;
+        font-size: 3.5rem;
         font-weight: 700;
         letter-spacing: 0.15rem;
-        line-height: 3.25rem;
+        line-height: 3.5rem;
         text-transform: uppercase;
+        text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.75);
+
+        @media (max-width: 992px) {
+            font-size: 1.75rem;
+            line-height: 2rem;
+        }
+    }
+`;
+
+const ScrollDownIcon = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    font-size: 3rem;
+    line-height: 3rem;
+    height: 3rem;
+    width: 3rem;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: 250ms ease-in-out all;
+
+    @media (max-width: 992px) {
+        margin-top: 1rem;
+    }
+
+    &:hover {
+        opacity: 1;
     }
 `;
 
@@ -111,12 +143,47 @@ const IndexPage: FunctionComponent<IndexPageProps> = () => {
 
                 <HeaderContent>
                     <HeaderContentContainer>
-                        <Title>Välkommen till Ferrari Club Sweden</Title>
+                        <Title>
+                            Välkommen till
+                            <br />
+                            Ferrari Club Sweden
+                        </Title>
+                        <ScrollDownIcon
+                            onClick={() => {
+                                document
+                                    .querySelector('#content')
+                                    ?.scrollIntoView({
+                                        behavior: 'smooth'
+                                    });
+                            }}
+                        >
+                            <FiChevronDown />
+                        </ScrollDownIcon>
                     </HeaderContentContainer>
                 </HeaderContent>
             </Header>
 
-            <div style={{ height: '6rem' }}></div>
+            <ImageBlocks
+                id="content"
+                blocks={[
+                    {
+                        background: <Image src={Slide2} alt="Events" />,
+                        children: (
+                            <Link href="/events">
+                                <a>Events</a>
+                            </Link>
+                        )
+                    },
+                    {
+                        background: <Image src={Slide3} alt="News" />,
+                        children: (
+                            <Link href="/nyheter">
+                                <a>Nyheter</a>
+                            </Link>
+                        )
+                    }
+                ]}
+            />
         </Page>
     );
 };

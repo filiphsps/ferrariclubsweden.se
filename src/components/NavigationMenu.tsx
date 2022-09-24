@@ -24,11 +24,14 @@ const Header = styled.div`
     padding: 0.5rem 1rem;
     border-bottom: 0.15rem solid var(--color-light-block);
     font-size: 1.5rem;
+    line-height: 1.5rem;
+    font-family: 'Ferrari', sans-serif;
     text-transform: uppercase;
-    letter-spacing: 0.05rem;
+    text-align: center;
 `;
 const Content = styled.div`
     padding: 1rem 2rem;
+    font-family: 'Ferrari', sans-serif;
 
     @media (min-width: 992px) {
         width: 33vw;
@@ -77,7 +80,7 @@ const NavigationItem = styled.div`
 const Contaier = styled.div`
     z-index: 9999;
     position: fixed;
-    top: 100vh;
+    top: 130vh;
     right: 0px;
     bottom: 0px;
     left: 0px;

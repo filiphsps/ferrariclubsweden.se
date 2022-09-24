@@ -39,13 +39,18 @@ const Copyrights = styled.div`
     align-items: center;
     gap: 1rem;
     font-size: 0.75rem;
+    line-height: 1rem;
+    text-transform: uppercase;
     opacity: 0.75;
     background: var(--color-body);
+    font-family: 'Ferrari';
 
     @media (max-width: 992px) {
         flex-direction: column;
         justify-content: center;
-        gap: 0px;
+        font-size: 0.65rem;
+        line-height: 0.65rem;
+        gap: 0.25rem;
     }
 `;
 
@@ -73,7 +78,7 @@ export const Footer: FunctionComponent<FooterProps> = () => {
                     rights reserved.
                 </span>
                 <span>
-                    Website build and maintained by{' '}
+                    Website built and maintained by{' '}
                     <Link href="https://spsgroup.se">
                         <a target="_blank">SPS Group</a>
                     </Link>

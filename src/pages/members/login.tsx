@@ -14,7 +14,6 @@ const Container = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
     height: calc(100% + 1rem);
-    margin: -0.5rem;
 
     @media (max-width: 992px) {
         display: flex;
@@ -37,6 +36,11 @@ const ContentContainer = styled.div`
     gap: 1rem;
     max-width: 28rem;
     width: 100%;
+
+    h1 {
+        text-transform: unset;
+        font-family: 'Poppins', sans-serif;
+    }
 `;
 const Form = styled.div`
     display: flex;

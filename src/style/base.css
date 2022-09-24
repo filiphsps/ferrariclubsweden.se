@@ -1,3 +1,14 @@
+@font-face {
+    font-family: "Ferrari";
+    font-weight: 500;
+    src: url('/fonts/Ferrari-SansRegular.woff') format('woff');
+}
+@font-face {
+    font-family: "Ferrari";
+    font-weight: 600;
+    src: url('/fonts/Ferrari-SansMedium.woff') format('woff');
+}
+
 body {
     --color-primary: #cc0003;
     --color-light-block: #d1d1d1;
@@ -10,17 +21,20 @@ body {
     color: var(--color-body);
     background: var(--color-block-body);
     font-size: 14px;
-    font-family: 'PT Sans', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-smooth: always;
     -webkit-font-smoothing: antialiased ;
+    
+    scroll-behavior: smooth;
 }
 
 * {
     block-size: border-box;
 }
 
-h1, h2, h3, h4, p, button {
-    font-family: 'Poppins', sans-serif;
+h1 {
+    font-family: 'Ferrari', sans-serif;
+    text-transform: uppercase;
 }
 
 a:hover {
@@ -38,4 +52,13 @@ a:hover {
     left: 0px;
     right: 0px;
     height: 0.25rem;
+}
+
+/* Ugly hack to remove autofill background */
+/* https://stackoverflow.com/a/14205976/3142553 */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px var(--color-block-body) inset !important;
 }

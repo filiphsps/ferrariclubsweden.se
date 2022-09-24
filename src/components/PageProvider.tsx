@@ -24,7 +24,7 @@ const Contaier = styled.div`
 const ContentContainer = styled.main`
     height: 100%;
     width: 100%;
-    padding: 0.5rem;
+    max-width: 100vw;
     transition: 300ms ease-in-out all;
     transform: scale(1);
     background: var(--color-block-body);

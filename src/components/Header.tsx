@@ -23,11 +23,10 @@ const Contaier = styled.header`
         left: 0px;
         z-index: 999;
 
-        //text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.75);
         background: linear-gradient(
             to top,
-            rgba(27, 27, 27, 0),
-            rgba(27, 27, 27, 0.2) 25%,
+            rgba(27, 27, 27, 0) 0%,
+            rgba(27, 27, 27, 0.2) 35%,
             rgba(27, 27, 27, 0.55) 70%,
             rgba(27, 27, 27, 0.75)
         );
@@ -77,9 +76,11 @@ const Actions = styled(Navigation)`
 const NavigationItem = styled.div`
     text-transform: uppercase;
     font-size: 1rem;
+    font-family: 'Ferrari', sans-serif;
     letter-spacing: 0.05rem;
     transition: 150ms;
     cursor: pointer;
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.75);
 
     &:hover {
         color: var(--color-primary);
@@ -94,6 +95,10 @@ const MenuToggle = styled.div`
     font-size: 1.5rem;
     letter-spacing: 0.05rem;
     cursor: pointer;
+
+    svg {
+        filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.75));
+    }
 
     @media (min-width: 992px) {
         display: none;
