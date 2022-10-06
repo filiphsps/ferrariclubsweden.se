@@ -99,13 +99,13 @@ const MenuToggle = styled.div`
     svg {
         filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.75));
     }
+`;
+const AccountToggle = styled(MenuToggle)`
+    justify-content: flex-end;
 
     @media (min-width: 992px) {
         display: none;
     }
-`;
-const AccountToggle = styled(MenuToggle)`
-    justify-content: flex-end;
 `;
 
 export type HeaderProps = {
@@ -129,20 +129,6 @@ export const Header: FunctionComponent<HeaderProps> = ({
                     <MenuToggle onClick={toggleMenu}>
                         <FiMenu />
                     </MenuToggle>
-
-                    <Navigation>
-                        <NavigationItem>
-                            <Link href="/">
-                                <a>Hem</a>
-                            </Link>
-                        </NavigationItem>
-                        <NavigationItem onClick={toggleMenu}>
-                            Om Oss
-                        </NavigationItem>
-                        <NavigationItem onClick={toggleMenu}>
-                            Event
-                        </NavigationItem>
-                    </Navigation>
                     <Logo>
                         <Link href="/">
                             <a>

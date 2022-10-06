@@ -143,16 +143,20 @@ export const NavigationMenu: FunctionComponent<NavigationMenuProps> = ({
             href: '/om-oss/'
         },
         {
-            title: 'Kontakta Oss',
-            href: '/kontakta-oss/'
-        },
-        {
             title: 'Vår Historia',
             href: '/var-historia/'
         },
         {
             title: 'Kalender',
             href: '/kalender/'
+        },
+        {
+            title: 'Kontakta',
+            href: '/kontakta-oss/'
+        },
+        {
+            title: 'Vilkor',
+            href: '/vara-vilkor/'
         }
     ];
 

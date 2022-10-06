@@ -21,7 +21,7 @@ const Container = styled.div`
     }
 `;
 
-const Content = styled.div`
+const Content = styled.article`
     display: flex;
     flex-grow: 1;
     flex-direction: column;
@@ -30,7 +30,7 @@ const Content = styled.div`
     padding: 2rem;
     background: var(--color-block-body);
 `;
-const ContentContainer = styled.div`
+const ContentContainer = styled.section`
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -70,7 +70,7 @@ const Sidebar = styled.div`
     }
 `;
 
-const Notice = styled.div`
+const Notice = styled.footer`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -88,8 +88,8 @@ const Notice = styled.div`
     }
 `;
 
-interface MemebersLoginPageProps {}
-const MemebersLoginPage: FunctionComponent<MemebersLoginPageProps> = () => {
+interface MembersLoginPageProps {}
+const MembersLoginPage: FunctionComponent<MembersLoginPageProps> = () => {
     return (
         <Page>
             <NextSeo title="Logga In" />
@@ -127,4 +127,4 @@ const MemebersLoginPage: FunctionComponent<MemebersLoginPageProps> = () => {
     );
 };
 
-export default MemebersLoginPage;
+export default MembersLoginPage;
