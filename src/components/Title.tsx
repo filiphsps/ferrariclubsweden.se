@@ -9,7 +9,7 @@ const Contaier = styled.h1`
 `;
 
 export type TitleProps = {
-    children: JSX.Element | Array<JSX.Element | String> | string;
+    children: JSX.Element | Array<JSX.Element | String> | string | undefined;
 };
 export const Title: FunctionComponent<TitleProps> = ({ children }) => {
     return <Contaier>{children}</Contaier>;

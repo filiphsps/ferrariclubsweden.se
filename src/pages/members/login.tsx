@@ -9,6 +9,8 @@ import { Page } from '../../components/Page';
 import { SubTitle } from '../../components/SubTitle';
 import { Title } from '../../components/Title';
 import styled from 'styled-components';
+import { useRouter } from 'next/router';
+import { useUser } from '../../hooks/useUser';
 
 const Container = styled.div`
     display: grid;
@@ -90,6 +92,12 @@ const Notice = styled.footer`
 
 interface MembersLoginPageProps {}
 const MembersLoginPage: FunctionComponent<MembersLoginPageProps> = () => {
+    const { authenticate } = useUser({
+        redirectTo: '/members/',
+        redirectIfFound: true
+    });
+    const router = useRouter();
+
     return (
         <Page>
             <NextSeo title="Logga In" />
@@ -108,7 +116,14 @@ const MembersLoginPage: FunctionComponent<MembersLoginPageProps> = () => {
                         <Form>
                             <Input placeholder="Email" type="email" />
                             <Input placeholder="Lösenord" type="password" />
-                            <Button type="button">Logga in</Button>
+                            <Button
+                                type="button"
+                                onClick={async () => {
+                                    await authenticate();
+                                }}
+                            >
+                                Logga in
+                            </Button>
                         </Form>
 
                         <Notice>

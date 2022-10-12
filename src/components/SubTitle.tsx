@@ -9,7 +9,7 @@ const Contaier = styled.h2`
 `;
 
 export type SubTitleProps = {
-    children: string;
+    children: JSX.Element | Array<JSX.Element | String> | string | undefined;
 };
 export const SubTitle: FunctionComponent<SubTitleProps> = ({ children }) => {
     return <Contaier>{children}</Contaier>;
