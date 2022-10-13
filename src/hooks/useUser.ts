@@ -9,7 +9,7 @@ export const useUser = ({ redirectTo = '', redirectIfFound = false } = {}) => {
         name?: string;
         status?: string;
     }>({
-        isLoggedIn: true,
+        isLoggedIn: false,
         name: 'John Doe',
         status: 'Gold Member'
     });

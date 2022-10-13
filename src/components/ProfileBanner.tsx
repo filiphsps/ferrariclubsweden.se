@@ -1,4 +1,3 @@
-import { Card } from './Card';
 import { FunctionComponent } from 'react';
 import Image from 'next/future/image';
 import MissingAvatarImage from '../../public/img/missing-avatar.png';
@@ -14,8 +13,10 @@ const Content = styled.header`
     display: grid;
     grid-template-columns: auto 1fr auto;
     gap: 1rem;
-    padding: 2rem;
-    background: var(--color-light-block);
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
 
     @media (max-width: 992px) {
         grid-template-columns: auto 1fr;
@@ -24,9 +25,8 @@ const Content = styled.header`
 const Avatar = styled.div`
     position: relative;
     overflow: hidden;
-    padding: 1rem;
-    width: 12rem;
-    height: 12rem;
+    width: 4rem;
+    height: 4rem;
     border-radius: 100%;
     background: #efefef;
 
@@ -37,22 +37,14 @@ const Avatar = styled.div`
     }
 `;
 const Meta = styled.div`
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    padding: 1rem;
-
     h1 {
         font-family: 'Poppins';
+        font-size: 1rem;
+        line-height: 1rem;
     }
-`;
-const CardContainer = styled.div`
-    width: auto;
-    height: 12rem;
-    width: 19rem;
-
-    @media (max-width: 992px) {
-        display: none;
+    h2 {
+        font-size: 0.75rem;
+        line-height: 0.75rem;
     }
 `;
 
@@ -70,9 +62,6 @@ export const ProfileBanner: FunctionComponent<ProfileBannerProps> = ({}) => {
                     <Title>{user.name}</Title>
                     <SubTitle>{user.status}</SubTitle>
                 </Meta>
-                <CardContainer>
-                    <Card />
-                </CardContainer>
             </Content>
         </Contaier>
     );

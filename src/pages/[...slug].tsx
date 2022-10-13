@@ -5,7 +5,14 @@ import { FunctionComponent } from 'react';
 import { NextSeo } from 'next-seo';
 import { Page } from '../components/Page';
 import { PageApi } from '../api/page';
+import { Title } from '../components/Title';
 import styled from 'styled-components';
+
+const Container = styled.div`
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+`;
 
 interface CustomPageProps {
     data: any; // FIXME: PageModel
@@ -18,7 +25,11 @@ const CustomPage: FunctionComponent<CustomPageProps> = ({ data }) => {
     return (
         <Page>
             <NextSeo title={title} />
-            <h2>TODO</h2>
+
+            <Container>
+                <Title>{title}</Title>
+                <h2>wordpress content here</h2>
+            </Container>
         </Page>
     );
 };

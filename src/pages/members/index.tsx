@@ -7,32 +7,42 @@ import styled from 'styled-components';
 import { useUser } from '../../hooks/useUser';
 
 const Container = styled.div`
-    max-width: var(--size-page-width);
-    margin: 0px auto;
+    width: 100%;
+    height: 100%;
+    background: var(--color-light-background);
+    padding: 1rem;
 `;
 
 const Content = styled.div`
     display: grid;
     grid-template-columns: auto 1fr;
     grid-gap: 1rem;
-    padding-top: 1rem;
-    min-height: 32rem;
+    max-width: var(--size-page-width);
+    margin: 0px auto;
 
     @media (max-width: 992px) {
         grid-template-columns: 1fr;
-        margin: 0px 1rem;
     }
 `;
 
 const Sidebar = styled.section`
     height: 100%;
     width: 16rem;
-    background: var(--color-light-block);
+    padding: 1rem;
+    background: var(--color-block-body);
+    border-radius: 1rem;
 
     @media (max-width: 992px) {
         width: 100%;
-        height: 8rem;
     }
+`;
+
+const Main = styled.section``;
+const CardContainer = styled.div`
+    position: relative;
+    width: 100%;
+    max-width: 18rem;
+    height: 11rem;
 `;
 
 interface MemebersPageProps {}
@@ -44,10 +54,15 @@ const MemebersPage: FunctionComponent<MemebersPageProps> = () => {
             <NextSeo title="För Medlemmar" />
 
             <Container>
-                <ProfileBanner />
-
                 <Content>
-                    <Sidebar></Sidebar>
+                    <Sidebar>
+                        <ProfileBanner />
+                    </Sidebar>
+                    <Main>
+                        <CardContainer>
+                            <Card />
+                        </CardContainer>
+                    </Main>
                 </Content>
             </Container>
         </Page>
