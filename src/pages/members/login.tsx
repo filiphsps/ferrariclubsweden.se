@@ -1,7 +1,7 @@
 import Background from '../../../public/img/carousel/slide-3.jpg';
 import { Button } from '../../components/Button';
 import { FunctionComponent } from 'react';
-import Image from 'next/future/image';
+import Image from 'next/image';
 import { Input } from '../../components/Input';
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
@@ -128,9 +128,7 @@ const MembersLoginPage: FunctionComponent<MembersLoginPageProps> = () => {
 
                         <Notice>
                             <p>Inte medlem ännu?</p>
-                            <Link href="/members/register">
-                                <a>Bli Medlem</a>
-                            </Link>
+                            <Link href="/members/register">Bli Medlem</Link>
                         </Notice>
                     </ContentContainer>
                 </Content>

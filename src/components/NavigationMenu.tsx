@@ -178,9 +178,7 @@ export const NavigationMenu: FunctionComponent<NavigationMenuProps> = ({
                                     animationDelay: `${400 + 150 * index}ms`
                                 }}
                             >
-                                <Link href={href}>
-                                    <a>{title}</a>
-                                </Link>
+                                <Link href={href}>{title}</Link>
                             </NavigationItem>
                         ))}
                     </Navigation>

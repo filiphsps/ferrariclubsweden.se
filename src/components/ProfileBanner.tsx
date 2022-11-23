@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react';
-import Image from 'next/future/image';
+import Image from 'next/image';
 import MissingAvatarImage from '../../public/img/missing-avatar.png';
 import { SubTitle } from './SubTitle';
 import { Title } from './Title';

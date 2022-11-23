@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react';
-import Image from 'next/future/image';
+import Image from 'next/image';
 import Logo from '../../public/img/logo.png';
 import styled from 'styled-components';
 import { useUser } from '../hooks/useUser';

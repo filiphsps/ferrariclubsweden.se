@@ -1,7 +1,7 @@
 import { FiMenu, FiUser } from 'react-icons/fi';
 
 import { FunctionComponent } from 'react';
-import Image from 'next/future/image';
+import Image from 'next/image';
 import Link from 'next/link';
 import LogoImage from '../../public/img/logo.png';
 import styled from 'styled-components';
@@ -131,32 +131,21 @@ export const Header: FunctionComponent<HeaderProps> = ({
                     </MenuToggle>
                     <Logo>
                         <Link href="/">
-                            <a>
-                                <Image
-                                    src={LogoImage}
-                                    alt="Ferrari Club Sweden"
-                                />
-                            </a>
+                            <Image src={LogoImage} alt="Ferrari Club Sweden" />
                         </Link>
                     </Logo>
                     <Actions>
                         <NavigationItem>
-                            <Link href="/members/login/">
-                                <a>Logga In</a>
-                            </Link>
+                            <Link href="/members/login/">Logga In</Link>
                         </NavigationItem>
                         <NavigationItem>
-                            <Link href="/members/register/">
-                                <a>Bli Medlem</a>
-                            </Link>
+                            <Link href="/members/register/">Bli Medlem</Link>
                         </NavigationItem>
                     </Actions>
 
                     <AccountToggle>
                         <Link href="/members/">
-                            <a>
-                                <FiUser />
-                            </a>
+                            <FiUser />
                         </Link>
                     </AccountToggle>
                 </Content>

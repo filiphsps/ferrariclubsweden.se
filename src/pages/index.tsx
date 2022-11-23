@@ -3,7 +3,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
 import { FiChevronDown } from 'react-icons/fi';
 import { FunctionComponent } from 'react';
-import Image from 'next/future/image';
+import Image from 'next/image';
 import { ImageBlocks } from '../components/ImageBlocks';
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
@@ -168,19 +168,11 @@ const IndexPage: FunctionComponent<IndexPageProps> = () => {
                 blocks={[
                     {
                         background: <Image src={Slide2} alt="Events" />,
-                        children: (
-                            <Link href="/events">
-                                <a>Events</a>
-                            </Link>
-                        )
+                        children: <Link href="/events">Events</Link>
                     },
                     {
                         background: <Image src={Slide3} alt="News" />,
-                        children: (
-                            <Link href="/nyheter">
-                                <a>Nyheter</a>
-                            </Link>
-                        )
+                        children: <Link href="/nyheter">Nyheter</Link>
                     }
                 ]}
             />
