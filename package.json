@@ -20,7 +20,7 @@
     "homepage": "https://github.com/SPS-Group-AB/ferrariclubsweden.se#readme",
     "dependencies": {
         "@apollo/client": "3.7.1",
-        "destyle.css": "3.0.2",
+        "destyle.css": "4.0.0",
         "graphql": "16.6.0",
         "i18next": "22.0.6",
         "next": "13.0.4",
