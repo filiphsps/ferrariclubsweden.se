@@ -23,7 +23,7 @@
         "destyle.css": "4.0.0",
         "graphql": "16.6.0",
         "i18next": "22.4.5",
-        "next": "13.0.6",
+        "next": "13.0.7",
         "next-i18next": "13.0.1",
         "next-seo": "5.15.0",
         "nprogress": "0.2.0",
@@ -40,7 +40,7 @@
         "@types/react": "18.0.26",
         "@types/styled-components": "5.1.26",
         "eslint": "8.29.0",
-        "eslint-config-next": "13.0.6",
+        "eslint-config-next": "13.0.7",
         "next-sitemap": "3.1.42",
         "prettier": "2.8.1"
     }
