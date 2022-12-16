@@ -12,10 +12,13 @@ export const PageApi = async ({ uri }: PageApiProps): Promise<any> => {
                 query: gql`
                     query PAGE_QUERY {
                         page(id: "${uri}", idType: URI) {
+                            id
                             title
                             uri
                             slug
                             content
+                            mfnItems
+                            status
                         }
                     }
                 `

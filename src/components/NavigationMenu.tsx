@@ -139,12 +139,8 @@ export const NavigationMenu: FunctionComponent<NavigationMenuProps> = ({
             href: '/'
         },
         {
-            title: 'Om Oss',
-            href: '/om-oss/'
-        },
-        {
             title: 'Vår Historia',
-            href: '/var-historia/'
+            href: '/om-oss/'
         },
         {
             title: 'Kalender',

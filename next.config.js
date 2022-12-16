@@ -16,7 +16,9 @@ module.exports = {
     i18n,
 
     images: {
-        domains: [],
+        domains: [
+            "www.ferrariclubsweden.se"
+        ],
     },
     compiler: {
         styledComponents: true,

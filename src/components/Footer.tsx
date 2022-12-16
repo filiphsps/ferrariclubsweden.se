@@ -22,6 +22,7 @@ const Trademark = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-top: 1rem;
     text-align: center;
     font-size: 0.75rem;
     opacity: 0.75;
@@ -38,7 +39,7 @@ const Copyrights = styled.div`
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     line-height: 1rem;
     text-transform: uppercase;
     opacity: 0.75;
