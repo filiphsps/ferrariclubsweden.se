@@ -48,7 +48,7 @@ const CustomPage: FunctionComponent<CustomPageProps> = ({ data }) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
     // FIXME: Get paths
-    return { paths: [], fallback: true };
+    return { paths: [], fallback: 'blocking' };
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale, params }) => {

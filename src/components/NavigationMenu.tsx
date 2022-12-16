@@ -1,12 +1,16 @@
+import { FunctionComponent, useEffect, useState } from 'react';
+
 import { FiXCircle } from 'react-icons/fi';
-import { FunctionComponent } from 'react';
 import Link from 'next/link';
+import { MenuApi } from '../api/menu';
 import styled from 'styled-components';
 
 const Primary = styled.div`
     background: var(--color-block-body);
     width: 100%;
     height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
 
     @media (min-width: 992px) {
         width: 33vw;
@@ -62,18 +66,25 @@ const Navigation = styled.nav`
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    margin-top: -1rem;
 `;
-const NavigationItem = styled.div`
+const NavigationItem = styled.div<{ level: number }>`
     flex-shrink: 1;
     flex-grow: 0;
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-size: ${(props) => (props.level === 0 ? '1.25rem' : '1.15rem')};
+    line-height: ${(props) => (props.level === 0 ? '1.35rem' : '1.25rem')};
+    padding-left: ${(props) => `${2 * props.level}rem`};
     text-transform: uppercase;
+    font-weight: 700;
     cursor: pointer;
     transition: 150ms;
+    color: ${(props) =>
+        props.level === 0 ? 'var(--color-body)' : 'var(--color-body-lighter)'};
 
-    &:hover {
-        color: var(--color-primary);
+    a {
+        &:hover {
+            color: var(--color-primary);
+        }
     }
 `;
 
@@ -133,28 +144,23 @@ export const NavigationMenu: FunctionComponent<NavigationMenuProps> = ({
     open,
     toggleMenu
 }) => {
-    const items = [
-        {
-            title: 'Hem',
-            href: '/'
-        },
-        {
-            title: 'Vår Historia',
-            href: '/om-oss/'
-        },
-        {
-            title: 'Kalender',
-            href: '/kalender/'
-        },
-        {
-            title: 'Kontakta',
-            href: '/kontakta-oss/'
-        },
-        {
-            title: 'Vilkor',
-            href: '/vara-vilkor/'
-        }
-    ];
+    const [items, setItems] = useState<
+        Array<{ id: string; title: string; href: string; level: number }>
+    >([]);
+    useEffect(() => {
+        MenuApi().then((menu) => {
+            const res = menu.flat(1);
+
+            setItems(
+                res.map((item) => ({
+                    id: item.id,
+                    title: item.label,
+                    href: item.path,
+                    level: item.level
+                }))
+            );
+        });
+    }, []);
 
     return (
         <Contaier className={open ? 'open' : ''}>
@@ -166,15 +172,20 @@ export const NavigationMenu: FunctionComponent<NavigationMenuProps> = ({
                     </Toggle>
 
                     <Navigation>
-                        {items.map(({ title, href }, index) => (
+                        {items.map(({ id, title, href, level }, index) => (
                             <NavigationItem
-                                key={href}
+                                key={id}
                                 onClick={toggleMenu}
+                                level={level}
                                 style={{
-                                    animationDelay: `${400 + 150 * index}ms`
+                                    animationDelay: `${200 + 50 * index}ms`
                                 }}
                             >
-                                <Link href={href}>{title}</Link>
+                                {href !== '#' ? (
+                                    <Link href={href}>{title}</Link>
+                                ) : (
+                                    title
+                                )}
                             </NavigationItem>
                         ))}
                     </Navigation>
