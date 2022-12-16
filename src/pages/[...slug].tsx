@@ -34,7 +34,13 @@ const CustomPage: FunctionComponent<CustomPageProps> = ({ data }) => {
                 {!data.mfnItems ? <Title>{title}</Title> : ''}
                 {data.mfnItems ? (
                     <MuffinComponents data={JSON.parse(data.mfnItems)} />
-                ) : null}
+                ) : (
+                    <div
+                        dangerouslySetInnerHTML={{
+                            __html: data.content
+                        }}
+                    ></div>
+                )}
             </Container>
         </Page>
     );

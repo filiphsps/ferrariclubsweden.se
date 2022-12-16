@@ -25,6 +25,7 @@ body {
     color: var(--color-body);
     background: var(--color-block-body);
     font-size: 14px;
+    line-height: 18px;
     font-family: 'Poppins', sans-serif;
     font-smooth: always;
     -webkit-font-smoothing: antialiased ;
