@@ -40,7 +40,7 @@
         "@types/node": "18.11.16",
         "@types/react": "18.0.26",
         "@types/styled-components": "5.1.26",
-        "eslint": "8.29.0",
+        "eslint": "8.30.0",
         "eslint-config-next": "13.0.6",
         "next-sitemap": "3.1.42",
         "prettier": "2.8.1"
