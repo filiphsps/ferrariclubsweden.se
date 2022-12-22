@@ -167,12 +167,12 @@ const IndexPage: FunctionComponent<IndexPageProps> = () => {
                 id="content"
                 blocks={[
                     {
-                        background: <Image src={Slide2} alt="Events" />,
-                        children: <Link href="/events">Events</Link>
+                        background: <Image src={Slide2} alt="Vår Historia" />,
+                        children: <Link href="/om-oss/">Vår Historia</Link>
                     },
                     {
-                        background: <Image src={Slide3} alt="News" />,
-                        children: <Link href="/nyheter">Nyheter</Link>
+                        background: <Image src={Slide3} alt="Periodico" />,
+                        children: <Link href="/periodico/">Periodico</Link>
                     }
                 ]}
             />
