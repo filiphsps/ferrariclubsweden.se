@@ -27,6 +27,20 @@ module.exports = {
         GIT_SHA: git_sha,
         VERSION: manifest.version
     },
+    async redirects() {
+        return [
+            {
+                source: '/login/',
+                destination: '/members/login/',
+                permanent: false,
+            },
+            {
+                source: '/logga-ut/',
+                destination: '/members/logout/',
+                permanent: false,
+            },
+        ]
+    },
 
     generateBuildId: async () => {
         return git_sha;

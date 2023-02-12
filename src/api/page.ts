@@ -7,6 +7,9 @@ interface PageApiProps {
 // FIXME: PageModel
 export const PageApi = async ({ uri }: PageApiProps): Promise<any> => {
     return new Promise(async (resolve, reject) => {
+        // FIXME: Get user's authentication token
+        // as we shouldn't show non-accessible pages.
+
         try {
             const { data } = await Client.query({
                 query: gql`

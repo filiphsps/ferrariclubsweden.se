@@ -54,6 +54,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
     const slug = params!.slug as string[];
 
+    if (slug.includes('login'))
+        return {
+            props: {},
+            redirect: {
+                destination: '/members/login/'
+            }
+        };
+
     const page = await PageApi({
         uri: `/${slug.join('/')}/`
     });
