@@ -1,6 +1,7 @@
 import BBCodeParser from 'js-bbcode-parser/src/index.js';
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
+import { Blog } from './Blog';
 
 const Wrapper = styled.div`
     margin-top: -50px;
@@ -194,7 +195,7 @@ interface MuffinWrap {
 }
 interface MuffinItem {
     uid: string;
-    type: 'placeholder' | 'column' | 'image' | 'accordion' | 'photo_box';
+    type: 'placeholder' | 'column' | 'image' | 'accordion' | 'photo_box' | 'blog';
     size: string;
     tablet_size: string;
     mobile_size: string;
@@ -354,6 +355,25 @@ const MuffinItem: FunctionComponent<MuffinItemProps> = ({ data }) => {
                                 __html: parser.parse(content)
                             }}
                         ></ColumnAttr>
+                    </ColumnInner>
+                </Column>
+            );
+        }
+        case 'blog': {
+            return (
+                <Column
+                    id={data.uid}
+                    className={`${SizeToClass(data.size)} tablet-${SizeToClass(
+                        data.tablet_size
+                    )} mobile-${SizeToClass(data.mobile_size)}`}
+                >
+                    <ColumnInner
+                        css={fields.style || ''}
+                        style={{
+                            padding: fields.padding || '0px'
+                        }}
+                    >
+                        <Blog />
                     </ColumnInner>
                 </Column>
             );

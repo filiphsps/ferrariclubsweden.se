@@ -25,6 +25,7 @@ const CustomPage: FunctionComponent<CustomPageProps> = ({ data }) => {
     if (!data) return <ErrorPage statusCode={404} />;
 
     const { title } = data;
+    console.log(data.content)
 
     return (
         <Page>
@@ -32,15 +33,14 @@ const CustomPage: FunctionComponent<CustomPageProps> = ({ data }) => {
 
             <Container>
                 {!data.mfnItems ? <Title>{title}</Title> : ''}
-                {data.mfnItems ? (
+                {data.mfnItems && (
                     <MuffinComponents data={JSON.parse(data.mfnItems)} />
-                ) : (
-                    <div
-                        dangerouslySetInnerHTML={{
-                            __html: data.content
-                        }}
-                    ></div>
                 )}
+                <div
+                    dangerouslySetInnerHTML={{
+                        __html: data.content
+                    }}
+                ></div>
             </Container>
         </Page>
     );
