@@ -5,6 +5,7 @@ import { gql } from '@apollo/client';
 export const MenuApi = async (): Promise<any[]> => {
     return new Promise(async (resolve, reject) => {
         try {
+            // TODO: Pass auth with this
             const { data } = await Client.query({
                 query: gql`
                     query PAGE_QUERY {
@@ -24,6 +25,7 @@ export const MenuApi = async (): Promise<any[]> => {
                                                 path
                                                 label
                                                 parentId
+                                                isRestricted
 
                                                 childItems {
                                                     nodes {
@@ -31,6 +33,7 @@ export const MenuApi = async (): Promise<any[]> => {
                                                         path
                                                         label
                                                         parentId
+                                                        isRestricted
                                                     }
                                                 }
                                             }

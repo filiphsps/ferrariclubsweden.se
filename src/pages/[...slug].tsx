@@ -8,6 +8,7 @@ import { Page } from '../components/Page';
 import { PageApi } from '../api/page';
 import { Title } from '../components/Title';
 import styled from 'styled-components';
+import { PostApi } from '../api/post';
 
 const Container = styled.div`
     width: 100%;
@@ -19,26 +20,48 @@ const Container = styled.div`
 `;
 
 interface CustomPageProps {
-    data: any; // FIXME: PageModel
+    page?: any; // FIXME: PageModel
+    post?: any  // FIXME: PostModel
 }
-const CustomPage: FunctionComponent<CustomPageProps> = ({ data }) => {
-    if (!data) return <ErrorPage statusCode={404} />;
+const CustomPage: FunctionComponent<CustomPageProps> = ({ page, post }) => {
+    // TODO: blog post
 
-    const { title } = data;
-    console.log(data.content)
+    if (post) {
+        const { title } = post;
+        return (
+            <Page>
+                <NextSeo title={title} />
+
+                <Container>
+                    <Title>{title}</Title>
+                    <div
+                    dangerouslySetInnerHTML={{
+                        __html: post.content
+                    }}
+                ></div>
+                </Container>
+            </Page>
+        )
+    }
+
+    if (!page) return <ErrorPage statusCode={404} />;
+
+    // TODO: We should get the page with auth
+    const { title } = page;
+    console.log(page.content)
 
     return (
         <Page>
             <NextSeo title={title} />
 
             <Container>
-                {!data.mfnItems ? <Title>{title}</Title> : ''}
-                {data.mfnItems && (
-                    <MuffinComponents data={JSON.parse(data.mfnItems)} />
+                {!page.mfnItems ? <Title>{title}</Title> : ''}
+                {page.mfnItems && (
+                    <MuffinComponents data={JSON.parse(page.mfnItems)} />
                 )}
                 <div
                     dangerouslySetInnerHTML={{
-                        __html: data.content
+                        __html: page.content
                     }}
                 ></div>
             </Container>
@@ -65,9 +88,22 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
     const page = await PageApi({
         uri: `/${slug.join('/')}/`
     });
+
+    if (!page) {
+        const post = await PostApi({
+            uri: `/${slug.join('/')}/`
+        });
+        return {
+            props: {
+                post: post
+            },
+            revalidate: 10
+        };
+    }
+
     return {
         props: {
-            data: page
+            page: page
         },
         revalidate: 10
     };

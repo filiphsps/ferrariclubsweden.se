@@ -2,6 +2,7 @@ import BBCodeParser from 'js-bbcode-parser/src/index.js';
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import { Blog } from './Blog';
+import { PostApi } from '../api/post';
 
 const Wrapper = styled.div`
     margin-top: -50px;
