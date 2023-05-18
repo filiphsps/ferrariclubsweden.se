@@ -12,6 +12,7 @@ import NProgress from 'nprogress';
 import { PageProvider } from '../components/PageProvider';
 import SEO from '../../nextseo.config';
 import { appWithTranslation } from 'next-i18next';
+import { SWRConfig } from 'swr'
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
@@ -39,11 +40,13 @@ const App = ({ Component, pageProps }: AppProps) => {
                 <link rel="icon" type="image/png" href="/img/logo.png" />
             </Head>
 
-            <ApolloProvider client={Client}>
-                <PageProvider>
-                    <Component key={router.asPath} {...pageProps} />
-                </PageProvider>
-            </ApolloProvider>
+            <SWRConfig>
+                <ApolloProvider client={Client}>
+                    <PageProvider>
+                        <Component key={router.asPath} {...pageProps} />
+                    </PageProvider>
+                </ApolloProvider>
+            </SWRConfig>
         </>
     );
 };

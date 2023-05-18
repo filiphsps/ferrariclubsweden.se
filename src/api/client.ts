@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 
 const Client = new ApolloClient({
-    uri: 'https://www.ferrariclubsweden.se/wordpress2016/graphql',
+    uri: 'https://api.ferrariclubsweden.se/wordpress2016/graphql',
     cache: new InMemoryCache()
 });
 
