@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect, useState } from 'react';
 
-import { FiXCircle } from 'react-icons/fi';
+import { FiChevronRight, FiXCircle } from 'react-icons/fi';
 import Link from 'next/link';
 import { MenuApi } from '../api/menu';
 import styled from 'styled-components';
@@ -76,7 +76,6 @@ const NavigationItem = styled.div<{ level: number }>`
     padding-left: ${(props) => `${2 * props.level}rem`};
     text-transform: uppercase;
     font-weight: 700;
-    cursor: pointer;
     transition: 150ms;
     color: ${(props) =>
         props.level === 0 ? 'var(--color-body)' : 'var(--color-body-lighter)'};
@@ -85,6 +84,7 @@ const NavigationItem = styled.div<{ level: number }>`
         &:hover {
             color: var(--color-primary);
         }
+        cursor: pointer;
     }
 `;
 
@@ -182,9 +182,9 @@ export const NavigationMenu: FunctionComponent<NavigationMenuProps> = ({
                                 }}
                             >
                                 {href !== '#' ? (
-                                    <Link href={href}>{title}</Link>
+                                    <Link href={href}>{title}<FiChevronRight /></Link>
                                 ) : (
-                                    title
+                                    <>{title}</>
                                 )}
                             </NavigationItem>
                         ))}
