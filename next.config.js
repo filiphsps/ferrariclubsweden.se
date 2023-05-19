@@ -40,6 +40,11 @@ module.exports = {
                 destination: '/members/logout/',
                 permanent: false,
             },
+            {
+                source: '/medlemsskap/',
+                destination: '/members/register/',
+                permanent: false,
+            },
         ]
     },
 
