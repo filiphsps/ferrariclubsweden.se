@@ -6,9 +6,9 @@ import { MuffinComponents } from '../components/MuffinComponents';
 import { NextSeo } from 'next-seo';
 import { Page } from '../components/Page';
 import { PageApi } from '../api/page';
+import { PostApi } from '../api/post';
 import { Title } from '../components/Title';
 import styled from 'styled-components';
-import { PostApi } from '../api/post';
 
 const Container = styled.div`
     width: 100%;
@@ -21,7 +21,7 @@ const Container = styled.div`
 
 interface CustomPageProps {
     page?: any; // FIXME: PageModel
-    post?: any  // FIXME: PostModel
+    post?: any; // FIXME: PostModel
 }
 const CustomPage: FunctionComponent<CustomPageProps> = ({ page, post }) => {
     // TODO: blog post
@@ -35,20 +35,19 @@ const CustomPage: FunctionComponent<CustomPageProps> = ({ page, post }) => {
                 <Container>
                     <Title>{title}</Title>
                     <div
-                    dangerouslySetInnerHTML={{
-                        __html: post.content
-                    }}
-                ></div>
+                        dangerouslySetInnerHTML={{
+                            __html: post.content
+                        }}
+                    ></div>
                 </Container>
             </Page>
-        )
+        );
     }
 
     if (!page) return <ErrorPage statusCode={404} />;
 
     // TODO: We should get the page with auth
     const { title } = page;
-    console.log(page.content)
 
     return (
         <Page>

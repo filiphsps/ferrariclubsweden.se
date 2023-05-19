@@ -1,8 +1,8 @@
 import BBCodeParser from 'js-bbcode-parser/src/index.js';
-import { FunctionComponent } from 'react';
-import styled from 'styled-components';
 import { Blog } from './Blog';
+import { FunctionComponent } from 'react';
 import { PostApi } from '../api/post';
+import styled from 'styled-components';
 
 const Wrapper = styled.div`
     margin-top: -50px;
@@ -196,7 +196,13 @@ interface MuffinWrap {
 }
 interface MuffinItem {
     uid: string;
-    type: 'placeholder' | 'column' | 'image' | 'accordion' | 'photo_box' | 'blog';
+    type:
+        | 'placeholder'
+        | 'column'
+        | 'image'
+        | 'accordion'
+        | 'photo_box'
+        | 'blog';
     size: string;
     tablet_size: string;
     mobile_size: string;
@@ -217,8 +223,8 @@ export const MuffinComponents: FunctionComponent<MuffinComponentsProps> = ({
 }) => {
     return (
         <Wrapper>
-            {data.map((item) => (
-                <MuffinSection key={item.uid} data={item} />
+            {data.map((item, index) => (
+                <MuffinSection key={item.uid || index} data={item} />
             ))}
         </Wrapper>
     );
@@ -243,8 +249,8 @@ const MuffinSection: FunctionComponent<MuffinSectionProps> = ({ data }) => {
         >
             <SectionWrapper>
                 {Array.isArray(data.wraps) &&
-                    data.wraps.map((wrap) => (
-                        <MuffinWrap key={wrap.uid} data={wrap} />
+                    data.wraps.map((wrap, index) => (
+                        <MuffinWrap key={wrap.uid || index} data={wrap} />
                     ))}
             </SectionWrapper>
         </Section>
@@ -268,8 +274,8 @@ const MuffinWrap: FunctionComponent<MuffinWrapProps> = ({ data }) => {
         >
             <WrapInner>
                 {Array.isArray(data.items) &&
-                    data.items?.map((item) => (
-                        <MuffinItem key={item.uid} data={item} />
+                    data.items?.map((item, index) => (
+                        <MuffinItem key={item.uid || index} data={item} />
                     ))}
             </WrapInner>
         </Wrap>
