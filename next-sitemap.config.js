@@ -1,4 +1,4 @@
 module.exports = {
-    siteUrl: `https://ferrariclubsweden.se`,
+    siteUrl: `https://www.ferrariclubsweden.se`,
     generateRobotsTxt: true
 };

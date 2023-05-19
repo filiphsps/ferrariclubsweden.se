@@ -17,7 +17,8 @@ module.exports = {
 
     images: {
         domains: [
-            "www.ferrariclubsweden.se"
+            "www.ferrariclubsweden.se",
+            "api.ferrariclubsweden.se"
         ],
     },
     compiler: {
