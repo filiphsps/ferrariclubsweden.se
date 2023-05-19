@@ -2,11 +2,8 @@ import { FunctionComponent, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { PostApi } from '../api/post';
 
-const Contaier = styled.h2`
+const Contaier = styled.div`
     margin: 0px;
-    font-size: 1rem;
-    line-height: 1.5rem;
-    font-weight: 500;
 `;
 
 export type BlogeProps = {
@@ -21,7 +18,6 @@ export const Blog: FunctionComponent<BlogeProps> = ({ }) => {
     }, [])
     
     return <Contaier>
-        TODO: News posts
         {posts?.map((item: any) => {
             return (
                 <div key={item.id}>
@@ -29,5 +25,9 @@ export const Blog: FunctionComponent<BlogeProps> = ({ }) => {
                 </div>
             )
         })}
+        {posts?.length <= 0 && <>
+            Nyheter är för närvarande inte tillgängligt. <br/>
+            Testa igen senare.
+        </>}
     </Contaier>;
 };

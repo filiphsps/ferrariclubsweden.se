@@ -103,12 +103,12 @@ const MembersRegisterPage: FunctionComponent<MembersRegisterPageProps> = () => {
                         <div>
                             <Title>Bli Medlem</Title>
                             <SubTitle>
-                                Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
-                                Lorem ipsum Lorem ipsum
+                                Medlem registrering är för närvarande avaktiverat under migrationen till ny webbsida.
+                                Kontakta <a href="mailto:daniel@ferrariclubsweden.se">daniel@ferrariclubsweden.se</a>.
                             </SubTitle>
                         </div>
 
-                        <Form>
+                        {/*<Form>
                             <Input placeholder="Email" type="email" />
                             <Input placeholder="Lösenord" type="password" />
                             <Button type="button">Bli Medlem</Button>
@@ -117,7 +117,7 @@ const MembersRegisterPage: FunctionComponent<MembersRegisterPageProps> = () => {
                         <Notice>
                             <p>Redan medlem?</p>
                             <Link href="/members/login">Logga in</Link>
-                        </Notice>
+                        </Notice>*/}
                     </ContentContainer>
                 </Content>
             </Container>
