@@ -45,6 +45,11 @@ module.exports = {
                 destination: '/members/register/',
                 permanent: false,
             },
+            {
+                source: '/fonm/',
+                destination: 'https://api.ferrariclubsweden.se/fonm',
+                permanent: false,
+            },
         ]
     },
 
