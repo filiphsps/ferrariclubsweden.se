@@ -134,7 +134,7 @@ const MembersLoginPage: FunctionComponent<MembersLoginPageProps> = () => {
                                 type="button"
                                 onClick={async () => {
                                     await authenticate(email, password);
-                                    router.push('/members/');
+                                    window.location.pathname = '/members/';
                                 }}
                             >
                                 Logga in

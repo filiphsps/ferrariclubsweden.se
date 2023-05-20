@@ -55,14 +55,15 @@ const MemebersPage: FunctionComponent<MemebersPageProps> = () => {
 
             <Container>
                 <Content>
-                    <Sidebar>
+                    {/*<Sidebar>
                         <ProfileBanner />
                     </Sidebar>
                     <Main>
                         <CardContainer>
                             <Card />
                         </CardContainer>
-                    </Main>
+                    </Main>*/}
+                    Kommer inom kort!
                 </Content>
             </Container>
         </Page>

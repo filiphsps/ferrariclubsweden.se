@@ -46,7 +46,7 @@ export const MenuApi = async (): Promise<any[]> => {
                 `
             });
 
-            const res = data.menus.nodes[0].menuItems.nodes.map((item: any) => [
+            let res = data.menus.nodes[0].menuItems.nodes.map((item: any) => [
                 {
                     ...item,
                     level: 0,
@@ -62,6 +62,7 @@ export const MenuApi = async (): Promise<any[]> => {
                     ])
                     .flat(1)
             ]);
+
             resolve(res);
         } catch (err) {
             console.error(err);

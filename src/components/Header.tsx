@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import LogoImage from '../../public/img/logo.png';
 import styled from 'styled-components';
+import { useUser } from '../hooks/useUser';
 
 const Contaier = styled.header`
     grid-area: header;
@@ -118,6 +119,7 @@ export const Header: FunctionComponent<HeaderProps> = ({
     sticky,
     navigationMenuOpen
 }) => {
+    const { user } = useUser({});
     return (
         <Contaier
             className={`${sticky ? 'sticky' : ''} ${
@@ -135,12 +137,29 @@ export const Header: FunctionComponent<HeaderProps> = ({
                         </Link>
                     </Logo>
                     <Actions>
-                        <NavigationItem>
-                            <Link href="/members/login/">Logga In</Link>
-                        </NavigationItem>
-                        <NavigationItem>
-                            <Link href="/members/register/">Bli Medlem</Link>
-                        </NavigationItem>
+                        {user?.isLoggedIn ? (
+                            <>
+                                <NavigationItem>
+                                    <Link href="/members/">Medlemsida</Link>
+                                </NavigationItem>
+                                <NavigationItem>
+                                    <Link href="/members/logout/">
+                                        Logga Ut
+                                    </Link>
+                                </NavigationItem>
+                            </>
+                        ) : (
+                            <>
+                                <NavigationItem>
+                                    <Link href="/members/login/">Logga In</Link>
+                                </NavigationItem>
+                                <NavigationItem>
+                                    <Link href="/members/register/">
+                                        Bli Medlem
+                                    </Link>
+                                </NavigationItem>
+                            </>
+                        )}
                     </Actions>
 
                     <AccountToggle>

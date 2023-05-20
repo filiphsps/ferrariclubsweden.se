@@ -12,23 +12,37 @@ export const useUser = ({ redirectTo = '', redirectIfFound = false } = {}) => {
     } | null>();
     const router = useRouter();
 
-    const authenticate = useCallback(async (email: string, password: string) => {
-        // TODO: try auth
-        localStorage.setItem("auth_token", btoa(`${email}:${password}`));
+    const authenticate = useCallback(
+        async (email: string, password: string) => {
+            // TODO: try auth
+            localStorage.setItem('auth_token', btoa(`${email}:${password}`));
 
-        // TODO: fetch user details
-        setUser({
-            isLoggedIn: true
-        });
-    }, []);
+            // TODO: fetch user details
+            setUser({
+                isLoggedIn: true
+            });
+        },
+        []
+    );
 
     useEffect(() => {
-        const token = localStorage.getItem("auth_token");
+        function updateUser() {
+            console.log("updateUser!!!");
+            const token = localStorage?.getItem('auth_token');
 
+            if (!token)
+                setUser({
+                    isLoggedIn: false
+                });
+            else setUser(null);
+        }
+        window.addEventListener('storage', updateUser);
+
+        const token = localStorage?.getItem('auth_token');
         if (!token)
             return setUser({
                 isLoggedIn: false
-            })
+            });
 
         VerifyAuthUserApi({}).then((loggedIn: boolean) => {
             if (!loggedIn)
@@ -36,12 +50,15 @@ export const useUser = ({ redirectTo = '', redirectIfFound = false } = {}) => {
                     isLoggedIn: false
                 });
 
-            console.log(loggedIn)
             setUser({
                 isLoggedIn: true,
-                name: "Hello World"
+                name: 'Hello World'
             });
-        })
+        });
+
+        return () => {
+            window.removeEventListener('storage', updateUser);
+        };
     }, []);
 
     useEffect(() => {
@@ -49,12 +66,9 @@ export const useUser = ({ redirectTo = '', redirectIfFound = false } = {}) => {
         // if user data not yet there (fetch in progress, logged in or not) then don't do anything yet
         if (!redirectTo || !user) return;
 
-        if (!user.isLoggedIn && !redirectIfFound)
-            router.push(redirectTo);
-        else if (user.isLoggedIn && redirectIfFound)
-            router.push(redirectTo);
-
-    }, [router, user, redirectTo, redirectIfFound]);
+        if (!user.isLoggedIn && !redirectIfFound) router.push(redirectTo);
+        else if (user.isLoggedIn && redirectIfFound) router.push(redirectTo);
+    }, [router, router.pathname, user, redirectTo, redirectIfFound]);
 
     return {
         authenticate,

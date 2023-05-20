@@ -1,6 +1,6 @@
+import { FiChevronRight, FiXCircle } from 'react-icons/fi';
 import { FunctionComponent, useEffect, useState } from 'react';
 
-import { FiChevronRight, FiXCircle } from 'react-icons/fi';
 import Link from 'next/link';
 import { MenuApi } from '../api/menu';
 import styled from 'styled-components';
@@ -152,12 +152,40 @@ export const NavigationMenu: FunctionComponent<NavigationMenuProps> = ({
             const res = menu.flat(1);
 
             setItems(
-                res.map((item) => ({
-                    id: item.id,
-                    title: item.label,
-                    href: item.path,
-                    level: item.level
-                }))
+                res
+                    .map((item) => ({
+                        id: item.id,
+                        title: item.label,
+
+                        // FIXME: Don't do this here ffs.
+                        href: item.path
+                            .replace('/logga-ut/', '/members/logout/')
+                            .replace('/login/', '/members/login/')
+                            .replace('/medlemssida/', '/members/'),
+
+                        level: item.level
+                    }))
+                    .map((item) => {
+                        // TODO: do this somewhere else
+                        if (item.href.includes('/nytt-losenord/'))
+                            return null as unknown as any;
+
+                        // TODO: handle this properly.
+                        if (localStorage.getItem('auth_token')) {
+                            if (item.href.includes('/members/login/'))
+                                return null as unknown as any;
+                        } else {
+                            if (item.href.includes('/members/logout/'))
+                                return null as unknown as any;
+                            else if (item.href.includes('/members/kalender/'))
+                                return null as unknown as any;
+                            else if (item.href.includes('/members/nyheter/'))
+                                return null as unknown as any;
+                        }
+
+                        return item;
+                    })
+                    .filter((item) => item)
             );
         });
     }, []);
@@ -182,7 +210,10 @@ export const NavigationMenu: FunctionComponent<NavigationMenuProps> = ({
                                 }}
                             >
                                 {href !== '#' ? (
-                                    <Link href={href}>{title}<FiChevronRight /></Link>
+                                    <Link href={href}>
+                                        {title}
+                                        <FiChevronRight />
+                                    </Link>
                                 ) : (
                                     <>{title}</>
                                 )}
