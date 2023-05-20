@@ -77,10 +77,11 @@ const CustomPage: FunctionComponent<CustomPageProps> = ({ page, post }) => {
                     dangerouslySetInnerHTML={{
                         // TODO: Handle emails in content?
                         // TODO: Replace the api link somewhere else
-                        __html: page.content.replaceAll(
-                            'https://api.ferrariclubsweden.se/events',
-                            '/events'
-                        )
+                        __html:
+                            page.content?.replaceAll(
+                                'https://api.ferrariclubsweden.se/events',
+                                '/events'
+                            ) || ''
                     }}
                 />
             </Container>
