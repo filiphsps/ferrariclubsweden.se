@@ -177,9 +177,9 @@ export const NavigationMenu: FunctionComponent<NavigationMenuProps> = ({
                         } else {
                             if (item.href.includes('/members/logout/'))
                                 return null as unknown as any;
-                            else if (item.href.includes('/members/kalender/'))
+                            else if (item.href.includes('/kalender/'))
                                 return null as unknown as any;
-                            else if (item.href.includes('/members/nyheter/'))
+                            else if (item.href.includes('/nyheter/'))
                                 return null as unknown as any;
                         }
 

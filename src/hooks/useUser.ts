@@ -18,8 +18,12 @@ export const useUser = ({ redirectTo = '', redirectIfFound = false } = {}) => {
             localStorage.setItem('auth_token', btoa(`${email}:${password}`));
 
             // TODO: fetch user details
+            var success = await VerifyAuthUserApi({});
+
+            if (!success) throw new Error('Invalid details');
+
             setUser({
-                isLoggedIn: true
+                isLoggedIn: success
             });
         },
         []
@@ -27,7 +31,7 @@ export const useUser = ({ redirectTo = '', redirectIfFound = false } = {}) => {
 
     useEffect(() => {
         function updateUser() {
-            console.log("updateUser!!!");
+            console.log('updateUser!!!');
             const token = localStorage?.getItem('auth_token');
 
             if (!token)

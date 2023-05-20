@@ -9,6 +9,8 @@ import { PageApi } from '../api/page';
 import { PostApi } from '../api/post';
 import { Title } from '../components/Title';
 import styled from 'styled-components';
+import { useRouter } from 'next/router';
+import useSWR from 'swr';
 
 const Container = styled.div`
     width: 100%;
@@ -39,7 +41,10 @@ interface CustomPageProps {
     post?: any; // FIXME: PostModel
 }
 const CustomPage: FunctionComponent<CustomPageProps> = ({ page, post }) => {
-    // TODO: blog post
+    const router = useRouter();
+    const { data } = useSWR(['page'], () => PageApi({ uri: router.asPath }), {
+        fallbackData: page
+    });
 
     if (post) {
         const { title } = post;
@@ -59,26 +64,26 @@ const CustomPage: FunctionComponent<CustomPageProps> = ({ page, post }) => {
         );
     }
 
-    if (!page) return <ErrorPage statusCode={404} />;
+    if (!data) return <ErrorPage statusCode={404} />;
 
     // TODO: We should get the page with auth
-    const { title } = page;
+    const { title } = data;
 
     return (
         <Page>
             <NextSeo title={title} />
 
             <Container>
-                {!page.mfnItems ? <Title>{title}</Title> : ''}
-                {page.mfnItems && (
-                    <MuffinComponents data={JSON.parse(page.mfnItems)} />
+                {!data.mfnItems ? <Title>{title}</Title> : ''}
+                {data.mfnItems && (
+                    <MuffinComponents data={JSON.parse(data.mfnItems)} />
                 )}
                 <ContentContainer
                     dangerouslySetInnerHTML={{
                         // TODO: Handle emails in content?
                         // TODO: Replace the api link somewhere else
                         __html:
-                            page.content?.replaceAll(
+                            data.content?.replaceAll(
                                 'https://api.ferrariclubsweden.se/events',
                                 '/events'
                             ) || ''

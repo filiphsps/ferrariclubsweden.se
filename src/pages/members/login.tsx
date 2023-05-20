@@ -10,7 +10,6 @@ import { Page } from '../../components/Page';
 import { SubTitle } from '../../components/SubTitle';
 import { Title } from '../../components/Title';
 import styled from 'styled-components';
-import { useRouter } from 'next/router';
 import { useUser } from '../../hooks/useUser';
 
 const Container = styled.div`
@@ -94,14 +93,12 @@ const Notice = styled.footer`
 interface MembersLoginPageProps {}
 const MembersLoginPage: FunctionComponent<MembersLoginPageProps> = () => {
     const { authenticate } = useUser({
-        redirectTo: '/members/',
+        redirectTo: '/',
         redirectIfFound: true
     });
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const router = useRouter();
-
     return (
         <Page>
             <NextSeo title="Logga In" />
@@ -133,8 +130,12 @@ const MembersLoginPage: FunctionComponent<MembersLoginPageProps> = () => {
                             <Button
                                 type="button"
                                 onClick={async () => {
-                                    await authenticate(email, password);
-                                    window.location.pathname = '/members/';
+                                    try {
+                                        await authenticate(email, password);
+                                        window.location.pathname = '/';
+                                    } catch {
+                                        alert('Felaktiga uppgifter.');
+                                    }
                                 }}
                             >
                                 Logga in
