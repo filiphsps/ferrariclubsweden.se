@@ -59,8 +59,8 @@ export const ProfileBanner: FunctionComponent<ProfileBannerProps> = ({}) => {
                     <Image src={MissingAvatarImage} alt="Avatar" />
                 </Avatar>
                 <Meta>
-                    <Title>{user.name}</Title>
-                    <SubTitle>{user.status}</SubTitle>
+                    <Title>{user?.name}</Title>
+                    <SubTitle>{user?.status}</SubTitle>
                 </Meta>
             </Content>
         </Contaier>

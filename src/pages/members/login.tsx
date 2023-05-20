@@ -1,6 +1,7 @@
+import { FunctionComponent, useState } from 'react';
+
 import Background from '../../../public/img/carousel/slide-3.jpg';
 import { Button } from '../../components/Button';
-import { FunctionComponent } from 'react';
 import Image from 'next/image';
 import { Input } from '../../components/Input';
 import Link from 'next/link';
@@ -96,6 +97,9 @@ const MembersLoginPage: FunctionComponent<MembersLoginPageProps> = () => {
         redirectTo: '/members/',
         redirectIfFound: true
     });
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const router = useRouter();
 
     return (
@@ -114,12 +118,23 @@ const MembersLoginPage: FunctionComponent<MembersLoginPageProps> = () => {
                         </div>
 
                         <Form>
-                            <Input placeholder="Email" type="email" />
-                            <Input placeholder="Lösenord" type="password" />
+                            <Input
+                                placeholder="Email"
+                                type="email"
+                                onChange={(e) => setEmail(e.target.value)}
+                                value={email}
+                            />
+                            <Input
+                                placeholder="Lösenord"
+                                type="password"
+                                onChange={(e) => setPassword(e.target.value)}
+                                value={password}
+                            />
                             <Button
                                 type="button"
                                 onClick={async () => {
-                                    await authenticate();
+                                    await authenticate(email, password);
+                                    router.push('/members/');
                                 }}
                             >
                                 Logga in

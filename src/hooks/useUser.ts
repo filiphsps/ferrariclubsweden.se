@@ -1,23 +1,47 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import Router from 'next/router';
+import { VerifyAuthUserApi } from '../api/user';
+import { useRouter } from 'next/router';
 
 export const useUser = ({ redirectTo = '', redirectIfFound = false } = {}) => {
-    // FIXME: fetch user
     const [user, setUser] = useState<{
         isLoggedIn: boolean;
+        id?: string;
         name?: string;
         status?: string;
-    }>({
-        isLoggedIn: false,
-        name: 'John Doe',
-        status: 'Gold Member'
-    });
+    } | null>();
+    const router = useRouter();
 
-    const authenticate = useCallback(async () => {
+    const authenticate = useCallback(async (email: string, password: string) => {
+        // TODO: try auth
+        localStorage.setItem("auth_token", btoa(`${email}:${password}`));
+
+        // TODO: fetch user details
         setUser({
             isLoggedIn: true
         });
+    }, []);
+
+    useEffect(() => {
+        const token = localStorage.getItem("auth_token");
+
+        if (!token)
+            return setUser({
+                isLoggedIn: false
+            })
+
+        VerifyAuthUserApi({}).then((loggedIn: boolean) => {
+            if (!loggedIn)
+                return setUser({
+                    isLoggedIn: false
+                });
+
+            console.log(loggedIn)
+            setUser({
+                isLoggedIn: true,
+                name: "Hello World"
+            });
+        })
     }, []);
 
     useEffect(() => {
@@ -25,15 +49,12 @@ export const useUser = ({ redirectTo = '', redirectIfFound = false } = {}) => {
         // if user data not yet there (fetch in progress, logged in or not) then don't do anything yet
         if (!redirectTo || !user) return;
 
-        if (
-            // If redirectTo is set, redirect if the user was not found.
-            (redirectTo && !redirectIfFound && !user?.isLoggedIn) ||
-            // If redirectIfFound is also set, redirect if the user was found
-            (redirectIfFound && user?.isLoggedIn)
-        ) {
-            Router.push(redirectTo);
-        }
-    }, [user, redirectIfFound, redirectTo]);
+        if (!user.isLoggedIn && !redirectIfFound)
+            router.push(redirectTo);
+        else if (user.isLoggedIn && redirectIfFound)
+            router.push(redirectTo);
+
+    }, [router, user, redirectTo, redirectIfFound]);
 
     return {
         authenticate,

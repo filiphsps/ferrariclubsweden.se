@@ -19,6 +19,21 @@ const Container = styled.div`
     padding: 1rem;
 `;
 
+const ContentContainer = styled.div`
+    margin-top: 2.5rem;
+
+    p {
+        margin: 0px 0px 2rem 0px;
+    }
+    a {
+        color: var(--color-primary);
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+`;
+
 interface CustomPageProps {
     page?: any; // FIXME: PageModel
     post?: any; // FIXME: PostModel
@@ -58,11 +73,16 @@ const CustomPage: FunctionComponent<CustomPageProps> = ({ page, post }) => {
                 {page.mfnItems && (
                     <MuffinComponents data={JSON.parse(page.mfnItems)} />
                 )}
-                <div
+                <ContentContainer
                     dangerouslySetInnerHTML={{
-                        __html: page.content
+                        // TODO: Handle emails in content?
+                        // TODO: Replace the api link somewhere else
+                        __html: page.content.replaceAll(
+                            'https://api.ferrariclubsweden.se/events',
+                            '/events'
+                        )
                     }}
-                ></div>
+                />
             </Container>
         </Page>
     );
