@@ -25,7 +25,7 @@ export const PostApi = async ({ uri }: PostApiProps): Promise<any> => {
                         }
                     `
                 });
-    
+
                 resolve(data.post);
             } catch (err) {
                 console.error(err);
@@ -45,6 +45,7 @@ export const PostApi = async ({ uri }: PostApiProps): Promise<any> => {
                                     uri
                                     title
                                     date
+                                    excerpt
                                 }
                             }
                         }
