@@ -15,7 +15,7 @@ export const useUser = ({ redirectTo = '', redirectIfFound = false } = {}) => {
     const authenticate = useCallback(
         async (email: string, password: string) => {
             // TODO: try auth
-            localStorage.setItem('auth_token', btoa(`${email}:${password}`));
+            localStorage.setItem('auth_token', btoa(`${email.toLowerCase()}:${password}`));
 
             // TODO: fetch user details
             var success = await VerifyAuthUserApi({});
