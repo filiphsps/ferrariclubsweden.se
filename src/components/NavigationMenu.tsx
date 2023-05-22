@@ -161,7 +161,8 @@ export const NavigationMenu: FunctionComponent<NavigationMenuProps> = ({
                         href: item.path
                             .replace('/logga-ut/', '/members/logout/')
                             .replace('/login/', '/members/login/')
-                            .replace('/medlemssida/', '/members/'),
+                            .replace('/medlemssida/', '/members/')
+                            .replace('/medlemsskap/', '/members/register/'),
 
                         level: item.level
                     }))
@@ -173,6 +174,8 @@ export const NavigationMenu: FunctionComponent<NavigationMenuProps> = ({
                         // TODO: handle this properly.
                         if (localStorage.getItem('auth_token')) {
                             if (item.href.includes('/members/login/'))
+                                return null as unknown as any;
+                            else if (item.href.includes('/members/register/'))
                                 return null as unknown as any;
                         } else {
                             if (item.href.includes('/members/logout/'))

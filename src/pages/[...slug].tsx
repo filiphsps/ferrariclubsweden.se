@@ -1,7 +1,7 @@
+import { FunctionComponent, useEffect } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 
 import ErrorPage from 'next/error';
-import { FunctionComponent } from 'react';
 import { MuffinComponents } from '../components/MuffinComponents';
 import { NextSeo } from 'next-seo';
 import { Page } from '../components/Page';
@@ -11,6 +11,7 @@ import { Title } from '../components/Title';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
+import { useUser } from '../hooks/useUser';
 
 const Container = styled.div`
     width: 100%;
@@ -42,13 +43,18 @@ interface CustomPageProps {
 }
 const CustomPage: FunctionComponent<CustomPageProps> = ({ page, post }) => {
     const router = useRouter();
-    const { data } = useSWR(
+    const { user } = useUser();
+    const { data, mutate } = useSWR(
         [router.asPath],
         () => PageApi({ uri: router.asPath }),
         {
             fallbackData: page
         }
     );
+
+    useEffect(() => {
+        mutate();
+    }, [user]);
 
     if (post) {
         const { title } = post;
