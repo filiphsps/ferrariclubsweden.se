@@ -42,9 +42,13 @@ interface CustomPageProps {
 }
 const CustomPage: FunctionComponent<CustomPageProps> = ({ page, post }) => {
     const router = useRouter();
-    const { data } = useSWR(['page'], () => PageApi({ uri: router.asPath }), {
-        fallbackData: page
-    });
+    const { data } = useSWR(
+        [router.asPath],
+        () => PageApi({ uri: router.asPath }),
+        {
+            fallbackData: page
+        }
+    );
 
     if (post) {
         const { title } = post;
