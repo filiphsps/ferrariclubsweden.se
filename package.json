@@ -22,7 +22,7 @@
         "@apollo/client": "3.7.15",
         "destyle.css": "4.0.0",
         "graphql": "16.6.0",
-        "i18next": "22.5.0",
+        "i18next": "22.5.1",
         "iron-session": "6.3.1",
         "js-bbcode-parser": "4.0.0",
         "next": "13.4.3",
