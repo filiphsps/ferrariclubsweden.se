@@ -80,8 +80,8 @@ export const Footer: FunctionComponent<FooterProps> = () => {
                 </span>
                 <span>
                     Website built and maintained by{' '}
-                    <Link href="https://github.com/filiphsps" target="_blank">
-                        Filiph Siitam Sandström
+                    <Link href="https://www.sweetsideofsweden.com/">
+                        Sweet Side of Sweden
                     </Link>
                 </span>
             </Copyrights>
