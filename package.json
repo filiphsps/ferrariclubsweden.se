@@ -25,7 +25,7 @@
         "i18next": "22.5.1",
         "iron-session": "6.3.1",
         "js-bbcode-parser": "4.0.0",
-        "next": "13.4.8",
+        "next": "13.4.9",
         "next-i18next": "13.3.0",
         "next-seo": "6.1.0",
         "nprogress": "0.2.0",
@@ -43,7 +43,7 @@
         "@types/react": "18.0.26",
         "@types/styled-components": "5.1.26",
         "eslint": "8.44.0",
-        "eslint-config-next": "13.4.8",
+        "eslint-config-next": "13.4.9",
         "next-sitemap": "4.1.8",
         "prettier": "2.8.8"
     }
