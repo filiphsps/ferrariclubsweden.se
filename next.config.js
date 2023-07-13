@@ -55,6 +55,11 @@ module.exports = {
                 destination: 'https://api.ferrariclubsweden.se/wordpress2016/:any*',
                 permanent: false,
             },
+            {
+                source: '/medlemmar',
+                destination: '/',
+                permanent: false,
+            },
         ]
     },
 
