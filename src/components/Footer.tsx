@@ -80,8 +80,8 @@ export const Footer: FunctionComponent<FooterProps> = () => {
                 </span>
                 <span>
                     Website built and maintained by{' '}
-                    <Link href="https://www.sweetsideofsweden.com/">
-                        Sweet Side of Sweden
+                    <Link href="https://nordcom.io/">
+                        Nordcom Group Inc.
                     </Link>
                 </span>
             </Copyrights>
