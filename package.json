@@ -39,7 +39,7 @@
         "typescript": "5.1.6"
     },
     "devDependencies": {
-        "@types/node": "18.16.19",
+        "@types/node": "18.17.5",
         "@types/react": "18.0.26",
         "@types/styled-components": "5.1.26",
         "eslint": "8.45.0",
