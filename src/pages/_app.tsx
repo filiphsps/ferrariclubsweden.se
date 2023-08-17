@@ -11,7 +11,6 @@ import Head from 'next/head';
 import NProgress from 'nprogress';
 import { PageProvider } from '../components/PageProvider';
 import SEO from '../../nextseo.config';
-import { appWithTranslation } from 'next-i18next';
 import { SWRConfig } from 'swr'
 
 Router.events.on('routeChangeStart', () => NProgress.start());
@@ -51,4 +50,4 @@ const App = ({ Component, pageProps }: AppProps) => {
     );
 };
 
-export default appWithTranslation(App);
+export default App;

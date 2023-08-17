@@ -1,6 +1,5 @@
 const child_process = require('child_process');
 const manifest = require('./package.json');
-const { i18n } = require('./next-i18next.config');
 
 const git_sha = child_process.execSync('git rev-parse HEAD', {
     cwd: __dirname,
@@ -12,8 +11,6 @@ module.exports = {
     reactStrictMode: true,
     trailingSlash: true,
     swcMinify: true,
-    //largePageDataBytes: 256 * 1000,
-    i18n,
 
     images: {
         domains: [

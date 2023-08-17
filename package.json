@@ -1,5 +1,5 @@
 {
-    "name": "@spsgroup/ferrariclubsweden",
+    "name": "@nordcom/ferrariclubsweden",
     "version": "1.0.0",
     "description": "",
     "prettier": "@nordcom/prettier",
@@ -11,28 +11,25 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/SPS-Group-AB/ferrariclubsweden.se.git"
+        "url": "git+https://github.com/nordcom/ferrariclubsweden.se.git"
     },
     "author": "",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/SPS-Group-AB/ferrariclubsweden.se/issues"
+        "url": "https://github.com/nordcom/ferrariclubsweden.se/issues"
     },
-    "homepage": "https://github.com/SPS-Group-AB/ferrariclubsweden.se#readme",
+    "homepage": "https://github.com/nordcom/ferrariclubsweden.se#readme",
     "dependencies": {
         "@apollo/client": "3.8.1",
         "destyle.css": "4.0.0",
         "graphql": "16.8.0",
-        "i18next": "22.5.1",
         "iron-session": "6.3.1",
         "js-bbcode-parser": "4.0.0",
         "next": "13.4.16",
-        "next-i18next": "13.3.0",
         "next-seo": "6.1.0",
         "nprogress": "0.2.0",
         "react": "18.2.0",
         "react-dom": "18.2.0",
-        "react-i18next": "12.3.1",
         "react-icons": "4.10.1",
         "react-responsive-carousel": "3.2.23",
         "styled-components": "5.3.11",
