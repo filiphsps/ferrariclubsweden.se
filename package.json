@@ -2,6 +2,7 @@
     "name": "@spsgroup/ferrariclubsweden",
     "version": "1.0.0",
     "description": "",
+    "prettier": "@nordcom/prettier",
     "scripts": {
         "dev": "next dev",
         "build": "next build",
@@ -39,6 +40,7 @@
         "typescript": "5.1.6"
     },
     "devDependencies": {
+        "@nordcom/prettier": "0.1.1",
         "@types/node": "18.17.5",
         "@types/react": "18.0.26",
         "@types/styled-components": "5.1.26",
