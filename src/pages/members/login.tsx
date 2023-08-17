@@ -112,6 +112,11 @@ const MembersLoginPage: FunctionComponent<MembersLoginPageProps> = () => {
                                 Kul att du är här igen! Logga in genom att fylla
                                 i fälten nedan.
                             </SubTitle>
+
+                            <SubTitle>
+                                Medlems login är för närvarande (delvis) avaktiverat under migrationen till ny webbsida.
+                                Kontakta <a href="mailto:janne@ferrariclubsweden">janne@ferrariclubsweden</a>.
+                            </SubTitle>
                         </div>
 
                         <Form>

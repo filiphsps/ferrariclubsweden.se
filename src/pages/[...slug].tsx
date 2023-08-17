@@ -54,7 +54,7 @@ const CustomPage: FunctionComponent<CustomPageProps> = ({ page, post }) => {
 
     useEffect(() => {
         mutate();
-    }, [user]);
+    }, [user, mutate]);
 
     if (post) {
         const { title } = post;
