@@ -103,7 +103,7 @@ const MembersRegisterPage: FunctionComponent<MembersRegisterPageProps> = () => {
                         <div>
                             <Title>Bli Medlem</Title>
                             <SubTitle>
-                                Medlem registrering är för närvarande avaktiverat under migrationen till ny webbsida.
+                                Medlems registrering är för närvarande avaktiverat under migrationen till ny webbsida.
                                 Kontakta <a href="mailto:janne@ferrariclubsweden">janne@ferrariclubsweden</a>.
                             </SubTitle>
                         </div>
