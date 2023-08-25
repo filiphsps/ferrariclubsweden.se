@@ -1,8 +1,11 @@
 {
     "name": "@nordcom/ferrariclubsweden",
-    "version": "1.0.0",
-    "description": "",
+    "version": "0.1.0",
+    "private": true,
     "prettier": "@nordcom/prettier",
+    "cacheDirectories": [
+        ".next/cache"
+    ],
     "scripts": {
         "dev": "next dev",
         "build": "next build",
@@ -13,12 +16,28 @@
         "type": "git",
         "url": "git+https://github.com/nordcom/ferrariclubsweden.se.git"
     },
-    "author": "",
-    "license": "ISC",
+    "author": {
+        "name": "Nordcom Group Inc.",
+        "email": "opensource@nordcom.io",
+        "url": "https://nordcom.io/"
+    },
+    "contributors": [
+        {
+            "name": "Filiph Siitam Sandström",
+            "email": "filiph@nordcom.io",
+            "url": "https://github.com/filiphsps/"
+        }
+    ],
     "bugs": {
         "url": "https://github.com/nordcom/ferrariclubsweden.se/issues"
     },
-    "homepage": "https://github.com/nordcom/ferrariclubsweden.se#readme",
+    "homepage": "https://www.ferrariclubsweden.se",
+    "browserslist": [
+        ">0.3%",
+        "defaults",
+        "supports es6-module",
+        "supports css-grid"
+    ],
     "dependencies": {
         "@apollo/client": "3.8.1",
         "@blitzjs/auth": "2.0.0-beta.32",

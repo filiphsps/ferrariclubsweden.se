@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect, useState } from 'react';
 
 import Link from 'next/link';
-import { PostApi } from '../api/post';
+import { PostApi } from '@/api/post';
 import styled from 'styled-components';
 
 const Contaier = styled.div`

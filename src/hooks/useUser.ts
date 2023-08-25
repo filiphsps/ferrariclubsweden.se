@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { VerifyAuthUserApi } from '../api/user';
+import { VerifyAuthUserApi } from '@/api/user';
 import { useRouter } from 'next/router';
 
 export const useUser = ({ redirectTo = '', redirectIfFound = false } = {}) => {
@@ -12,22 +12,19 @@ export const useUser = ({ redirectTo = '', redirectIfFound = false } = {}) => {
     } | null>();
     const router = useRouter();
 
-    const authenticate = useCallback(
-        async (email: string, password: string) => {
-            // TODO: try auth
-            localStorage.setItem('auth_token', btoa(`${email.toLowerCase()}:${password}`));
+    const authenticate = useCallback(async (email: string, password: string) => {
+        // TODO: try auth
+        localStorage.setItem('auth_token', btoa(`${email.toLowerCase()}:${password}`));
 
-            // TODO: fetch user details
-            var success = await VerifyAuthUserApi({});
+        // TODO: fetch user details
+        var success = await VerifyAuthUserApi({});
 
-            if (!success) throw new Error('Invalid details');
+        if (!success) throw new Error('Invalid details');
 
-            setUser({
-                isLoggedIn: success
-            });
-        },
-        []
-    );
+        setUser({
+            isLoggedIn: success
+        });
+    }, []);
 
     useEffect(() => {
         function updateUser() {

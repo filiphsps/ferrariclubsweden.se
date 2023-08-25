@@ -4,7 +4,7 @@ import { Carousel } from 'react-responsive-carousel';
 import { FiChevronDown } from 'react-icons/fi';
 import { FunctionComponent } from 'react';
 import Image from 'next/image';
-import { ImageBlocks } from '../components/ImageBlocks';
+import { ImageBlocks } from '@/components/ImageBlocks';
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 import { Page } from '../components/Page';
@@ -52,11 +52,7 @@ const HeaderContent = styled.div`
     padding: 2rem 0.5rem;
     text-align: center;
 
-    background: linear-gradient(
-        0deg,
-        rgba(27, 27, 27, 1) 0%,
-        rgba(0, 0, 0, 0) 40%
-    );
+    background: linear-gradient(0deg, rgba(27, 27, 27, 1) 0%, rgba(0, 0, 0, 0) 40%);
 `;
 const HeaderContentContainer = styled.div`
     display: flex;
@@ -150,11 +146,9 @@ const IndexPage: FunctionComponent<IndexPageProps> = () => {
                         </Title>
                         <ScrollDownIcon
                             onClick={() => {
-                                document
-                                    .querySelector('#content')
-                                    ?.scrollIntoView({
-                                        behavior: 'smooth'
-                                    });
+                                document.querySelector('#content')?.scrollIntoView({
+                                    behavior: 'smooth'
+                                });
                             }}
                         >
                             <FiChevronDown />

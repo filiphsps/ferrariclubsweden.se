@@ -2,16 +2,16 @@ import { FunctionComponent, useEffect } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 
 import ErrorPage from 'next/error';
-import { MuffinComponents } from '../components/MuffinComponents';
+import { MuffinComponents } from '@/components/MuffinComponents';
 import { NextSeo } from 'next-seo';
-import { Page } from '../components/Page';
-import { PageApi } from '../api/page';
-import { PostApi } from '../api/post';
-import { Title } from '../components/Title';
+import { Page } from '@/components/Page';
+import { PageApi } from '@/api/page';
+import { PostApi } from '@/api/post';
+import { Title } from '@/components/Title';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
-import { useUser } from '../hooks/useUser';
+import { useUser } from '@/hooks/useUser';
 
 const Container = styled.div`
     width: 100%;
@@ -44,13 +44,9 @@ interface CustomPageProps {
 const CustomPage: FunctionComponent<CustomPageProps> = ({ page, post }) => {
     const router = useRouter();
     const { user } = useUser();
-    const { data, mutate } = useSWR(
-        [router.asPath],
-        () => PageApi({ uri: router.asPath }),
-        {
-            fallbackData: page
-        }
-    );
+    const { data, mutate } = useSWR([router.asPath], () => PageApi({ uri: router.asPath }), {
+        fallbackData: page
+    });
 
     useEffect(() => {
         mutate();
@@ -85,18 +81,12 @@ const CustomPage: FunctionComponent<CustomPageProps> = ({ page, post }) => {
 
             <Container>
                 {!data.mfnItems ? <Title>{title}</Title> : ''}
-                {data.mfnItems && (
-                    <MuffinComponents data={JSON.parse(data.mfnItems)} />
-                )}
+                {data.mfnItems && <MuffinComponents data={JSON.parse(data.mfnItems)} />}
                 <ContentContainer
                     dangerouslySetInnerHTML={{
                         // TODO: Handle emails in content?
                         // TODO: Replace the api link somewhere else
-                        __html:
-                            data.content?.replaceAll(
-                                'https://api.ferrariclubsweden.se/events',
-                                '/events'
-                            ) || ''
+                        __html: data.content?.replaceAll('https://api.ferrariclubsweden.se/events', '/events') || ''
                     }}
                 />
             </Container>

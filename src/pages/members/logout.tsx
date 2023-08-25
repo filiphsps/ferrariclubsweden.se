@@ -1,17 +1,10 @@
-import { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, useEffect } from 'react';
 
-import Background from '../../../public/img/carousel/slide-3.jpg';
-import { Button } from '../../components/Button';
-import Image from 'next/image';
-import { Input } from '../../components/Input';
-import Link from 'next/link';
 import { NextSeo } from 'next-seo';
-import { Page } from '../../components/Page';
-import { SubTitle } from '../../components/SubTitle';
-import { Title } from '../../components/Title';
+import { Page } from '@/components/Page';
+import { Title } from '@/components/Title';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
-import { useUser } from '../../hooks/useUser';
 
 const Container = styled.div`
     display: grid;

@@ -1,10 +1,8 @@
-import { Card } from '../../components/Card';
 import { FunctionComponent } from 'react';
 import { NextSeo } from 'next-seo';
-import { Page } from '../../components/Page';
-import { ProfileBanner } from '../../components/ProfileBanner';
+import { Page } from '@/components/Page';
 import styled from 'styled-components';
-import { useUser } from '../../hooks/useUser';
+import { useUser } from '@/hooks/useUser';
 
 const Container = styled.div`
     width: 100%;

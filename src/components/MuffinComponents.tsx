@@ -1,7 +1,7 @@
 import BBCodeParser from 'js-bbcode-parser/src/index.js';
 import { Blog } from './Blog';
 import { FunctionComponent } from 'react';
-import { PostApi } from '../api/post';
+import { PostApi } from '@/api/post';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -196,13 +196,7 @@ interface MuffinWrap {
 }
 interface MuffinItem {
     uid: string;
-    type:
-        | 'placeholder'
-        | 'column'
-        | 'image'
-        | 'accordion'
-        | 'photo_box'
-        | 'blog';
+    type: 'placeholder' | 'column' | 'image' | 'accordion' | 'photo_box' | 'blog';
     size: string;
     tablet_size: string;
     mobile_size: string;
@@ -218,9 +212,7 @@ interface MuffinItem {
 export type MuffinComponentsProps = {
     data: MuffinEntry[];
 };
-export const MuffinComponents: FunctionComponent<MuffinComponentsProps> = ({
-    data
-}) => {
+export const MuffinComponents: FunctionComponent<MuffinComponentsProps> = ({ data }) => {
     return (
         <Wrapper>
             {data.map((item, index) => (
@@ -241,17 +233,13 @@ const MuffinSection: FunctionComponent<MuffinSectionProps> = ({ data }) => {
             style={{
                 backgroundColor: attr?.bg_color || 'none',
                 paddingTop: attr?.padding_top ? `${attr.padding_top}px` : '0px',
-                paddingBottom: attr?.padding_bottom
-                    ? `${attr.padding_bottom}px`
-                    : '0px'
+                paddingBottom: attr?.padding_bottom ? `${attr.padding_bottom}px` : '0px'
             }}
             hide={attr?.hide === '1'}
         >
             <SectionWrapper>
                 {Array.isArray(data.wraps) &&
-                    data.wraps.map((wrap, index) => (
-                        <MuffinWrap key={wrap.uid || index} data={wrap} />
-                    ))}
+                    data.wraps.map((wrap, index) => <MuffinWrap key={wrap.uid || index} data={wrap} />)}
             </SectionWrapper>
         </Section>
     );
@@ -265,18 +253,16 @@ const MuffinWrap: FunctionComponent<MuffinWrapProps> = ({ data }) => {
     return (
         <Wrap
             id={data.uid}
-            className={`${SizeToClass(data.size)} tablet-${SizeToClass(
-                data.tablet_size
-            )} mobile-${SizeToClass(data.mobile_size)}`}
+            className={`${SizeToClass(data.size)} tablet-${SizeToClass(data.tablet_size)} mobile-${SizeToClass(
+                data.mobile_size
+            )}`}
             style={{
                 padding: attr?.padding || '0px'
             }}
         >
             <WrapInner>
                 {Array.isArray(data.items) &&
-                    data.items?.map((item, index) => (
-                        <MuffinItem key={item.uid || index} data={item} />
-                    ))}
+                    data.items?.map((item, index) => <MuffinItem key={item.uid || index} data={item} />)}
             </WrapInner>
         </Wrap>
     );
@@ -294,9 +280,9 @@ const MuffinItem: FunctionComponent<MuffinItemProps> = ({ data }) => {
             return (
                 <Column
                     id={data.uid}
-                    className={`${SizeToClass(data.size)} tablet-${SizeToClass(
-                        data.tablet_size
-                    )} mobile-${SizeToClass(data.mobile_size)}`}
+                    className={`${SizeToClass(data.size)} tablet-${SizeToClass(data.tablet_size)} mobile-${SizeToClass(
+                        data.mobile_size
+                    )}`}
                 >
                     <ColumnInner
                         css={fields.style || ''}
@@ -306,9 +292,7 @@ const MuffinItem: FunctionComponent<MuffinItemProps> = ({ data }) => {
                         dangerouslySetInnerHTML={{
                             __html: `<div class="image_frame align-${
                                 fields.align
-                            }"><div class="image_wrapper"><img src="${
-                                (fields as any).src
-                            }"/></div></div>`
+                            }"><div class="image_wrapper"><img src="${(fields as any).src}"/></div></div>`
                         }}
                     ></ColumnInner>
                 </Column>
@@ -317,9 +301,9 @@ const MuffinItem: FunctionComponent<MuffinItemProps> = ({ data }) => {
             return (
                 <Column
                     id={data.uid}
-                    className={`${SizeToClass(data.size)} tablet-${SizeToClass(
-                        data.tablet_size
-                    )} mobile-${SizeToClass(data.mobile_size)}`}
+                    className={`${SizeToClass(data.size)} tablet-${SizeToClass(data.tablet_size)} mobile-${SizeToClass(
+                        data.mobile_size
+                    )}`}
                 >
                     <ColumnInner
                         css={fields.style || ''}
@@ -329,9 +313,7 @@ const MuffinItem: FunctionComponent<MuffinItemProps> = ({ data }) => {
                         dangerouslySetInnerHTML={{
                             __html: `<div class="photo_box"><div class="image_frame align-${
                                 fields.align
-                            }"><div class="image_wrapper"><img src="${
-                                (fields as any).image
-                            }"/></div></div></div>`
+                            }"><div class="image_wrapper"><img src="${(fields as any).image}"/></div></div></div>`
                         }}
                     ></ColumnInner>
                 </Column>
@@ -346,9 +328,9 @@ const MuffinItem: FunctionComponent<MuffinItemProps> = ({ data }) => {
             return (
                 <Column
                     id={data.uid}
-                    className={`${SizeToClass(data.size)} tablet-${SizeToClass(
-                        data.tablet_size
-                    )} mobile-${SizeToClass(data.mobile_size)}`}
+                    className={`${SizeToClass(data.size)} tablet-${SizeToClass(data.tablet_size)} mobile-${SizeToClass(
+                        data.mobile_size
+                    )}`}
                 >
                     <ColumnInner
                         css={fields.style || ''}
@@ -370,9 +352,9 @@ const MuffinItem: FunctionComponent<MuffinItemProps> = ({ data }) => {
             return (
                 <Column
                     id={data.uid}
-                    className={`${SizeToClass(data.size)} tablet-${SizeToClass(
-                        data.tablet_size
-                    )} mobile-${SizeToClass(data.mobile_size)}`}
+                    className={`${SizeToClass(data.size)} tablet-${SizeToClass(data.tablet_size)} mobile-${SizeToClass(
+                        data.mobile_size
+                    )}`}
                 >
                     <ColumnInner
                         css={fields.style || ''}

@@ -10,8 +10,7 @@ class App extends Document {
         try {
             ctx.renderPage = () =>
                 originalRenderPage({
-                    enhanceApp: (App: any) => (props: any) =>
-                        sheet.collectStyles(<App {...props} />)
+                    enhanceApp: (App: any) => (props: any) => sheet.collectStyles(<App {...props} />)
                 });
 
             const initialProps = await Document.getInitialProps(ctx);
@@ -33,16 +32,8 @@ class App extends Document {
         return (
             <Html>
                 <Head>
-                    <link
-                        rel="preconnect"
-                        href="https://fonts.googleapis.com"
-                        crossOrigin="anonymous"
-                    />
-                    <link
-                        rel="preconnect"
-                        href="https://fonts.gstatic.com"
-                        crossOrigin="anonymous"
-                    />
+                    <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
+                    <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
                     <link
                         href="https://fonts.googleapis.com/css2?family=PT+Sans&family=Poppins:wght@400;500;600&display=swap"
                         rel="stylesheet"

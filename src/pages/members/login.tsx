@@ -1,16 +1,16 @@
 import { FunctionComponent, useState } from 'react';
 
 import Background from '../../../public/img/carousel/slide-3.jpg';
-import { Button } from '../../components/Button';
+import { Button } from '@/components/Button';
 import Image from 'next/image';
-import { Input } from '../../components/Input';
+import { Input } from '@/components/Input';
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
-import { Page } from '../../components/Page';
-import { SubTitle } from '../../components/SubTitle';
-import { Title } from '../../components/Title';
+import { Page } from '@/components/Page';
+import { SubTitle } from '@/components/SubTitle';
+import { Title } from '@/components/Title';
 import styled from 'styled-components';
-import { useUser } from '../../hooks/useUser';
+import { useUser } from '@/hooks/useUser';
 
 const Container = styled.div`
     display: grid;
@@ -108,10 +108,7 @@ const MembersLoginPage: FunctionComponent<MembersLoginPageProps> = () => {
                     <ContentContainer>
                         <div>
                             <Title>Välkommen tillbaka!</Title>
-                            <SubTitle>
-                                Kul att du är här igen! Logga in genom att fylla
-                                i fälten nedan.
-                            </SubTitle>
+                            <SubTitle>Kul att du är här igen! Logga in genom att fylla i fälten nedan.</SubTitle>
 
                             <SubTitle>
                                 Medlems login är för närvarande (delvis) avaktiverat under migrationen till ny webbsida.

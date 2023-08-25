@@ -2,7 +2,7 @@ import { FiChevronRight, FiXCircle } from 'react-icons/fi';
 import { FunctionComponent, useEffect, useState } from 'react';
 
 import Link from 'next/link';
-import { MenuApi } from '../api/menu';
+import { MenuApi } from '@/api/menu';
 import styled from 'styled-components';
 
 const Primary = styled.div`
@@ -77,8 +77,7 @@ const NavigationItem = styled.div<{ level: number }>`
     text-transform: uppercase;
     font-weight: 700;
     transition: 150ms;
-    color: ${(props) =>
-        props.level === 0 ? 'var(--color-body)' : 'var(--color-body-lighter)'};
+    color: ${(props) => (props.level === 0 ? 'var(--color-body)' : 'var(--color-body-lighter)')};
 
     a {
         &:hover {
@@ -140,13 +139,8 @@ export type NavigationMenuProps = {
     open: boolean;
     toggleMenu: () => void;
 };
-export const NavigationMenu: FunctionComponent<NavigationMenuProps> = ({
-    open,
-    toggleMenu
-}) => {
-    const [items, setItems] = useState<
-        Array<{ id: string; title: string; href: string; level: number }>
-    >([]);
+export const NavigationMenu: FunctionComponent<NavigationMenuProps> = ({ open, toggleMenu }) => {
+    const [items, setItems] = useState<Array<{ id: string; title: string; href: string; level: number }>>([]);
     useEffect(() => {
         MenuApi().then((menu) => {
             const res = menu.flat(1);
@@ -168,20 +162,15 @@ export const NavigationMenu: FunctionComponent<NavigationMenuProps> = ({
                     }))
                     .map((item) => {
                         // TODO: do this somewhere else
-                        if (item.href.includes('/nytt-losenord/'))
-                            return null as unknown as any;
+                        if (item.href.includes('/nytt-losenord/')) return null as unknown as any;
 
                         // TODO: handle this properly.
                         if (localStorage.getItem('auth_token')) {
-                            if (item.href.includes('/members/login/'))
-                                return null as unknown as any;
-                            else if (item.href.includes('/members/register/'))
-                                return null as unknown as any;
+                            if (item.href.includes('/members/login/')) return null as unknown as any;
+                            else if (item.href.includes('/members/register/')) return null as unknown as any;
                         } else {
-                            if (item.href.includes('/members/logout/'))
-                                return null as unknown as any;
-                            else if (item.href.includes('/nyheter/'))
-                                return null as unknown as any;
+                            if (item.href.includes('/members/logout/')) return null as unknown as any;
+                            else if (item.href.includes('/nyheter/')) return null as unknown as any;
                         }
 
                         return item;

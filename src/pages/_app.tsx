@@ -5,14 +5,14 @@ import Router, { useRouter } from 'next/router';
 
 import { ApolloProvider } from '@apollo/client';
 import type { AppProps } from 'next/app';
-import Client from '../api/client';
+import Client from '@/api/client';
 import { DefaultSeo } from 'next-seo';
 import Head from 'next/head';
 import NProgress from 'nprogress';
-import { PageProvider } from '../components/PageProvider';
-import SEO from '../../nextseo.config';
+import { PageProvider } from '@/components/PageProvider';
+import SEO from 'nextseo.config';
 import { SWRConfig } from 'swr';
-import { withBlitz } from '../blitz/client';
+import { withBlitz } from '@/blitz/client';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
