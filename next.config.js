@@ -1,28 +1,19 @@
-const child_process = require('child_process');
 const manifest = require('./package.json');
+const { withBlitz } = require('@blitzjs/next');
 
-const git_sha = child_process.execSync('git rev-parse HEAD', {
-    cwd: __dirname,
-    encoding: 'utf8'
-}).replace(/\n/, '');
-
-module.exports = {
+module.exports = withBlitz({
     poweredByHeader: false,
     reactStrictMode: true,
     trailingSlash: true,
     swcMinify: true,
 
     images: {
-        domains: [
-            "www.ferrariclubsweden.se",
-            "api.ferrariclubsweden.se"
-        ],
+        domains: ['www.ferrariclubsweden.se', 'api.ferrariclubsweden.se']
     },
     compiler: {
-        styledComponents: true,
+        styledComponents: true
     },
     env: {
-        GIT_SHA: git_sha,
         VERSION: manifest.version
     },
     async redirects() {
@@ -30,37 +21,35 @@ module.exports = {
             {
                 source: '/login/',
                 destination: '/members/login/',
-                permanent: false,
+                permanent: false
             },
             {
                 source: '/logga-ut/',
                 destination: '/members/logout/',
-                permanent: false,
+                permanent: false
             },
             {
                 source: '/medlemsskap/',
                 destination: '/members/register/',
-                permanent: false,
-            },
-            {
-                source: '/fonm/',
-                destination: 'https://api.ferrariclubsweden.se/fonm',
-                permanent: false,
-            },
-            {
-                source: '/wordpress2016/:any*',
-                destination: 'https://api.ferrariclubsweden.se/wordpress2016/:any*',
-                permanent: false,
+                permanent: false
             },
             {
                 source: '/medlemmar',
                 destination: '/',
-                permanent: false,
+                permanent: false
+            }
+        ];
+    },
+    async rewrites() {
+        return [
+            {
+                source: '/fonm/',
+                destination: 'https://api.ferrariclubsweden.se/fonm'
             },
-        ]
-    },
-
-    generateBuildId: async () => {
-        return git_sha;
-    },
-};
+            {
+                source: '/wordpress2016/:any*',
+                destination: 'https://api.ferrariclubsweden.se/wordpress2016/:any*'
+            }
+        ];
+    }
+});

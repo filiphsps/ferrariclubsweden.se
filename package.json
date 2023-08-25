@@ -21,6 +21,9 @@
     "homepage": "https://github.com/nordcom/ferrariclubsweden.se#readme",
     "dependencies": {
         "@apollo/client": "3.8.1",
+        "@blitzjs/auth": "2.0.0-beta.32",
+        "@blitzjs/next": "2.0.0-beta.32",
+        "blitz": "2.0.0-beta.32",
         "destyle.css": "4.0.0",
         "graphql": "16.8.0",
         "iron-session": "6.3.1",

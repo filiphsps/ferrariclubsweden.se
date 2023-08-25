@@ -47,8 +47,8 @@ const ContentContainer = styled.section`
     }
 `;
 
-interface MembersLoginPageProps {}
-const MembersLoginPage: FunctionComponent<MembersLoginPageProps> = () => {
+interface MembersLogoutPageProps {}
+const MembersLogoutPage: FunctionComponent<MembersLogoutPageProps> = () => {
     const router = useRouter();
 
     useEffect(() => {
@@ -76,4 +76,4 @@ const MembersLoginPage: FunctionComponent<MembersLoginPageProps> = () => {
     );
 };
 
-export default MembersLoginPage;
+export default MembersLogoutPage;
