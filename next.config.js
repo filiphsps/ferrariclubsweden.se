@@ -19,17 +19,17 @@ module.exports = withBlitz({
     async redirects() {
         return [
             {
-                source: '/login/',
+                source: '/login',
                 destination: '/members/login/',
                 permanent: false
             },
             {
-                source: '/logga-ut/',
+                source: '/logga-ut',
                 destination: '/members/logout/',
                 permanent: false
             },
             {
-                source: '/medlemsskap/',
+                source: '/medlemsskap',
                 destination: '/members/register/',
                 permanent: false
             },
@@ -37,17 +37,28 @@ module.exports = withBlitz({
                 source: '/medlemmar',
                 destination: '/',
                 permanent: false
+            },
+            {
+                source: '/admin/:any*',
+                destination: 'https://api.ferrariclubsweden.se/wp-admin/:any*',
+                permanent: false
+            },
+            {
+                // Last, any left-over stray WordPress URLs
+                source: '/wordpress2016/:any*',
+                destination: '/api/:any*',
+                permanent: true
             }
         ];
     },
     async rewrites() {
         return [
             {
-                source: '/fonm/',
-                destination: 'https://api.ferrariclubsweden.se/fonm'
+                source: '/fonm',
+                destination: 'https://api.ferrariclubsweden.se/fonm/'
             },
             {
-                source: '/wordpress2016/:any*',
+                source: '/api/:any*',
                 destination: 'https://api.ferrariclubsweden.se/:any*'
             }
         ];

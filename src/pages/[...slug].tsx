@@ -44,7 +44,7 @@ interface CustomPageProps {
 const CustomPage: FunctionComponent<CustomPageProps> = ({ page, post }) => {
     const router = useRouter();
     const { user } = useUser();
-    const { data, mutate } = useSWR([router.asPath], () => PageApi({ uri: router.asPath }), {
+    const { data, error, mutate } = useSWR([router.asPath], () => PageApi({ uri: router.asPath }), {
         fallbackData: page
     });
 
@@ -70,23 +70,23 @@ const CustomPage: FunctionComponent<CustomPageProps> = ({ page, post }) => {
         );
     }
 
-    if (!data) return <ErrorPage statusCode={404} />;
+    if (!data || error) return <ErrorPage statusCode={(error && error?.statusCode) || 404} title={error?.message} />;
 
     // TODO: We should get the page with auth
-    const { title } = data;
+    const { title, mfnItems } = data;
 
     return (
         <Page>
             <NextSeo title={title} />
 
             <Container>
-                {!data.mfnItems ? <Title>{title}</Title> : ''}
-                {data.mfnItems && <MuffinComponents data={JSON.parse(data.mfnItems)} />}
+                {!mfnItems ? <Title>{title}</Title> : ''}
+                {mfnItems && <MuffinComponents data={JSON.parse(mfnItems)} />}
                 <ContentContainer
                     dangerouslySetInnerHTML={{
                         // TODO: Handle emails in content?
                         // TODO: Replace the api link somewhere else
-                        __html: data.content?.replaceAll('https://api.ferrariclubsweden.se/events', '/events') || ''
+                        __html: data.content || ''
                     }}
                 />
             </Container>

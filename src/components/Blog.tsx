@@ -27,11 +27,9 @@ export const Blog: FunctionComponent<BlogeProps> = ({}) => {
     useEffect(() => {
         PostApi({}).then((posts) => {
             setPosts(posts);
-            console.log(posts);
         });
     }, []);
 
-    console.log(posts);
     return (
         <Contaier>
             {posts?.map((edge: any) => {
