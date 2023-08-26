@@ -1,7 +1,9 @@
 const manifest = require('./package.json');
 const { withBlitz } = require('@blitzjs/next');
+const { withNextAuthAdapter } = require('@blitzjs/auth');
 
-module.exports = withBlitz({
+/** @type {import('next').NextConfig} */
+const config = {
     poweredByHeader: false,
     reactStrictMode: true,
     trailingSlash: true,
@@ -92,4 +94,6 @@ module.exports = withBlitz({
             ]
         };
     }
-});
+};
+
+module.exports = withBlitz(withNextAuthAdapter(config));

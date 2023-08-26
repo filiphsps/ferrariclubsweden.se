@@ -1,9 +1,9 @@
 import { setupBlitzServer } from '@blitzjs/next';
 
-const {
-    /* plugins' exports */
-} = setupBlitzServer({
+const { api } = setupBlitzServer({
     plugins: [
         // plugins will go here
     ]
 });
+
+export { api };

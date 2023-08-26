@@ -1,2 +1,3 @@
-# https://ferrariclubsweden.se
-next.js frontend for Ferrari Slub Sweden.
+# https://www.ferrariclubsweden.se
+
+next.js frontend for Ferrari Club Sweden.
