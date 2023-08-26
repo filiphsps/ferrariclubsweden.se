@@ -17,7 +17,7 @@ import { useUser } from '@/hooks/useUser';
 const Container = styled.div`
     width: 100%;
     height: 100%;
-    max-width: 58rem;
+    max-width: var(--size-page-width);
 
     margin: 0px auto;
     padding: 1rem;
@@ -100,7 +100,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     return { paths: [], fallback: 'blocking' };
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
     const slug = params!.slug as string[];
 
     const uri = `/${slug.join('/')}/`;

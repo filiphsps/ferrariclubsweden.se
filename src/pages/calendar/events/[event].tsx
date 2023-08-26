@@ -13,7 +13,7 @@ import styled from 'styled-components';
 const Container = styled.div`
     width: 100%;
     height: 100%;
-    max-width: 58rem;
+    max-width: var(--size-page-width);
 
     margin: 0px auto;
     padding: 2rem 1rem 1rem 1rem;
@@ -28,35 +28,93 @@ const ContentContainer = styled.section`
         }
     }
 
-    .mec-wrap article.mec-single-event {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 1rem;
-
-        @media (min-width: 992px) {
-            grid-template-columns: 1fr 20rem;
-            gap: 2rem;
-        }
-
-        .col-md-4,
-        .col-md-8 {
-            width: 100%;
-            padding: 0;
-        }
-
+    .mec-wrap {
         .mec-event-content {
-            padding: 0 0 0 0;
-            margin: 0;
+            width: 100%;
         }
 
-        .mec-event-meta {
+        .mec-single-title {
+            font-family: var(--font-secondary);
+            font-size: clamp(2rem, 8vw, 5rem);
+            line-height: 1;
+            letter-spacing: 0;
+            margin-bottom: 1rem;
+
+            @media (min-width: 992px) {
+                font-size: 2.25rem;
+            }
+        }
+
+        article.mec-single-event {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            width: 100%;
+
+            @media (min-width: 992px) {
+                grid-template-columns: auto 20rem;
+                gap: 1rem;
+            }
+
+            .col-md-4,
+            .col-md-8 {
+                width: auto;
+                padding: 0;
+            }
+
+            .mec-event-content {
+                padding: 0;
+                margin: 0;
+
+                .mec-events-content {
+                    margin-bottom: 0px;
+
+                    p {
+                        margin-bottom: 1rem;
+                    }
+
+                    & > :last-child {
+                        margin-bottom: 0;
+                    }
+                }
+
+                img {
+                    max-width: 100%;
+                }
+            }
+
+            .mec-event-meta {
+                margin-bottom: 0;
+
+                &.mec-frontbox {
+                    padding: 1rem;
+
+                    @media (min-width: 992px) {
+                        padding: 1.5rem;
+                    }
+                }
+
+                div[class^='mec-'] {
+                    margin-bottom: 0.75rem;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+
+                @media (min-width: 992px) {
+                    position: sticky;
+                    top: 2rem;
+                }
+            }
         }
     }
 `;
 
-const Header = styled.section`
+const Footer = styled.section`
     --action-height: 2rem;
     height: var(--action-height);
+    margin: 0 0 1rem 0;
 `;
 const ReturnAction = styled(Link)`
     display: flex;
@@ -65,7 +123,8 @@ const ReturnAction = styled(Link)`
     height: var(--action-height);
 
     line-height: 1;
-    font-size: 1.05rem;
+    font-size: 0.95rem;
+    font-family: var(--font-primary);
     text-transform: uppercase;
     font-weight: 500;
 
@@ -77,8 +136,8 @@ const ReturnAction = styled(Link)`
     }
 
     svg {
-        font-size: 1.25rem;
-        margin: 0 -0.15rem 0 -0.3rem;
+        font-size: 0.95rem;
+        margin: -0.05rem 0 0 -0.3rem;
     }
 `;
 
@@ -93,18 +152,18 @@ const EventPage: FunctionComponent<EventPageProps> = ({ title, body }) => {
             <NextSeo title={`${title} | Event`} />
 
             <Container>
-                <Header>
-                    <ReturnAction href="/calendar/">
-                        <FiChevronLeft />
-                        <span>Tillbaka</span>
-                    </ReturnAction>
-                </Header>
-
                 <ContentContainer
                     dangerouslySetInnerHTML={{
                         __html: body || ''
                     }}
                 />
+
+                <Footer>
+                    <ReturnAction href="/calendar/">
+                        <FiChevronLeft />
+                        <span>Tillbaka</span>
+                    </ReturnAction>
+                </Footer>
             </Container>
         </Page>
     );

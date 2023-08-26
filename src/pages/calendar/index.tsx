@@ -13,7 +13,7 @@ import styled from 'styled-components';
 const Container = styled.div`
     width: 100%;
     height: 100%;
-    max-width: 58rem;
+    max-width: var(--size-page-width);
 
     margin: 0px auto;
     padding: 1rem;

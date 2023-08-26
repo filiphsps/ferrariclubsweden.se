@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
-const Contaier = styled.main`
+const Contaier = styled.section`
     height: 100%;
     width: 100%;
 `;

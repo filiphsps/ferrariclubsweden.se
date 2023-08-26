@@ -21,7 +21,10 @@ body {
     --color-body: #0e0e0e;
     --color-body-lighter: #494949;
 
-    --size-page-width: 1256px;
+    --size-page-width: 1024px;
+
+    --font-primary: 'Ferrari', sans-serif;
+    --font-secondary: 'Poppins', sans-serif;
 
     color: var(--color-body);
     background: var(--color-block-body);
@@ -47,11 +50,6 @@ body {
 *:after {
     -webkit-box-sizing: inherit;
     box-sizing: inherit;
-}
-
-h1 {
-    font-family: 'Ferrari', sans-serif;
-    text-transform: uppercase;
 }
 
 a:hover {
@@ -100,4 +98,11 @@ input:-webkit-autofill:active{
 }
 .mec-month-divider span:before {
     border-color: var(--color-primary);
+}
+
+h1,
+.mec-wrap h1,
+.mec-wrap .mec-single-title {
+    font-family: 'Ferrari', sans-serif;
+    text-transform: uppercase;
 }
