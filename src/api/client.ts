@@ -3,7 +3,7 @@ import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
 const httpLink = createHttpLink({
-    uri: 'https://api.ferrariclubsweden.se/wordpress2016/graphql'
+    uri: 'https://api.ferrariclubsweden.se/graphql'
 });
 
 const authLink = setContext((_, { headers }) => {

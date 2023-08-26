@@ -1,7 +1,6 @@
 import BBCodeParser from 'js-bbcode-parser/src/index.js';
 import { Blog } from './Blog';
 import { FunctionComponent } from 'react';
-import { PostApi } from '@/api/post';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -196,7 +195,7 @@ interface MuffinWrap {
 }
 interface MuffinItem {
     uid: string;
-    type: 'placeholder' | 'column' | 'image' | 'accordion' | 'photo_box' | 'blog';
+    type: 'placeholder' | 'column' | 'image' | 'accordion' | 'photo_box' | 'blog' | 'divider';
     size: string;
     tablet_size: string;
     mobile_size: string;
@@ -367,8 +366,11 @@ const MuffinItem: FunctionComponent<MuffinItemProps> = ({ data }) => {
                 </Column>
             );
         }
+        case 'divider':
+            // TODO
+            return null;
         default:
-            console.warn(data);
+            console.warn('Unknown Muffin Component', data);
             return null;
     }
 };

@@ -48,7 +48,7 @@ module.exports = withBlitz({
             },
             {
                 source: '/wordpress2016/:any*',
-                destination: 'https://api.ferrariclubsweden.se/wordpress2016/:any*'
+                destination: 'https://api.ferrariclubsweden.se/:any*'
             }
         ];
     }

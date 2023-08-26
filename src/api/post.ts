@@ -52,8 +52,6 @@ export const PostApi = async ({ uri }: PostApiProps): Promise<any> => {
                     }
                 `
             });
-
-            console.log(data.posts)
             resolve(data.posts.edges);
         } catch (err) {
             console.error(err);

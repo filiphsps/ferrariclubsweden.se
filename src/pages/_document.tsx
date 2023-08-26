@@ -41,14 +41,14 @@ class App extends Document {
                     <link
                         rel="stylesheet"
                         id="mec-font-icons-css"
-                        href="https://api.ferrariclubsweden.se/wordpress2016/wp-content/plugins/modern-events-calendar/assets/css/iconfonts.css?ver=6.2.1"
+                        href="https://api.ferrariclubsweden.se/wp-content/plugins/modern-events-calendar/assets/css/iconfonts.css?ver=6.2.1"
                         type="text/css"
                         media="all"
                     />
                     <link
                         rel="stylesheet"
                         id="mec-frontend-style-css"
-                        href="https://api.ferrariclubsweden.se/wordpress2016/wp-content/plugins/modern-events-calendar/assets/css/frontend.min.css?ver=6.2.1"
+                        href="https://api.ferrariclubsweden.se/wp-content/plugins/modern-events-calendar/assets/css/frontend.min.css?ver=6.2.1"
                         type="text/css"
                         media="all"
                     />
