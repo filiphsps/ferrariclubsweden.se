@@ -39,8 +39,18 @@ module.exports = withBlitz({
                 permanent: false
             },
             {
-                source: '/admin/:any*',
-                destination: 'https://api.ferrariclubsweden.se/wp-admin/:any*',
+                source: '/events/:event*',
+                destination: '/calendar/events/:event*/',
+                permanent: true
+            },
+            {
+                source: '/kalender',
+                destination: '/calendar/',
+                permanent: false
+            },
+            {
+                source: '/fonm',
+                destination: '/api/fonm/',
                 permanent: false
             },
             {
@@ -52,15 +62,23 @@ module.exports = withBlitz({
         ];
     },
     async rewrites() {
-        return [
-            {
-                source: '/fonm',
-                destination: 'https://api.ferrariclubsweden.se/fonm/'
-            },
-            {
-                source: '/api/:any*',
-                destination: 'https://api.ferrariclubsweden.se/:any*'
-            }
-        ];
+        return {
+            fallback: [
+                {
+                    source: '/:any*',
+                    destination: `https://api.ferrariclubsweden.se/:any*/`
+                }
+            ],
+            afterFiles: [
+                {
+                    source: '/api/:any*',
+                    destination: 'https://api.ferrariclubsweden.se/:any*/'
+                },
+                {
+                    source: '/admin/:any*',
+                    destination: 'https://api.ferrariclubsweden.se/wp-admin/:any*/'
+                }
+            ]
+        };
     }
 });

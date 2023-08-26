@@ -156,7 +156,8 @@ export const NavigationMenu: FunctionComponent<NavigationMenuProps> = ({ open, t
                             .replace('/logga-ut/', '/members/logout/')
                             .replace('/login/', '/members/login/')
                             .replace('/medlemssida/', '/members/')
-                            .replace('/medlemsskap/', '/members/register/'),
+                            .replace('/medlemsskap/', '/members/register/')
+                            .replace('/kalender/', '/calendar/'),
 
                         level: item.level
                     }))

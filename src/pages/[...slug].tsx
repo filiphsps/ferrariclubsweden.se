@@ -102,36 +102,45 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
     const slug = params!.slug as string[];
 
-    if (slug.includes('login'))
-        return {
-            props: {},
-            redirect: {
-                destination: '/members/login/'
-            }
-        };
+    try {
+        if (slug.includes('login'))
+            return {
+                props: {},
+                redirect: {
+                    destination: '/members/login/'
+                }
+            };
 
-    const page = await PageApi({
-        uri: `/${slug.join('/')}/`
-    });
-
-    if (!page) {
-        const post = await PostApi({
+        const page = await PageApi({
             uri: `/${slug.join('/')}/`
         });
+
+        if (!page) {
+            const post = await PostApi({
+                uri: `/${slug.join('/')}/`
+            });
+            return {
+                props: {
+                    post: post
+                },
+                revalidate: 10
+            };
+        }
+
         return {
             props: {
-                post: post
+                page: page
             },
             revalidate: 10
         };
-    }
+    } catch (error) {
+        if (error?.statusCode && error.statusCode === 404)
+            return {
+                notFound: true
+            };
 
-    return {
-        props: {
-            page: page
-        },
-        revalidate: 10
-    };
+        throw error;
+    }
 };
 
 export default CustomPage;

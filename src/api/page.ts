@@ -1,13 +1,7 @@
 import Client from './client';
 import { gql } from '@apollo/client';
 
-interface PageApiProps {
-    uri: string;
-}
-// FIXME: PageModel
-export const PageApi = async ({
-    uri
-}: PageApiProps): Promise<{
+export type WPPage = {
     id: string;
     title: string;
     uri: string;
@@ -15,7 +9,14 @@ export const PageApi = async ({
     content: string;
     mfnItems: string;
     status: 'published';
-}> => {
+};
+
+interface PageApiProps {
+    uri: string;
+}
+
+// FIXME: PageModel
+export const PageApi = async ({ uri }: PageApiProps): Promise<WPPage> => {
     return new Promise(async (resolve, reject) => {
         // FIXME: Get user's authentication token
         // as we shouldn't show non-accessible pages.

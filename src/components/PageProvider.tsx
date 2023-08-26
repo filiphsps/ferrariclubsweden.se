@@ -25,7 +25,7 @@ const ContentContainer = styled.main`
     height: 100%;
     width: 100%;
     max-width: 100vw;
-    transition: 300ms ease-in-out all;
+    transition: 300ms ease-in-out all; // FIXME: this is bad for performance
     transform: scale(1);
     background: var(--color-block-body);
 `;
@@ -45,9 +45,7 @@ const Content = styled.div`
 export type PageProviderProps = {
     children: JSX.Element;
 };
-export const PageProvider: FunctionComponent<PageProviderProps> = ({
-    children
-}) => {
+export const PageProvider: FunctionComponent<PageProviderProps> = ({ children }) => {
     const router = useRouter();
     const [menuOpen, setMenuOpen] = useState(false);
 
@@ -63,10 +61,7 @@ export const PageProvider: FunctionComponent<PageProviderProps> = ({
             </Content>
             <Footer />
 
-            <NavigationMenu
-                open={menuOpen}
-                toggleMenu={() => setMenuOpen(!menuOpen)}
-            />
+            <NavigationMenu open={menuOpen} toggleMenu={() => setMenuOpen(!menuOpen)} />
         </Contaier>
     );
 };
