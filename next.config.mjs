@@ -1,21 +1,31 @@
-const manifest = require('./package.json');
-const { withBlitz } = require('@blitzjs/next');
-const { withNextAuthAdapter } = require('@blitzjs/auth');
+import manifest from './package.json' assert { type: 'json' };
 
 /** @type {import('next').NextConfig} */
 const config = {
     poweredByHeader: false,
+    generateEtags: false,
     reactStrictMode: true,
     trailingSlash: true,
     swcMinify: true,
-
+    productionBrowserSourceMaps: true,
+    compress: true,
+    experimental: {
+        esmExternals: true
+    },
     images: {
-        domains: ['www.ferrariclubsweden.se', 'api.ferrariclubsweden.se']
+        minimumCacheTTL: 60,
+        domains: ['www.ferrariclubsweden.se', 'api.ferrariclubsweden.se'],
+        deviceSizes: [650, 900, 1280, 1920],
+        imageSizes: [16, 32, 48, 64, 96, 128, 256, 384]
     },
     compiler: {
         styledComponents: true
     },
+    eslint: {
+        ignoreDuringBuilds: true
+    },
     env: {
+        DOMAIN: process.env.DOMAIN || 'www.ferrariclubsweden.se',
         VERSION: manifest.version
     },
     async redirects() {
@@ -52,7 +62,7 @@ const config = {
             },
             {
                 source: '/fonm',
-                destination: '/api/fonm/',
+                destination: '/wp/fonm/',
                 permanent: false
             },
 
@@ -60,31 +70,31 @@ const config = {
             // and weird edge cases.
             {
                 source: '/wordpress2016/wp-content/:any*',
-                destination: '/api/wp-content/:any*',
+                destination: '/wp/wp-content/:any*',
                 permanent: true
             },
             {
                 source: '/wordpress2016/:any*',
-                destination: '/api/:any*',
+                destination: '/wp/:any*',
                 permanent: true
             }
         ];
     },
     async rewrites() {
         return {
-            fallback: [
+            /*fallback: [
                 {
                     source: '/:any*',
-                    destination: `https://api.ferrariclubsweden.se/:any*/`
+                    destination: `https://api.ferrariclubsweden.se/:any* /`
                 }
-            ],
+            ],*/
             afterFiles: [
                 {
-                    source: '/api/wp-content/:any*',
+                    source: '/wp/wp-content/:any*',
                     destination: 'https://api.ferrariclubsweden.se/wp-content/:any*'
                 },
                 {
-                    source: '/api/:any*',
+                    source: '/wp/:any*',
                     destination: 'https://api.ferrariclubsweden.se/:any*/'
                 },
                 {
@@ -93,7 +103,8 @@ const config = {
                 }
             ]
         };
-    }
+    },
+    pageExtensions: ['ts', 'tsx']
 };
 
-module.exports = withBlitz(withNextAuthAdapter(config));
+export default config;

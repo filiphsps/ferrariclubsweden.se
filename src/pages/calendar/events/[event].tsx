@@ -174,7 +174,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
     return { paths: [], fallback: 'blocking' };
 };
 
-const styleBlacklist = ['mec-font-icons-css', 'mec-google-fonts-css'];
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     const id = params!.event as string;
 

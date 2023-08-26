@@ -28,7 +28,7 @@ const FrameComponent: FunctionComponent<FrameComponentProps> = ({ path }) => {
                     setFrameHeight(height);
                 }}
                 height={!frameHeight ? '100%' : `${frameHeight}px`}
-                src={`/api/${path}?iframe`}
+                src={`/wp/${path}?iframe`}
             />
         </Contaier>
     );

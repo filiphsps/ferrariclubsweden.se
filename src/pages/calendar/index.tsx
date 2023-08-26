@@ -2,9 +2,7 @@
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { PageApi, WPPage } from '@/api/page';
 
-import { Frame } from '@/components/layout/frame';
 import { FunctionComponent } from 'react';
-import Head from 'next/head';
 import { MuffinComponents } from '@/components/MuffinComponents';
 import { NextSeo } from 'next-seo';
 import { Page } from '@/components/Page';
@@ -53,7 +51,7 @@ const CalendarPage: FunctionComponent<InferGetStaticPropsType<typeof getStaticPr
     );
 };
 
-export const getStaticProps: GetStaticProps<WPPage> = async ({ params }) => {
+export const getStaticProps: GetStaticProps<WPPage> = async ({}) => {
     const page = await PageApi({
         uri: `/kalender/`
     });

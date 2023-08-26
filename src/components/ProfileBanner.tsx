@@ -4,7 +4,6 @@ import MissingAvatarImage from '../../public/img/missing-avatar.png';
 import { SubTitle } from './SubTitle';
 import { Title } from './Title';
 import styled from 'styled-components';
-import { useUser } from '../hooks/useUser';
 
 const Contaier = styled.section`
     width: 100%;
@@ -50,8 +49,6 @@ const Meta = styled.div`
 
 export type ProfileBannerProps = {};
 export const ProfileBanner: FunctionComponent<ProfileBannerProps> = ({}) => {
-    const { user } = useUser();
-
     return (
         <Contaier>
             <Content>
@@ -59,8 +56,8 @@ export const ProfileBanner: FunctionComponent<ProfileBannerProps> = ({}) => {
                     <Image src={MissingAvatarImage} alt="Avatar" />
                 </Avatar>
                 <Meta>
-                    <Title>{user?.name}</Title>
-                    <SubTitle>{user?.status}</SubTitle>
+                    <Title>{'Name'}</Title>
+                    <SubTitle>{'status'}</SubTitle>
                 </Meta>
             </Content>
         </Contaier>

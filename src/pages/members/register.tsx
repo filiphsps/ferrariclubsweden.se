@@ -39,18 +39,6 @@ const ContentContainer = styled.section`
         font-family: 'Poppins', sans-serif;
     }
 `;
-const Form = styled.div`
-    display: flex;
-    flex-direction: column;
-
-    input {
-        margin-bottom: 0.5rem;
-    }
-
-    button {
-        margin-top: 1rem;
-    }
-`;
 
 const Sidebar = styled.div`
     background: var(--color-block);
@@ -64,24 +52,6 @@ const Sidebar = styled.div`
 
     @media (max-width: 992px) {
         display: none;
-    }
-`;
-
-const Notice = styled.footer`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.25rem;
-    text-align: center;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600;
-    color: var(--color-block);
-
-    p {
-        opacity: 0.85;
-    }
-
-    a {
     }
 `;
 

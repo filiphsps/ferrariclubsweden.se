@@ -75,10 +75,7 @@ export type ImageBlocksProps = {
         children: JSX.Element | JSX.Element[];
     }>;
 };
-export const ImageBlocks: FunctionComponent<ImageBlocksProps> = ({
-    id,
-    blocks
-}) => {
+export const ImageBlocks: FunctionComponent<ImageBlocksProps> = ({ id, blocks }) => {
     return (
         <Contaier id={id}>
             {blocks.map((block, index) => (

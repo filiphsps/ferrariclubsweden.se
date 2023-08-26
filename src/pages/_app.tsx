@@ -1,8 +1,6 @@
 import 'destyle.css';
 import '../style/base.css';
 
-import { AuthenticationError, AuthorizationError } from 'blitz';
-import { ErrorBoundary, ErrorComponent, ErrorFallbackProps } from '@blitzjs/next';
 import Router, { useRouter } from 'next/router';
 
 import { ApolloProvider } from '@apollo/client';
@@ -14,7 +12,7 @@ import NProgress from 'nprogress';
 import { PageProvider } from '@/components/PageProvider';
 import SEO from 'nextseo.config';
 import { SWRConfig } from 'swr';
-import { withBlitz } from '@/blitz/client';
+import { SessionProvider } from 'next-auth/react';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
@@ -23,17 +21,7 @@ Router.events.on('routeChangeError', (err) => {
     NProgress.done();
 });
 
-const RootErrorFallback = ({ error }: ErrorFallbackProps) => {
-    if (error instanceof AuthenticationError) {
-        return <div>Error: You are not authenticated</div>;
-    } else if (error instanceof AuthorizationError) {
-        return <ErrorComponent statusCode={error.statusCode} title="Sorry, you are not authorized to access this" />;
-    } else {
-        return <ErrorComponent statusCode={(error as any)?.statusCode || 400} title={error.message || error.name} />;
-    }
-};
-
-const App = ({ Component, pageProps }: AppProps) => {
+const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
     const router = useRouter();
 
     return (
@@ -46,17 +34,17 @@ const App = ({ Component, pageProps }: AppProps) => {
                 <link rel="icon" type="image/png" href="/img/logo.png" />
             </Head>
 
-            <SWRConfig>
-                <ApolloProvider client={Client}>
-                    <PageProvider>
-                        <ErrorBoundary FallbackComponent={RootErrorFallback}>
+            <SessionProvider session={session}>
+                <SWRConfig>
+                    <ApolloProvider client={Client}>
+                        <PageProvider>
                             <Component key={router.asPath} {...pageProps} />
-                        </ErrorBoundary>
-                    </PageProvider>
-                </ApolloProvider>
-            </SWRConfig>
+                        </PageProvider>
+                    </ApolloProvider>
+                </SWRConfig>
+            </SessionProvider>
         </>
     );
 };
 
-export default withBlitz(App);
+export default App;

@@ -10,7 +10,6 @@ import { Page } from '@/components/Page';
 import { SubTitle } from '@/components/SubTitle';
 import { Title } from '@/components/Title';
 import styled from 'styled-components';
-import { useUser } from '@/hooks/useUser';
 
 const Container = styled.div`
     display: grid;
@@ -92,11 +91,6 @@ const Notice = styled.footer`
 
 interface MembersLoginPageProps {}
 const MembersLoginPage: FunctionComponent<MembersLoginPageProps> = () => {
-    const { authenticate } = useUser({
-        redirectTo: '/',
-        redirectIfFound: true
-    });
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     return (
@@ -133,7 +127,7 @@ const MembersLoginPage: FunctionComponent<MembersLoginPageProps> = () => {
                                 type="button"
                                 onClick={async () => {
                                     try {
-                                        await authenticate(email, password);
+                                        //await authenticate(email, password);
                                         window.location.pathname = '/';
                                     } catch {
                                         alert('Felaktiga uppgifter.');

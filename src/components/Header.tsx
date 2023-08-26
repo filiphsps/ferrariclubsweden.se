@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import LogoImage from '../../public/img/logo.png';
 import styled from 'styled-components';
-import { useUser } from '../hooks/useUser';
 
 const Contaier = styled.header`
     grid-area: header;
@@ -114,18 +113,9 @@ export type HeaderProps = {
     navigationMenuOpen?: boolean;
     toggleMenu: () => void;
 };
-export const Header: FunctionComponent<HeaderProps> = ({
-    toggleMenu,
-    sticky,
-    navigationMenuOpen
-}) => {
-    const { user } = useUser({});
+export const Header: FunctionComponent<HeaderProps> = ({ toggleMenu, sticky, navigationMenuOpen }) => {
     return (
-        <Contaier
-            className={`${sticky ? 'sticky' : ''} ${
-                navigationMenuOpen ? 'hide' : ''
-            }`}
-        >
+        <Contaier className={`${sticky ? 'sticky' : ''} ${navigationMenuOpen ? 'hide' : ''}`}>
             <ContentWrapper>
                 <Content>
                     <MenuToggle onClick={toggleMenu}>
@@ -137,15 +127,13 @@ export const Header: FunctionComponent<HeaderProps> = ({
                         </Link>
                     </Logo>
                     <Actions>
-                        {user?.isLoggedIn ? (
+                        {false ? (
                             <>
                                 <NavigationItem>
                                     <Link href="/members/">Medlemsida</Link>
                                 </NavigationItem>
                                 <NavigationItem>
-                                    <Link href="/members/logout/">
-                                        Logga Ut
-                                    </Link>
+                                    <Link href="/members/logout/">Logga Ut</Link>
                                 </NavigationItem>
                             </>
                         ) : (
@@ -154,9 +142,7 @@ export const Header: FunctionComponent<HeaderProps> = ({
                                     <Link href="/members/login/">Logga In</Link>
                                 </NavigationItem>
                                 <NavigationItem>
-                                    <Link href="/members/register/">
-                                        Bli Medlem
-                                    </Link>
+                                    <Link href="/members/register/">Bli Medlem</Link>
                                 </NavigationItem>
                             </>
                         )}

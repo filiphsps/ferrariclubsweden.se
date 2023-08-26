@@ -2,7 +2,6 @@ import { FunctionComponent } from 'react';
 import Image from 'next/image';
 import Logo from '../../public/img/logo.png';
 import styled from 'styled-components';
-import { useUser } from '../hooks/useUser';
 
 const Contaier = styled.div`
     height: 100%;
@@ -54,8 +53,6 @@ const LogoContainer = styled.div`
 
 export type CardProps = {};
 export const Card: FunctionComponent<CardProps> = ({}) => {
-    const { user } = useUser();
-
     return (
         <Contaier>
             <Content>
