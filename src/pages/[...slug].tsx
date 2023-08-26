@@ -1,7 +1,7 @@
-import { FunctionComponent, useEffect } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 
 import ErrorPage from 'next/error';
+import { FunctionComponent } from 'react';
 import { MuffinComponents } from '@/components/MuffinComponents';
 import { NextSeo } from 'next-seo';
 import { Page } from '@/components/Page';
@@ -12,7 +12,6 @@ import { getCanonicalPath } from '@/api/client';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
-import { useUser } from '@/hooks/useUser';
 
 const Container = styled.div`
     width: 100%;
@@ -44,14 +43,9 @@ interface CustomPageProps {
 }
 const CustomPage: FunctionComponent<CustomPageProps> = ({ page, post }) => {
     const router = useRouter();
-    const { user } = useUser();
-    const { data, error, mutate } = useSWR([router.asPath], () => PageApi({ uri: router.asPath }), {
+    const { data, error } = useSWR([router.asPath], () => PageApi({ uri: router.asPath }), {
         fallbackData: page
     });
-
-    useEffect(() => {
-        mutate();
-    }, [user, mutate]);
 
     if (post) {
         const { title } = post;
@@ -137,7 +131,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             },
             revalidate: 10
         };
-    } catch (error) {
+    } catch (error: any) {
         if (error?.statusCode && error.statusCode === 404)
             return {
                 notFound: true

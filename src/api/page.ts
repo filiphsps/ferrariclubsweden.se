@@ -50,15 +50,16 @@ export const PageApi = async ({ uri }: PageApiProps): Promise<WPPage> => {
             }
 
             const page = data.page;
-            resolve({
+            return resolve({
                 ...page,
                 content: ((page?.content as string) || '')
                     .replaceAll('http://', 'https://')
                     .replaceAll('ferrariclubsweden.com', 'ferrariclubsweden.se')
                     .replaceAll('https://www.ferrariclubsweden.se/', '/')
-                    .replaceAll('https://api.ferrariclubsweden.se/wordpress2016/', '/api/')
-                    .replaceAll('https://api.ferrariclubsweden.se/', '/api/')
-                    .replaceAll('/api/events/', '/events/'),
+                    .replaceAll('https://api.ferrariclubsweden.se/wordpress2016/', '/wp/')
+                    .replaceAll('https://api.ferrariclubsweden.se/', '/wp/')
+                    .replaceAll('/api/events/', '/events/')
+                    .replaceAll('/wp/events/', '/events/'),
                 mfnItems: ((page?.mfnItems as string) || '')
                     .replaceAll('http:', 'https:')
                     .replaceAll('ferrariclubsweden.com', 'ferrariclubsweden.se')
@@ -68,7 +69,7 @@ export const PageApi = async ({ uri }: PageApiProps): Promise<WPPage> => {
             });
         } catch (error) {
             console.error(error);
-            reject({
+            return reject({
                 statusCode: 500
             });
         }

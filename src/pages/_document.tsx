@@ -1,29 +1,27 @@
 /* eslint-disable @next/next/no-css-tags */
-import Document, { Head, Html, Main, NextScript } from 'next/document';
+import type { DocumentContext, DocumentInitialProps } from 'next/document';
+import NextDocument, { Head, Html, Main, NextScript } from 'next/document';
 
 import { ServerStyleSheet } from 'styled-components';
 
-class App extends Document {
-    static async getInitialProps(ctx: any) {
+class Document extends NextDocument {
+    static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {
         const sheet = new ServerStyleSheet();
         const originalRenderPage = ctx.renderPage;
 
         try {
             ctx.renderPage = () =>
                 originalRenderPage({
-                    enhanceApp: (App: any) => (props: any) => sheet.collectStyles(<App {...props} />)
+                    enhanceApp: (App) => (props) => sheet.collectStyles(<App {...props} />)
                 });
 
-            const initialProps = await Document.getInitialProps(ctx);
+            const initialProps = await NextDocument.getInitialProps(ctx);
+            const styles = [initialProps.styles, sheet.getStyleElement()];
+
             return {
                 ...initialProps,
-                styles: (
-                    <>
-                        {initialProps.styles}
-                        {sheet.getStyleElement()}
-                    </>
-                )
-            } as any;
+                styles: styles
+            };
         } finally {
             sheet.seal();
         }
@@ -31,27 +29,21 @@ class App extends Document {
 
     render() {
         return (
-            <Html>
+            <Html lang="en">
                 <Head>
-                    <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
-                    <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-                    <link
-                        href="https://fonts.googleapis.com/css2?family=PT+Sans&family=Poppins:wght@400;500;600&display=swap"
-                        rel="stylesheet"
-                    />
+                    <meta name="format-detection" content="telephone=no, date=no, email=no, address=no" />
 
-                    {/* TODO: Only render these under /calendar/ */}
                     <link
                         rel="stylesheet"
                         id="mec-font-icons-css"
-                        href="/api/wp-content/plugins/modern-events-calendar/assets/css/iconfonts.css?ver=6.2.1"
+                        href="/wp/wp-content/plugins/modern-events-calendar/assets/css/iconfonts.css?ver=6.2.1"
                         type="text/css"
                         media="all"
                     />
                     <link
                         rel="stylesheet"
                         id="mec-frontend-style-css"
-                        href="/api/wp-content/plugins/modern-events-calendar/assets/css/frontend.min.css?ver=6.2.1"
+                        href="/wp/wp-content/plugins/modern-events-calendar/assets/css/frontend.min.css?ver=6.2.1"
                         type="text/css"
                         media="all"
                     />
@@ -65,4 +57,4 @@ class App extends Document {
     }
 }
 
-export default App;
+export default Document;

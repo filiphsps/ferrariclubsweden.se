@@ -2,7 +2,6 @@ import { FunctionComponent } from 'react';
 import { NextSeo } from 'next-seo';
 import { Page } from '@/components/Page';
 import styled from 'styled-components';
-import { useUser } from '@/hooks/useUser';
 
 const Container = styled.div`
     width: 100%;
@@ -23,46 +22,14 @@ const Content = styled.div`
     }
 `;
 
-const Sidebar = styled.section`
-    height: 100%;
-    width: 16rem;
-    padding: 1rem;
-    background: var(--color-block-body);
-    border-radius: 1rem;
-
-    @media (max-width: 992px) {
-        width: 100%;
-    }
-`;
-
-const Main = styled.section``;
-const CardContainer = styled.div`
-    position: relative;
-    width: 100%;
-    max-width: 18rem;
-    height: 11rem;
-`;
-
 interface MemebersPageProps {}
 const MemebersPage: FunctionComponent<MemebersPageProps> = () => {
-    const { user } = useUser({ redirectTo: '/members/login' });
-
     return (
         <Page>
             <NextSeo title="För Medlemmar" />
 
             <Container>
-                <Content>
-                    {/*<Sidebar>
-                        <ProfileBanner />
-                    </Sidebar>
-                    <Main>
-                        <CardContainer>
-                            <Card />
-                        </CardContainer>
-                    </Main>*/}
-                    Kommer inom kort!
-                </Content>
+                <Content>Kommer inom kort!</Content>
             </Container>
         </Page>
     );

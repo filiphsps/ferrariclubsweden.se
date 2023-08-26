@@ -52,7 +52,7 @@ export const MenuApi = async (): Promise<any[]> => {
                     return path
                         .replaceAll('http://https://', 'https://') // Bug from the WordPress backend.
                         .replaceAll('http://', 'https://')
-                        .replaceAll('https://api.ferrariclubsweden.se/', '/api/');
+                        .replaceAll('https://api.ferrariclubsweden.se/', '/wp/');
                 }
 
                 return getCanonicalPath(path);

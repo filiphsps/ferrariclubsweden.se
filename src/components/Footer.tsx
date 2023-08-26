@@ -61,28 +61,18 @@ export const Footer: FunctionComponent<FooterProps> = () => {
         <Contaier>
             <Content>
                 <Trademark>
+                    <span>Ferrari is a trademark of Ferrari S.p.A. used under license.</span>
                     <span>
-                        Ferrari is a trademark of Ferrari S.p.A. used under
-                        license.
-                    </span>
-                    <span>
-                        Ferrari S.p.A. - A company under Italian law, having its
-                        registered office at Via Emilia Est No. 1163, Modena,
-                        Italy, Companies’ Register of Modena, VAT and Tax number
-                        00159560366 and share capital of Euro 20,260,000
+                        Ferrari S.p.A. - A company under Italian law, having its registered office at Via Emilia Est No.
+                        1163, Modena, Italy, Companies’ Register of Modena, VAT and Tax number 00159560366 and share
+                        capital of Euro 20,260,000
                     </span>
                 </Trademark>
             </Content>
             <Copyrights>
+                <span>&copy; {new Date().getFullYear()} Ferrari Club Sweden - All rights reserved.</span>
                 <span>
-                    &copy; {new Date().getFullYear()} Ferrari Club Sweden - All
-                    rights reserved.
-                </span>
-                <span>
-                    Website built and maintained by{' '}
-                    <Link href="https://nordcom.io/">
-                        Nordcom Group Inc.
-                    </Link>
+                    Website built and maintained by <Link href="https://nordcom.io/">Nordcom Group Inc.</Link>
                 </span>
             </Copyrights>
         </Contaier>

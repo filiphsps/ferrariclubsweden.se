@@ -14,10 +14,10 @@ import Slide3 from '../../public/img/carousel/slide-3.jpg';
 import { Title } from '../components/Title';
 import styled from 'styled-components';
 
-const Slider = styled(Carousel)`
+/*const Slider = styled(Carousel)`
     width: 100%;
     max-width: 100%;
-`;
+`;*/
 const Slide = styled.div`
     z-index: -1;
     height: calc(100vh - 2rem);
@@ -113,7 +113,7 @@ const IndexPage: FunctionComponent<IndexPageProps> = () => {
             <NextSeo title="Hem" />
 
             <Header>
-                <Slider
+                <Carousel
                     autoPlay
                     infiniteLoop
                     animationHandler="fade"
@@ -125,6 +125,13 @@ const IndexPage: FunctionComponent<IndexPageProps> = () => {
                     showIndicators={false}
                     showStatus={false}
                     showThumbs={false}
+                    axis="horizontal"
+                    centerSlidePercentage={0}
+                    labels={{
+                        leftArrow: '',
+                        rightArrow: '',
+                        item: ''
+                    }}
                 >
                     <Slide>
                         <Image src={Slide1} alt="Ferrari" loading="eager" />
@@ -135,7 +142,7 @@ const IndexPage: FunctionComponent<IndexPageProps> = () => {
                     <Slide>
                         <Image src={Slide3} alt="Gruppträff" />
                     </Slide>
-                </Slider>
+                </Carousel>
 
                 <HeaderContent>
                     <HeaderContentContainer>

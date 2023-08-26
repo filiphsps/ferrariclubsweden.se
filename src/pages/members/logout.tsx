@@ -4,7 +4,6 @@ import { NextSeo } from 'next-seo';
 import { Page } from '@/components/Page';
 import { Title } from '@/components/Title';
 import styled from 'styled-components';
-import { useRouter } from 'next/router';
 
 const Container = styled.div`
     display: grid;
@@ -42,8 +41,6 @@ const ContentContainer = styled.section`
 
 interface MembersLogoutPageProps {}
 const MembersLogoutPage: FunctionComponent<MembersLogoutPageProps> = () => {
-    const router = useRouter();
-
     useEffect(() => {
         localStorage.removeItem('auth_token');
 
