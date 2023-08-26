@@ -12,6 +12,12 @@ const Primary = styled.div`
     overflow-y: auto;
     overflow-x: hidden;
 
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
     @media (min-width: 992px) {
         width: 33vw;
         min-width: 30rem;

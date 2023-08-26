@@ -25,26 +25,28 @@ body {
 
     color: var(--color-body);
     background: var(--color-block-body);
+
     font-size: 14px;
     line-height: 18px;
     font-family: 'Poppins', sans-serif;
     font-smooth: always;
+    -moz-osx-font-smoothing: always;
     -webkit-font-smoothing: antialiased ;
     
+    overscroll-behavior-x: none;
+    overscroll-behavior-y: auto;
     scroll-behavior: smooth;
+    touch-action: manipulation;
+
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
-* {
-    block-size: border-box;
-}
-
-.mec-wrap .mec-color,
-.mec-wrap .mec-color-before :before,
-.mec-wrap .mec-color-hover:hover {
-    color: var(--color-primary);
-}
-.mec-month-divider span:before {
-    border-color: var(--color-primary);
+*,
+*:before,
+*:after {
+    -webkit-box-sizing: inherit;
+    box-sizing: inherit;
 }
 
 h1 {
@@ -76,4 +78,26 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus, 
 input:-webkit-autofill:active{
     -webkit-box-shadow: 0 0 0 30px var(--color-block-body) inset !important;
+}
+
+
+.mec-wrap p,
+.mec-wrap .mec-single-title {
+    color: inherit;
+    font-family: inherit;
+}
+
+.mec-wrap p {
+    font-weight: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.mec-wrap .mec-color,
+.mec-wrap .mec-color-before :before,
+.mec-wrap .mec-color-hover:hover {
+    color: var(--color-primary);
+}
+.mec-month-divider span:before {
+    border-color: var(--color-primary);
 }

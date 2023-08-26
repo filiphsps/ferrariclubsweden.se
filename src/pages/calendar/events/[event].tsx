@@ -1,11 +1,10 @@
 /* eslint-disable @next/next/no-css-tags */
 import * as cheerio from 'cheerio';
 
-import { Fragment, FunctionComponent } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 
-import { Frame } from '@/components/layout/frame';
-import Head from 'next/head';
+import { FiChevronLeft } from 'react-icons/fi';
+import { FunctionComponent } from 'react';
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 import { Page } from '@/components/Page';
@@ -17,13 +16,10 @@ const Container = styled.div`
     max-width: 58rem;
 
     margin: 0px auto;
-    padding: 1rem;
+    padding: 2rem 1rem 1rem 1rem;
 `;
 
 const ContentContainer = styled.section`
-    p {
-        line-height: 1.15;
-    }
     a {
         color: var(--color-primary);
 
@@ -58,7 +54,33 @@ const ContentContainer = styled.section`
     }
 `;
 
-const ReturnHeader = styled.section``;
+const Header = styled.section`
+    --action-height: 2rem;
+    height: var(--action-height);
+`;
+const ReturnAction = styled(Link)`
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    height: var(--action-height);
+
+    line-height: 1;
+    font-size: 1.05rem;
+    text-transform: uppercase;
+    font-weight: 500;
+
+    color: var(--color-body-lighter);
+
+    svg,
+    span {
+        display: block;
+    }
+
+    svg {
+        font-size: 1.25rem;
+        margin: 0 -0.15rem 0 -0.3rem;
+    }
+`;
 
 interface EventPageProps {
     id: string;
@@ -71,9 +93,12 @@ const EventPage: FunctionComponent<EventPageProps> = ({ title, body }) => {
             <NextSeo title={`${title} | Event`} />
 
             <Container>
-                <ReturnHeader>
-                    <Link href="/calendar/"></Link>
-                </ReturnHeader>
+                <Header>
+                    <ReturnAction href="/calendar/">
+                        <FiChevronLeft />
+                        <span>Tillbaka</span>
+                    </ReturnAction>
+                </Header>
 
                 <ContentContainer
                     dangerouslySetInnerHTML={{
