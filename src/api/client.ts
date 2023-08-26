@@ -25,4 +25,22 @@ const Client = new ApolloClient({
     link: authLink.concat(httpLink)
 });
 
+export const redirects = [
+    ['/logga-ut/', '/members/logout/'],
+    ['/login/', '/members/login/'],
+    ['/medlemsskap/', '/members/register/'],
+    ['/medlemssida/', '/members/'],
+    ['/kalender/', '/calendar/']
+];
+export const getCanonicalPath = (path: string) => {
+    if (path === '/' || path === '#') return path;
+
+    const redirect = redirects.find((item) => item.at(0)!.startsWith(path));
+    if (redirect) {
+        return redirect[1];
+    }
+
+    return path;
+};
+
 export default Client;

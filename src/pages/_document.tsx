@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-css-tags */
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 
 import { ServerStyleSheet } from 'styled-components';
@@ -38,17 +39,19 @@ class App extends Document {
                         href="https://fonts.googleapis.com/css2?family=PT+Sans&family=Poppins:wght@400;500;600&display=swap"
                         rel="stylesheet"
                     />
+
+                    {/* TODO: Only render these under /calendar/ */}
                     <link
                         rel="stylesheet"
                         id="mec-font-icons-css"
-                        href="https://api.ferrariclubsweden.se/wp-content/plugins/modern-events-calendar/assets/css/iconfonts.css?ver=6.2.1"
+                        href="/api/wp-content/plugins/modern-events-calendar/assets/css/iconfonts.css?ver=6.2.1"
                         type="text/css"
                         media="all"
                     />
                     <link
                         rel="stylesheet"
                         id="mec-frontend-style-css"
-                        href="https://api.ferrariclubsweden.se/wp-content/plugins/modern-events-calendar/assets/css/frontend.min.css?ver=6.2.1"
+                        href="/api/wp-content/plugins/modern-events-calendar/assets/css/frontend.min.css?ver=6.2.1"
                         type="text/css"
                         media="all"
                     />

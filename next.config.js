@@ -53,8 +53,15 @@ module.exports = withBlitz({
                 destination: '/api/fonm/',
                 permanent: false
             },
+
+            // Last, any left-over stray WordPress URLs
+            // and weird edge cases.
             {
-                // Last, any left-over stray WordPress URLs
+                source: '/wordpress2016/wp-content/:any*',
+                destination: '/api/wp-content/:any*',
+                permanent: true
+            },
+            {
                 source: '/wordpress2016/:any*',
                 destination: '/api/:any*',
                 permanent: true
@@ -70,6 +77,10 @@ module.exports = withBlitz({
                 }
             ],
             afterFiles: [
+                {
+                    source: '/api/wp-content/:any*',
+                    destination: 'https://api.ferrariclubsweden.se/wp-content/:any*'
+                },
                 {
                     source: '/api/:any*',
                     destination: 'https://api.ferrariclubsweden.se/:any*/'

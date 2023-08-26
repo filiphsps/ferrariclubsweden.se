@@ -38,7 +38,9 @@ body {
     block-size: border-box;
 }
 
-.mec-wrap .mec-color {
+.mec-wrap .mec-color,
+.mec-wrap .mec-color-before :before,
+.mec-wrap .mec-color-hover:hover {
     color: var(--color-primary);
 }
 .mec-month-divider span:before {

@@ -8,6 +8,7 @@ import { Page } from '@/components/Page';
 import { PageApi } from '@/api/page';
 import { PostApi } from '@/api/post';
 import { Title } from '@/components/Title';
+import { getCanonicalPath } from '@/api/client';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
@@ -102,22 +103,25 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
     const slug = params!.slug as string[];
 
-    try {
-        if (slug.includes('login'))
-            return {
-                props: {},
-                redirect: {
-                    destination: '/members/login/'
-                }
-            };
+    const uri = `/${slug.join('/')}/`;
+    const canonical = getCanonicalPath(uri);
 
+    if (uri !== canonical)
+        return {
+            props: {},
+            redirect: {
+                destination: canonical
+            }
+        };
+
+    try {
         const page = await PageApi({
-            uri: `/${slug.join('/')}/`
+            uri
         });
 
         if (!page) {
             const post = await PostApi({
-                uri: `/${slug.join('/')}/`
+                uri
             });
             return {
                 props: {

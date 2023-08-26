@@ -150,15 +150,7 @@ export const NavigationMenu: FunctionComponent<NavigationMenuProps> = ({ open, t
                     .map((item) => ({
                         id: item.id,
                         title: item.label,
-
-                        // FIXME: Don't do this here ffs.
-                        href: item.path
-                            .replace('/logga-ut/', '/members/logout/')
-                            .replace('/login/', '/members/login/')
-                            .replace('/medlemssida/', '/members/')
-                            .replace('/medlemsskap/', '/members/register/')
-                            .replace('/kalender/', '/calendar/'),
-
+                        href: item.path,
                         level: item.level
                     }))
                     .map((item) => {

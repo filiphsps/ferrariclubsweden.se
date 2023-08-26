@@ -33,7 +33,6 @@ const ContentContainer = styled.div`
 `;
 
 const CalendarPage: FunctionComponent<InferGetStaticPropsType<typeof getStaticProps>> = ({
-    id,
     title,
     content,
     mfnItems
@@ -41,12 +40,6 @@ const CalendarPage: FunctionComponent<InferGetStaticPropsType<typeof getStaticPr
     return (
         <Page>
             <NextSeo title={title} />
-            <Head>
-                <link
-                    rel="stylesheet"
-                    href="https://api.ferrariclubsweden.se/wp-content/plugins/modern-events-calendar/assets/css/iconfonts.css"
-                />
-            </Head>
 
             <Container>
                 {mfnItems && <MuffinComponents data={JSON.parse(mfnItems)} />}

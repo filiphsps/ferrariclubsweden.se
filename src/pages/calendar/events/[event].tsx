@@ -1,11 +1,12 @@
 /* eslint-disable @next/next/no-css-tags */
 import * as cheerio from 'cheerio';
 
+import { Fragment, FunctionComponent } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 
 import { Frame } from '@/components/layout/frame';
-import { FunctionComponent } from 'react';
 import Head from 'next/head';
+import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 import { Page } from '@/components/Page';
 import styled from 'styled-components';
@@ -19,7 +20,7 @@ const Container = styled.div`
     padding: 1rem;
 `;
 
-const ContentContainer = styled.div`
+const ContentContainer = styled.section`
     p {
         line-height: 1.15;
     }
@@ -51,8 +52,13 @@ const ContentContainer = styled.div`
             padding: 0 0 0 0;
             margin: 0;
         }
+
+        .mec-event-meta {
+        }
     }
 `;
+
+const ReturnHeader = styled.section``;
 
 interface EventPageProps {
     id: string;
@@ -62,19 +68,13 @@ interface EventPageProps {
 const EventPage: FunctionComponent<EventPageProps> = ({ title, body }) => {
     return (
         <Page>
-            <NextSeo title={`${title} - Event`} />
-            <Head>
-                <link
-                    rel="stylesheet"
-                    href="https://api.ferrariclubsweden.se/wp-content/plugins/modern-events-calendar/assets/css/iconfonts.css"
-                />
-                <link
-                    rel="stylesheet"
-                    href="https://api.ferrariclubsweden.se/wp-content/plugins/modern-events-calendar/assets/css/frontend.min.css?ver=6.3"
-                />
-            </Head>
+            <NextSeo title={`${title} | Event`} />
 
             <Container>
+                <ReturnHeader>
+                    <Link href="/calendar/"></Link>
+                </ReturnHeader>
+
                 <ContentContainer
                     dangerouslySetInnerHTML={{
                         __html: body || ''
@@ -90,13 +90,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
     return { paths: [], fallback: 'blocking' };
 };
 
+const styleBlacklist = ['mec-font-icons-css', 'mec-google-fonts-css'];
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     const id = params!.event as string;
 
     const target = await fetch(`https://api.ferrariclubsweden.se/events/${id}?iframe`).then((res) => res.text());
     const dom = cheerio.load(target);
-    const title = dom('title').text().split(' - ').at(0);
-    const body = dom('#main-content').html();
+    const title = dom('title').text().replaceAll('–', '-').split(' - ').at(0);
+    const body = dom('#main-content').html()?.replaceAll(`href="http://"`, 'href="#"');
 
     return {
         props: {

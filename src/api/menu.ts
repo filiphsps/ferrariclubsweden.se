@@ -1,4 +1,5 @@
-import Client from './client';
+import Client, { getCanonicalPath } from './client';
+
 import { gql } from '@apollo/client';
 
 // FIXME: MenuModel
@@ -46,10 +47,22 @@ export const MenuApi = async (): Promise<any[]> => {
                 `
             });
 
+            const getCanonicalPathWrapper = (path: string) => {
+                if (path.includes('://')) {
+                    return path
+                        .replaceAll('http://https://', 'https://') // Bug from the WordPress backend.
+                        .replaceAll('http://', 'https://')
+                        .replaceAll('https://api.ferrariclubsweden.se/', '/api/');
+                }
+
+                return getCanonicalPath(path);
+            };
+
             let res = data.menus.nodes[0].menuItems.nodes.map((item: any) => [
                 {
                     ...item,
                     level: 0,
+                    path: getCanonicalPathWrapper(item.path),
                     childItems: undefined
                 },
                 ...item.childItems.nodes
@@ -57,6 +70,7 @@ export const MenuApi = async (): Promise<any[]> => {
                         { ...item, childItems: undefined, level: 1 },
                         ...item.childItems.nodes.map((item: any) => ({
                             ...item,
+                            path: getCanonicalPathWrapper(item.path),
                             level: 2
                         }))
                     ])
