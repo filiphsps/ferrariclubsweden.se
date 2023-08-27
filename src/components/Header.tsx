@@ -159,7 +159,7 @@ export const Header: FunctionComponent<HeaderProps> = ({ toggleMenu, sticky, nav
                     </Actions>
 
                     <AccountToggle>
-                        <Link href="/members/">
+                        <Link href="/members/profile/">
                             <FiUser />
                         </Link>
                     </AccountToggle>
