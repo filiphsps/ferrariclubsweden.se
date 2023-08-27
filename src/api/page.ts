@@ -66,8 +66,8 @@ export const PageApi = async ({ uri }: PageApiProps): Promise<WPPage> => {
                     .replaceAll('http:', 'https:')
                     .replaceAll('ferrariclubsweden.com', 'ferrariclubsweden.se')
                     .replaceAll('https:\\/\\/www.ferrariclubsweden.se\\/', '\\/')
-                    .replaceAll('https:\\/\\/api.ferrariclubsweden.se\\/wordpress2016\\/', '\\/api\\/')
-                    .replaceAll('https:\\/\\/api.ferrariclubsweden.se\\/', '\\/api\\/')
+                    .replaceAll('https:\\/\\/api.ferrariclubsweden.se\\/wordpress2016\\/', '\\/wp\\/')
+                    .replaceAll('https:\\/\\/api.ferrariclubsweden.se\\/', '\\/wp\\/')
             });
         } catch (error) {
             console.error(error);

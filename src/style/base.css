@@ -95,7 +95,8 @@ input:-webkit-autofill:active {
 .mec-wrap .mec-color-hover:hover {
     color: var(--color-primary);
 }
-.mec-month-divider span:before {
+.mec-month-divider span:before,
+.mec-single-event .mec-frontbox-title:before {
     border-color: var(--color-primary);
 }
 

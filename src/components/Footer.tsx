@@ -22,7 +22,6 @@ const Trademark = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-top: 1rem;
     text-align: center;
     font-size: 0.75rem;
     opacity: 0.75;

@@ -88,10 +88,6 @@ const ContentContainer = styled.section`
 
                 &.mec-frontbox {
                     padding: 1rem;
-
-                    @media (min-width: 992px) {
-                        padding: 1.5rem;
-                    }
                 }
 
                 div[class^='mec-'] {
@@ -101,11 +97,10 @@ const ContentContainer = styled.section`
                         margin-bottom: 0;
                     }
                 }
-
-                @media (min-width: 992px) {
-                    position: sticky;
-                    top: 2rem;
-                }
+            }
+            .mec-attendees-list-details {
+                margin-top: 1rem;
+                margin-bottom: 0;
             }
         }
     }

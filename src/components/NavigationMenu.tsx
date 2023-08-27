@@ -9,6 +9,9 @@ const Primary = styled.div`
     background: var(--color-block-body);
     width: 100%;
     height: 100vh;
+    height: 100dvh;
+    max-height: 100vh;
+    max-height: 100dvh;
     overflow-y: auto;
     overflow-x: hidden;
 
