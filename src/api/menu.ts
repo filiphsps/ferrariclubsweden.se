@@ -7,7 +7,9 @@ export const MenuApi = async (): Promise<any[]> => {
     return new Promise(async (resolve, reject) => {
         try {
             // TODO: Pass auth with this
-            const { data } = await Client.query({
+            const { data } = await (
+                await Client()
+            ).query({
                 query: gql`
                     query PAGE_QUERY {
                         menus(where: { location: MAIN_MENU }) {

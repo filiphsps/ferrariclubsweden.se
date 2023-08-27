@@ -4,7 +4,9 @@ import { FunctionComponent } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import LogoImage from '../../public/img/logo.png';
+import { Session } from '@/api/auth';
 import styled from 'styled-components';
+import { useSession } from 'next-auth/react';
 
 const Contaier = styled.header`
     grid-area: header;
@@ -114,6 +116,9 @@ export type HeaderProps = {
     toggleMenu: () => void;
 };
 export const Header: FunctionComponent<HeaderProps> = ({ toggleMenu, sticky, navigationMenuOpen }) => {
+    const { data } = useSession();
+    const session = data as Session;
+
     return (
         <Contaier className={`${sticky ? 'sticky' : ''} ${navigationMenuOpen ? 'hide' : ''}`}>
             <ContentWrapper>
@@ -127,7 +132,7 @@ export const Header: FunctionComponent<HeaderProps> = ({ toggleMenu, sticky, nav
                         </Link>
                     </Logo>
                     <Actions>
-                        {false ? (
+                        {(session?.isLoggedIn && (
                             <>
                                 <NavigationItem>
                                     <Link href="/members/">Medlemsida</Link>
@@ -136,7 +141,7 @@ export const Header: FunctionComponent<HeaderProps> = ({ toggleMenu, sticky, nav
                                     <Link href="/members/logout/">Logga Ut</Link>
                                 </NavigationItem>
                             </>
-                        ) : (
+                        )) || (
                             <>
                                 <NavigationItem>
                                     <Link href="/members/login/">Logga In</Link>

@@ -1,28 +1,9 @@
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 
-import { setContext } from '@apollo/client/link/context';
+import { getSession } from 'next-auth/react';
 
 const httpLink = createHttpLink({
     uri: 'https://api.ferrariclubsweden.se/graphql'
-});
-
-const authLink = setContext((_, { headers }) => {
-    let token: string | null = null;
-    if (typeof window !== 'undefined') {
-        token = localStorage ? localStorage?.getItem?.('auth_token') : null;
-    }
-
-    return {
-        headers: {
-            ...headers,
-            authorization: token ? `Basic ${token}` : ''
-        }
-    };
-});
-
-const Client = new ApolloClient({
-    cache: new InMemoryCache(),
-    link: authLink.concat(httpLink)
 });
 
 export const redirects = [
@@ -42,5 +23,28 @@ export const getCanonicalPath = (path: string) => {
 
     return path;
 };
+
+export const GQLFetcher = async ({ headers }: any) => {
+    const session: any = await getSession();
+
+    return new ApolloClient({
+        cache: new InMemoryCache({
+            addTypename: false
+        }),
+        link: httpLink,
+        headers: {
+            ...(headers || {}),
+            ...((session?.authToken && {
+                Authorization: `Bearer ${session.authToken}`
+            }) ||
+                {})
+        }
+    });
+};
+
+const Client = async () => await GQLFetcher({}); /* new ApolloClient({
+    cache: new InMemoryCache(),
+    link: httpLink,
+});*/
 
 export default Client;

@@ -1,7 +1,9 @@
 import { FunctionComponent } from 'react';
 import { NextSeo } from 'next-seo';
 import { Page } from '@/components/Page';
+import { Session } from '@/api/auth';
 import styled from 'styled-components';
+import { useSession } from 'next-auth/react';
 
 const Container = styled.div`
     width: 100%;
@@ -24,12 +26,17 @@ const Content = styled.div`
 
 interface MemebersPageProps {}
 const MemebersPage: FunctionComponent<MemebersPageProps> = () => {
+    const { data } = useSession();
+    const session = data as Session;
+
+    console.debug('MemebersPage', session);
+
     return (
         <Page>
             <NextSeo title="För Medlemmar" />
 
             <Container>
-                <Content>Kommer inom kort!</Content>
+                <Content>{session?.user?.email} Kommer inom kort!</Content>
             </Container>
         </Page>
     );

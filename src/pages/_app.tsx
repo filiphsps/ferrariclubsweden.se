@@ -3,9 +3,9 @@ import '../style/base.css';
 
 import Router, { useRouter } from 'next/router';
 
-import { ApolloProvider } from '@apollo/client';
+//import { ApolloProvider } from '@apollo/client';
 import type { AppProps } from 'next/app';
-import Client from '@/api/client';
+//import Client from '@/api/client';
 import { DefaultSeo } from 'next-seo';
 import Head from 'next/head';
 import NProgress from 'nprogress';
@@ -36,11 +36,11 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
 
             <SessionProvider session={session}>
                 <SWRConfig>
-                    <ApolloProvider client={Client}>
-                        <PageProvider>
-                            <Component key={router.asPath} {...pageProps} />
-                        </PageProvider>
-                    </ApolloProvider>
+                    {/*<ApolloProvider client={Client}>*/}
+                    <PageProvider>
+                        <Component key={router.asPath} {...pageProps} />
+                    </PageProvider>
+                    {/*</ApolloProvider>*/}
                 </SWRConfig>
             </SessionProvider>
         </>
