@@ -33,11 +33,11 @@ export const GQLFetcher = async ({ headers }: any) => {
         }),
         link: httpLink,
         headers: {
-            ...(headers || {}),
             ...((session?.authToken && {
                 Authorization: `Bearer ${session.authToken}`
             }) ||
-                {})
+                {}),
+            ...(headers || {})
         }
     });
 };

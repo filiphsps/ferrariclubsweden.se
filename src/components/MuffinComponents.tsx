@@ -234,7 +234,7 @@ const MuffinSection: FunctionComponent<MuffinSectionProps> = ({ data }) => {
                 paddingTop: attr?.padding_top ? `${attr.padding_top}px` : '0px',
                 paddingBottom: attr?.padding_bottom ? `${attr.padding_bottom}px` : '0px'
             }}
-            hide={attr?.hide === '1'}
+            hide={attr?.hide === '1' || undefined}
         >
             <SectionWrapper>
                 {Array.isArray(data.wraps) &&
