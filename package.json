@@ -84,7 +84,7 @@
         "react-icons": "4.10.1",
         "react-responsive-carousel": "3.2.23",
         "styled-components": "6.0.7",
-        "swr": "2.2.1",
+        "swr": "2.2.2",
         "typescript": "5.2.2"
     }
 }
