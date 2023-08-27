@@ -34,6 +34,9 @@ export default NextAuth({
                 };
             }
 
+            // TODO: Handle expiry
+            if (token?.authToken) return token;
+
             try {
                 if (token?.refreshToken) {
                     // if we have a refresh token, we'll try to get a new auth token.
@@ -59,11 +62,10 @@ export default NextAuth({
             return token;
         },
         session: async ({ session, token }: { session: Session; token: any }) => {
-            //console.log(token, session);
             // If we have an auth token, that means the user is logged in.
             if (token?.authToken) {
                 session.isLoggedIn = true;
-                session.user = token.userData;
+                session.user = token.user;
                 session.authToken = token.authToken;
                 // We don't store the refresh token, since we don't need it in our frontend.
             } else {
@@ -82,7 +84,7 @@ export default NextAuth({
         strategy: 'jwt'
     },
     pages: {
-        signIn: '/members/login'
-        //signOut: '/members/logout'
+        signIn: '/members/login',
+        signOut: '/members/logout'
     }
 });

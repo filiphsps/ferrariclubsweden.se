@@ -135,7 +135,7 @@ export const Header: FunctionComponent<HeaderProps> = ({ toggleMenu, sticky, nav
                         {(session?.isLoggedIn && (
                             <>
                                 <NavigationItem>
-                                    <Link href="/members/">Medlemsida</Link>
+                                    <Link href="/members/">Medlemssida</Link>
                                 </NavigationItem>
                                 <NavigationItem>
                                     <Link href="/members/logout/">Logga Ut</Link>

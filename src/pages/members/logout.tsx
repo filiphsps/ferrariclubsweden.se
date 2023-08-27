@@ -1,5 +1,4 @@
-import { FunctionComponent, useEffect } from 'react';
-
+import { FunctionComponent } from 'react';
 import { NextSeo } from 'next-seo';
 import { Page } from '@/components/Page';
 import { Title } from '@/components/Title';
@@ -41,14 +40,6 @@ const ContentContainer = styled.section`
 
 interface MembersLogoutPageProps {}
 const MembersLogoutPage: FunctionComponent<MembersLogoutPageProps> = () => {
-    useEffect(() => {
-        localStorage.removeItem('auth_token');
-
-        setTimeout(() => {
-            window.location.pathname = '';
-        }, 1500);
-    }, []);
-
     return (
         <Page>
             <NextSeo title="Logga Ut" />

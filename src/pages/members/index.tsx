@@ -8,19 +8,37 @@ import { useSession } from 'next-auth/react';
 const Container = styled.div`
     width: 100%;
     height: 100%;
-    background: var(--color-light-background);
-    padding: 1rem;
+    max-width: var(--size-page-width);
+
+    margin: 0px auto;
+    padding: 2rem 1rem 1rem 1rem;
 `;
 
 const Content = styled.div`
-    display: grid;
-    grid-template-columns: auto 1fr;
-    grid-gap: 1rem;
-    max-width: var(--size-page-width);
-    margin: 0px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+`;
 
-    @media (max-width: 992px) {
-        grid-template-columns: 1fr;
+const Title = styled.h1`
+    margin-bottom: 1rem;
+
+    font-family: var(--font-secondary);
+    font-size: clamp(2rem, 8vw, 5rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0;
+    text-transform: uppercase;
+
+    color: var(--color-body-lighter);
+
+    @media (min-width: 992px) {
+        font-size: 2.25rem;
+    }
+`;
+const Explainer = styled.div`
+    p {
+        margin-bottom: 1rem;
     }
 `;
 
@@ -36,7 +54,12 @@ const MemebersPage: FunctionComponent<MemebersPageProps> = () => {
             <NextSeo title="För Medlemmar" />
 
             <Container>
-                <Content>{session?.user?.email} Kommer inom kort!</Content>
+                <Content>
+                    <Title>Hej {session?.user?.firstName || session?.user?.name}!</Title>
+                    <Explainer>
+                        <p>Håll utkik här, för för nu går det riktigt fort.</p>
+                    </Explainer>
+                </Content>
             </Container>
         </Page>
     );

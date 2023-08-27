@@ -6,8 +6,10 @@ import { gql } from '@apollo/client';
 export type User = {
     id?: string | null;
     userId?: string | null;
-    name?: string | null;
     email?: string | null;
+    name?: string | null;
+    firstName?: string | null;
+    lastName?: string | null;
     image?: string | null;
 };
 
@@ -18,7 +20,7 @@ export type Session = NextAuthSession & {
     user?: User;
 };
 
-type FetchResult =
+/* type FetchResult =
     | {
           authToken: string;
           refreshToken: string;
@@ -29,9 +31,7 @@ type FetchResult =
           errors: Array<{
               message: string;
           }>;
-      };
-
-//FetchResult
+      }; */
 export default async function fetchAPI(query: any, { variables }: any = {}, headers: any = {}): Promise<any> {
     try {
         const { data, errors } = await (
@@ -56,7 +56,7 @@ export default async function fetchAPI(query: any, { variables }: any = {}, head
     }
 }
 
-const LOGIN = /* GraphQL */ gql`
+const LOGIN = gql`
     mutation Login($input: LoginInput!) {
         login(input: $input) {
             authToken
@@ -66,6 +66,8 @@ const LOGIN = /* GraphQL */ gql`
                 userId
                 email
                 name
+                firstName
+                lastName
             }
         }
     }
@@ -105,7 +107,7 @@ interface AuthRefreshTokenApiProps {
     refreshToken: any; // TODO: string;
 }
 export const AuthRefreshTokenApi = async ({ refreshToken }: AuthRefreshTokenApiProps) => {
-    const query = /* GraphQL */ gql`
+    const query = gql`
         mutation RefreshAuthToken($input: RefreshAuthTokenInput!) {
             refreshToken(input: $input) {
                 authToken

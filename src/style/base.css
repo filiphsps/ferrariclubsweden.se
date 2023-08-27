@@ -19,7 +19,7 @@ body {
     --color-block: #1b1b1b;
     --color-block-body: #fafafa;
     --color-body: #0e0e0e;
-    --color-body-lighter: #494949;
+    --color-body-lighter: #626262;
 
     --size-page-width: 1024px;
 
@@ -105,4 +105,8 @@ h1,
 .mec-wrap .mec-single-title {
     font-family: 'Ferrari', sans-serif;
     text-transform: uppercase;
+}
+
+p {
+    color: var(--color-body-lighter);
 }
