@@ -110,6 +110,14 @@ const AccountToggle = styled(MenuToggle)`
     }
 `;
 
+const HeaderLogo = styled(Image)`
+    user-select: none;
+
+    img {
+        user-select: none;
+    }
+`;
+
 export type HeaderProps = {
     sticky?: boolean;
     navigationMenuOpen?: boolean;
@@ -128,17 +136,14 @@ export const Header: FunctionComponent<HeaderProps> = ({ toggleMenu, sticky, nav
                     </MenuToggle>
                     <Logo>
                         <Link href="/">
-                            <Image src={LogoImage} alt="Ferrari Club Sweden" />
+                            <HeaderLogo src={LogoImage} alt="Ferrari Club Sweden" />
                         </Link>
                     </Logo>
                     <Actions>
                         {(session?.isLoggedIn && (
                             <>
                                 <NavigationItem>
-                                    <Link href="/members/">Medlemssida</Link>
-                                </NavigationItem>
-                                <NavigationItem>
-                                    <Link href="/members/logout/">Logga Ut</Link>
+                                    <Link href="/members/profile/">Medlemssida</Link>
                                 </NavigationItem>
                             </>
                         )) || (

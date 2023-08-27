@@ -38,12 +38,17 @@ const Title = styled.h1`
 `;
 const Explainer = styled.div`
     p {
-        margin-bottom: 1rem;
+        margin-bottom: 0.75rem;
+
+        font-size: 0.95rem;
+        line-height: 1.5;
+
+        color: var(--color-body-lighter);
     }
 `;
 
-interface MemebersPageProps {}
-const MemebersPage: FunctionComponent<MemebersPageProps> = () => {
+interface MemebersProfilePageProps {}
+const MemebersProfilePage: FunctionComponent<MemebersProfilePageProps> = () => {
     const { data } = useSession({
         required: true
     });
@@ -57,7 +62,7 @@ const MemebersPage: FunctionComponent<MemebersPageProps> = () => {
                 <Content>
                     <Title>Hej {session?.user?.firstName || session?.user?.name}!</Title>
                     <Explainer>
-                        <p>Håll utkik här, för för nu går det riktigt fort.</p>
+                        <p>Håll utkik här, för nu kommer de änna gå riktigt fort.</p>
                     </Explainer>
                 </Content>
             </Container>
@@ -65,4 +70,4 @@ const MemebersPage: FunctionComponent<MemebersPageProps> = () => {
     );
 };
 
-export default MemebersPage;
+export default MemebersProfilePage;

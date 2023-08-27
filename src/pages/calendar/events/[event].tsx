@@ -70,7 +70,10 @@ const ContentContainer = styled.section`
                     margin-bottom: 0px;
 
                     p {
-                        margin-bottom: 1rem;
+                        margin-bottom: 0.75rem;
+
+                        font-size: 0.95rem;
+                        line-height: 1.5;
                     }
 
                     & > :last-child {
