@@ -22,7 +22,9 @@ export const PageApi = async ({ uri }: PageApiProps): Promise<WPPage> => {
         // as we shouldn't show non-accessible pages.
 
         try {
-            const { data, errors, error } = await Client.query({
+            const { data, errors, error } = await (
+                await Client()
+            ).query({
                 query: gql`
                     query PAGE_QUERY {
                         page(id: "${uri}", idType: URI) {

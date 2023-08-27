@@ -12,7 +12,9 @@ export const PostApi = async ({ uri }: PostApiProps): Promise<any> => {
 
         if (uri != null) {
             try {
-                const { data } = await Client.query({
+                const { data } = await (
+                    await Client()
+                ).query({
                     query: gql`
                         query POST_QUERY {
                             post(id: "${uri}", idType: URI) {
@@ -35,7 +37,9 @@ export const PostApi = async ({ uri }: PostApiProps): Promise<any> => {
         }
 
         try {
-            const { data } = await Client.query({
+            const { data } = await (
+                await Client()
+            ).query({
                 query: gql`
                     query POSTS_QUERY {
                         posts {

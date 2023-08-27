@@ -1,7 +1,8 @@
-import { FunctionComponent, useState } from 'react';
+import type { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 
 import Background from '../../../public/img/carousel/slide-3.jpg';
 import { Button } from '@/components/Button';
+import { FunctionComponent } from 'react';
 import Image from 'next/image';
 import { Input } from '@/components/Input';
 import Link from 'next/link';
@@ -9,6 +10,7 @@ import { NextSeo } from 'next-seo';
 import { Page } from '@/components/Page';
 import { SubTitle } from '@/components/SubTitle';
 import { Title } from '@/components/Title';
+import { getCsrfToken } from 'next-auth/react';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -43,7 +45,7 @@ const ContentContainer = styled.section`
         font-family: 'Poppins', sans-serif;
     }
 `;
-const Form = styled.div`
+const Form = styled.form`
     display: flex;
     flex-direction: column;
 
@@ -89,10 +91,7 @@ const Notice = styled.footer`
     }
 `;
 
-interface MembersLoginPageProps {}
-const MembersLoginPage: FunctionComponent<MembersLoginPageProps> = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+const MembersLoginPage: FunctionComponent<InferGetServerSidePropsType<typeof getServerSideProps>> = ({ csrfToken }) => {
     return (
         <Page>
             <NextSeo title="Logga In" />
@@ -110,32 +109,13 @@ const MembersLoginPage: FunctionComponent<MembersLoginPageProps> = () => {
                             </SubTitle>
                         </div>
 
-                        <Form>
-                            <Input
-                                placeholder="Email"
-                                type="email"
-                                onChange={(e) => setEmail(e.target.value)}
-                                value={email}
-                            />
-                            <Input
-                                placeholder="Lösenord"
-                                type="password"
-                                onChange={(e) => setPassword(e.target.value)}
-                                value={password}
-                            />
-                            <Button
-                                type="button"
-                                onClick={async () => {
-                                    try {
-                                        //await authenticate(email, password);
-                                        window.location.pathname = '/';
-                                    } catch {
-                                        alert('Felaktiga uppgifter.');
-                                    }
-                                }}
-                            >
-                                Logga in
-                            </Button>
+                        <Form method="post" action="/api/auth/callback/credentials">
+                            <Input name="csrfToken" type="hidden" defaultValue={csrfToken} />
+
+                            <Input name="username" placeholder="E-mail eller Användarenamn" type="text" />
+                            <Input name="password" placeholder="Lösenord" type="password" />
+
+                            <Button type="submit">Logga in</Button>
                         </Form>
 
                         <Notice>
@@ -151,5 +131,13 @@ const MembersLoginPage: FunctionComponent<MembersLoginPageProps> = () => {
         </Page>
     );
 };
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+    return {
+        props: {
+            csrfToken: await getCsrfToken(context)
+        }
+    };
+}
 
 export default MembersLoginPage;
