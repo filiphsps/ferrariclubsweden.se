@@ -59,10 +59,11 @@ export default NextAuth({
             return token;
         },
         session: async ({ session, token }: { session: Session; token: any }) => {
+            //console.log(token, session);
             // If we have an auth token, that means the user is logged in.
             if (token?.authToken) {
                 session.isLoggedIn = true;
-                session.userData = token.userData;
+                session.user = token.userData;
                 session.authToken = token.authToken;
                 // We don't store the refresh token, since we don't need it in our frontend.
             } else {

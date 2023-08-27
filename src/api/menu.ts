@@ -80,8 +80,8 @@ export const MenuApi = async (): Promise<any[]> => {
             ]);
 
             resolve(res);
-        } catch (err) {
-            console.error(err);
+        } catch (error) {
+            console.error(error);
             reject();
         }
     });

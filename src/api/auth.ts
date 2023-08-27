@@ -1,25 +1,21 @@
+import type { ISODateString, Session as NextAuthSession } from 'next-auth';
+
 import { GQLFetcher } from './client';
-import type { Session as NextAuthSession } from 'next-auth';
 import { gql } from '@apollo/client';
 
 export type User = {
-    id: string;
-    authToken: string;
-    refreshToken: string;
-    userData: any;
+    id?: string | null;
+    userId?: string | null;
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
 };
 
 export type Session = NextAuthSession & {
     isLoggedIn?: boolean;
     authToken?: string;
-    userData?: any;
-    user?: {
-        id?: string | null;
-        userId?: string | null;
-        name?: string | null;
-        email?: string | null;
-        image?: string | null;
-    };
+    expires: ISODateString;
+    user?: User;
 };
 
 type FetchResult =
@@ -35,7 +31,8 @@ type FetchResult =
           }>;
       };
 
-export default async function fetchAPI(query: any, { variables }: any = {}, headers: any = {}): Promise<FetchResult> {
+//FetchResult
+export default async function fetchAPI(query: any, { variables }: any = {}, headers: any = {}): Promise<any> {
     try {
         const { data, errors } = await (
             await GQLFetcher({
@@ -101,14 +98,14 @@ export const AuthWithPasswordApi = async ({ username, password }: AuthWithPasswo
         throw new Error(res.errors[0].message);
     }
 
-    return res;
+    return res.login;
 };
 
 interface AuthRefreshTokenApiProps {
     refreshToken: any; // TODO: string;
 }
 export const AuthRefreshTokenApi = async ({ refreshToken }: AuthRefreshTokenApiProps) => {
-    const query = /* GraphQL */ `
+    const query = /* GraphQL */ gql`
         mutation RefreshAuthToken($input: RefreshAuthTokenInput!) {
             refreshToken(input: $input) {
                 authToken
@@ -122,7 +119,13 @@ export const AuthRefreshTokenApi = async ({ refreshToken }: AuthRefreshTokenApiP
         }
     };
 
-    const res = await fetchAPI(query, { variables });
+    const res = await fetchAPI(
+        query,
+        { variables },
+        {
+            Authorization: ''
+        }
+    );
 
     if (res?.errors) {
         throw new Error(res.errors[0].message);

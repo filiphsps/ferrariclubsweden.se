@@ -26,10 +26,10 @@ const Content = styled.div`
 
 interface MemebersPageProps {}
 const MemebersPage: FunctionComponent<MemebersPageProps> = () => {
-    const { data } = useSession();
+    const { data } = useSession({
+        required: true
+    });
     const session = data as Session;
-
-    console.debug('MemebersPage', session);
 
     return (
         <Page>

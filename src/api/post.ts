@@ -29,8 +29,8 @@ export const PostApi = async ({ uri }: PostApiProps): Promise<any> => {
                 });
 
                 resolve(data.post);
-            } catch (err) {
-                console.error(err);
+            } catch (error) {
+                console.error(error);
                 reject();
             }
             return;
@@ -57,8 +57,8 @@ export const PostApi = async ({ uri }: PostApiProps): Promise<any> => {
                 `
             });
             resolve(data.posts.edges);
-        } catch (err) {
-            console.error(err);
+        } catch (error) {
+            console.error(error);
             reject();
         }
     });

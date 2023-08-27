@@ -2,22 +2,20 @@ import 'destyle.css';
 import '../style/base.css';
 
 import Router, { useRouter } from 'next/router';
+import { StyleSheetManager, ThemeProvider } from 'styled-components';
 
-//import { ApolloProvider } from '@apollo/client';
 import type { AppProps } from 'next/app';
-//import Client from '@/api/client';
 import { DefaultSeo } from 'next-seo';
 import Head from 'next/head';
 import NProgress from 'nprogress';
 import { PageProvider } from '@/components/PageProvider';
 import SEO from 'nextseo.config';
-import { SWRConfig } from 'swr';
 import { SessionProvider } from 'next-auth/react';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
-Router.events.on('routeChangeError', (err) => {
-    console.error(err);
+Router.events.on('routeChangeError', (error) => {
+    console.error(error);
     NProgress.done();
 });
 
@@ -35,13 +33,13 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
             </Head>
 
             <SessionProvider session={session}>
-                <SWRConfig>
-                    {/*<ApolloProvider client={Client}>*/}
-                    <PageProvider>
-                        <Component key={router.asPath} {...pageProps} />
-                    </PageProvider>
-                    {/*</ApolloProvider>*/}
-                </SWRConfig>
+                <StyleSheetManager enableVendorPrefixes>
+                    <ThemeProvider theme={{}}>
+                        <PageProvider>
+                            <Component key={router.asPath} {...pageProps} />
+                        </PageProvider>
+                    </ThemeProvider>
+                </StyleSheetManager>
             </SessionProvider>
         </>
     );
