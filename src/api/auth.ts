@@ -38,7 +38,9 @@ type FetchResult =
 export default async function fetchAPI(query: any, { variables }: any = {}, headers: any = {}): Promise<FetchResult> {
     try {
         const { data, errors } = await (
-            await GQLFetcher({ headers })
+            await GQLFetcher({
+                headers: headers || {}
+            })
         ).mutate({
             mutation: query,
             variables
@@ -87,7 +89,13 @@ export const AuthWithPasswordApi = async ({ username, password }: AuthWithPasswo
         }
     };
 
-    const res = await fetchAPI(LOGIN, { variables });
+    const res = await fetchAPI(
+        LOGIN,
+        { variables },
+        {
+            Authorization: ''
+        }
+    );
 
     if (res?.errors) {
         throw new Error(res.errors[0].message);
