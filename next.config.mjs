@@ -7,7 +7,7 @@ const config = {
     reactStrictMode: true,
     trailingSlash: true,
     swcMinify: true,
-    productionBrowserSourceMaps: true,
+    productionBrowserSourceMaps: false,
     compress: true,
     experimental: {
         esmExternals: true
