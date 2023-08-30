@@ -1,6 +1,6 @@
-import { FunctionComponent } from 'react';
 import { NextSeo } from 'next-seo';
 import { Page } from '@/components/Page';
+import { ProfileHeader } from '@/components/layout/profiler-header';
 import { Session } from '@/api/auth';
 import styled from 'styled-components';
 import { useSession } from 'next-auth/react';
@@ -47,20 +47,23 @@ const Explainer = styled.div`
     }
 `;
 
-interface MemebersProfilePageProps {}
-const MemebersProfilePage: FunctionComponent<MemebersProfilePageProps> = () => {
-    const { data } = useSession({
-        required: true
-    });
-    const session = data as Session;
+interface MembersProfilePageProps {}
+const MembersProfilePage = ({}: MembersProfilePageProps) => {
+    const { data } = useSession({ required: true });
+    if (!data) return null;
+
+    const { user } = data as Session;
+    if (!user) return null;
 
     return (
         <Page>
             <NextSeo title="För Medlemmar" />
 
             <Container>
+                <ProfileHeader />
+
                 <Content>
-                    <Title>Hej {session?.user?.firstName || session?.user?.name}!</Title>
+                    <Title>Hej {user?.firstName || user?.name}!</Title>
                     <Explainer>
                         <p>Håll utkik här, för nu kommer de änna gå riktigt fort.</p>
                     </Explainer>
@@ -70,4 +73,4 @@ const MemebersProfilePage: FunctionComponent<MemebersProfilePageProps> = () => {
     );
 };
 
-export default MemebersProfilePage;
+export default MembersProfilePage;

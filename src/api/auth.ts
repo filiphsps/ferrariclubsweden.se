@@ -10,7 +10,9 @@ export type User = {
     name?: string | null;
     firstName?: string | null;
     lastName?: string | null;
-    image?: string | null;
+    avatar?: {
+        url?: string | null;
+    } | null;
 };
 
 export type Session = NextAuthSession & {
@@ -68,6 +70,10 @@ const LOGIN = gql`
                 name
                 firstName
                 lastName
+
+                avatar {
+                    url
+                }
             }
         }
     }
