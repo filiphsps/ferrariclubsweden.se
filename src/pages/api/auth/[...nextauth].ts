@@ -1,4 +1,4 @@
-import { AuthRefreshTokenApi, AuthWithPasswordApi, Session } from '@/api/auth';
+import { AuthRefreshTokenApi, AuthWithPasswordApi, SendPasswordResetEmailApi, Session } from '@/api/auth';
 
 import CredentialsProvider from 'next-auth/providers/credentials';
 import NextAuth from 'next-auth';
@@ -12,6 +12,14 @@ const providers = [
         },
         async authorize(credentials) {
             if (!credentials) return null;
+
+            if ((credentials as any).type === 'reset') {
+                const reset = await SendPasswordResetEmailApi({
+                    username: credentials.username
+                });
+
+                return null;
+            }
 
             const user = (await AuthWithPasswordApi(credentials)) as any;
             if (user) {

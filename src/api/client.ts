@@ -27,24 +27,28 @@ export const getCanonicalPath = (path: string) => {
 export const GQLFetcher = async ({ headers }: any) => {
     const session: any = await getSession();
 
+    let cleanedHeaders = {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        ...((session?.authToken &&
+            headers?.Authorization === undefined && {
+                Authorization: `Bearer ${session.authToken}`
+            }) ||
+            {}),
+        ...(headers || {})
+    };
+
+    if (cleanedHeaders.Authorization === '') delete cleanedHeaders.Authorization;
+
     return new ApolloClient({
         cache: new InMemoryCache({
             addTypename: false
         }),
         link: httpLink,
-        headers: {
-            ...((session?.authToken && {
-                Authorization: `Bearer ${session.authToken}`
-            }) ||
-                {}),
-            ...(headers || {})
-        }
+        headers: cleanedHeaders
     });
 };
 
-const Client = async () => await GQLFetcher({}); /* new ApolloClient({
-    cache: new InMemoryCache(),
-    link: httpLink,
-});*/
+const Client = async () => await GQLFetcher({});
 
 export default Client;

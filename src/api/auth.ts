@@ -135,3 +135,28 @@ export const AuthRefreshTokenApi = async ({ refreshToken }: AuthRefreshTokenApiP
 
     return res;
 };
+
+interface SendPasswordResetEmailApiProps {
+    username: string;
+}
+export const SendPasswordResetEmailApi = async ({ username }: SendPasswordResetEmailApiProps) => {
+    const query = gql`
+        mutation SendPasswordResetEmail($input: SendPasswordResetEmailInput!) {
+            sendPasswordResetEmail(input: $input) {
+                success
+            }
+        }
+    `;
+
+    const variables = {
+        input: { username }
+    };
+
+    const res = await fetchAPI(query, { variables }, {});
+
+    if (res?.errors) {
+        throw new Error(res.errors[0].message);
+    }
+
+    return res;
+};
