@@ -11,4 +11,10 @@ export const Input = styled.input`
     outline: none;
     border-radius: none;
     background: transparent;
+
+    &:active,
+    &:focus,
+    &:hover {
+        border-color: var(--color-primary);
+    }
 `;

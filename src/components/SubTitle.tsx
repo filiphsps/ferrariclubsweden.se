@@ -5,7 +5,8 @@ const Contaier = styled.h2`
     margin: 0px;
     font-size: 1rem;
     line-height: 1.5rem;
-    font-weight: 500;
+    font-weight: 600;
+    color: var(--color-body-lighter);
 `;
 
 export type SubTitleProps = {

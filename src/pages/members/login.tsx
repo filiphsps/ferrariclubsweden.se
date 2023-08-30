@@ -2,7 +2,6 @@ import type { GetServerSidePropsContext, InferGetServerSidePropsType } from 'nex
 
 import Background from '../../../public/img/carousel/slide-3.jpg';
 import { Button } from '@/components/Button';
-import { FunctionComponent } from 'react';
 import Image from 'next/image';
 import { Input } from '@/components/Input';
 import Link from 'next/link';
@@ -75,23 +74,40 @@ const Sidebar = styled.div`
 
 const Notice = styled.footer`
     display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+`;
+
+const Actions = styled.section`
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+`;
+const Action = styled.div`
+    display: flex;
     justify-content: center;
     align-items: center;
     gap: 0.25rem;
-    text-align: center;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600;
-    color: var(--color-block);
+    text-transform: uppercase;
+    color: var(--color-body-lighter);
 
     p {
-        opacity: 0.85;
+        margin: 0;
+        font-weight: 600;
+        color: inherit;
     }
 
     a {
+        font-weight: 700;
+        color: inherit;
+
+        &:hover {
+            color: var(--color-primary);
+        }
     }
 `;
 
-const MembersLoginPage: FunctionComponent<InferGetServerSidePropsType<typeof getServerSideProps>> = ({ csrfToken }) => {
+const MembersLoginPage = ({ csrfToken }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
     return (
         <Page>
             <NextSeo title="Logga In" />
@@ -99,7 +115,7 @@ const MembersLoginPage: FunctionComponent<InferGetServerSidePropsType<typeof get
             <Container>
                 <Content>
                     <ContentContainer>
-                        <div>
+                        <Notice>
                             <Title>Välkommen tillbaka!</Title>
                             <SubTitle>Kul att du är här igen! Logga in genom att fylla i fälten nedan.</SubTitle>
 
@@ -107,7 +123,7 @@ const MembersLoginPage: FunctionComponent<InferGetServerSidePropsType<typeof get
                                 Medlems login är för närvarande (delvis) avaktiverat under migrationen till ny webbsida.
                                 Kontakta <a href="mailto:janne@ferrariclubsweden">janne@ferrariclubsweden</a>.
                             </SubTitle>
-                        </div>
+                        </Notice>
 
                         <Form method="post" action="/api/auth/callback/credentials">
                             <Input name="csrfToken" type="hidden" defaultValue={csrfToken} />
@@ -118,10 +134,17 @@ const MembersLoginPage: FunctionComponent<InferGetServerSidePropsType<typeof get
                             <Button type="submit">Logga in</Button>
                         </Form>
 
-                        <Notice>
-                            <p>Inte medlem ännu?</p>
-                            <Link href="/members/register">Bli Medlem</Link>
-                        </Notice>
+                        <Actions>
+                            <Action>
+                                <p>Inte medlem ännu?</p>
+                                <Link href="/members/register">Bli Medlem</Link>
+                            </Action>
+
+                            <Action>
+                                <p>Glömt ditt lösenord?</p>
+                                <Link href="/members/reset">Återställ</Link>
+                            </Action>
+                        </Actions>
                     </ContentContainer>
                 </Content>
                 <Sidebar>
