@@ -11,6 +11,7 @@ export const redirects = [
     ['/login/', '/members/login/'],
     ['/medlemsskap/', '/members/register/'],
     ['/medlemssida/', '/members/'],
+    ['/members/', '/members/profile/'],
     ['/kalender/', '/calendar/']
 ];
 export const getCanonicalPath = (path: string) => {

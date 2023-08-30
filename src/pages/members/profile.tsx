@@ -36,16 +36,6 @@ const Title = styled.h1`
         font-size: 2.25rem;
     }
 `;
-const Explainer = styled.div`
-    p {
-        margin-bottom: 0.75rem;
-
-        font-size: 0.95rem;
-        line-height: 1.5;
-
-        color: var(--color-body-lighter);
-    }
-`;
 
 interface MembersProfilePageProps {}
 const MembersProfilePage = ({}: MembersProfilePageProps) => {
@@ -57,16 +47,13 @@ const MembersProfilePage = ({}: MembersProfilePageProps) => {
 
     return (
         <Page>
-            <NextSeo title="För Medlemmar" />
+            <NextSeo title="Din Profil" />
 
             <Container>
                 <ProfileHeader />
 
                 <Content>
-                    <Title>Hej {user?.firstName || user?.name}!</Title>
-                    <Explainer>
-                        <p>Håll utkik här, för nu kommer de änna gå riktigt fort.</p>
-                    </Explainer>
+                    <Title>Din Profil</Title>
                 </Content>
             </Container>
         </Page>
