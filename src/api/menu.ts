@@ -1,43 +1,44 @@
-import Client, { getCanonicalPath } from './client';
+import { GQLFetcher, getCanonicalPath } from './client';
 
 import { gql } from '@apollo/client';
 
 // FIXME: MenuModel
-export const MenuApi = async (): Promise<any[]> => {
+interface MenuApiProps {
+    slug: string;
+}
+export const MenuApi = async ({ slug }: MenuApiProps): Promise<any[]> => {
     return new Promise(async (resolve, reject) => {
         try {
             // TODO: Pass auth with this
-            const { data } = await (
-                await Client()
+            const { data, errors } = await (
+                await GQLFetcher({})
             ).query({
                 query: gql`
-                    query PAGE_QUERY {
-                        menus(where: { location: MAIN_MENU }) {
-                            nodes {
-                                name
-                                menuItems(where: { parentDatabaseId: 0 }) {
-                                    nodes {
-                                        id
-                                        path
-                                        label
-                                        parentId
+                    query Menu($slug: ID!) {
+                        menu(id: $slug, idType: SLUG) {
+                            name
+                            menuItems(where: { parentDatabaseId: 0 }) {
+                                nodes {
+                                    id
+                                    path
+                                    label
+                                    parentId
 
-                                        childItems {
-                                            nodes {
-                                                id
-                                                path
-                                                label
-                                                parentId
-                                                isRestricted
+                                    childItems {
+                                        nodes {
+                                            id
+                                            path
+                                            label
+                                            parentId
+                                            isRestricted
 
-                                                childItems {
-                                                    nodes {
-                                                        id
-                                                        path
-                                                        label
-                                                        parentId
-                                                        isRestricted
-                                                    }
+                                            childItems {
+                                                nodes {
+                                                    id
+                                                    path
+                                                    label
+                                                    parentId
+                                                    isRestricted
                                                 }
                                             }
                                         }
@@ -46,8 +47,14 @@ export const MenuApi = async (): Promise<any[]> => {
                             }
                         }
                     }
-                `
+                `,
+                variables: {
+                    slug
+                }
             });
+
+            if (errors) throw errors;
+            else if (!data?.menu) return reject();
 
             const getCanonicalPathWrapper = (path: string) => {
                 if (path.includes('://')) {
@@ -60,7 +67,7 @@ export const MenuApi = async (): Promise<any[]> => {
                 return getCanonicalPath(path);
             };
 
-            let res = data.menus.nodes[0].menuItems.nodes.map((item: any) => [
+            let res = data.menu.menuItems.nodes.map((item: any) => [
                 {
                     ...item,
                     level: 0,
@@ -79,10 +86,10 @@ export const MenuApi = async (): Promise<any[]> => {
                     .flat(1)
             ]);
 
-            resolve(res);
-        } catch (error) {
+            return resolve(res);
+        } catch (error: any) {
             console.error(error);
-            reject();
+            return reject(error);
         }
     });
 };

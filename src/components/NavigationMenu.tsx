@@ -4,6 +4,8 @@ import { FunctionComponent, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { MenuApi } from '@/api/menu';
 import styled from 'styled-components';
+import useSWR from 'swr';
+import { useSession } from 'next-auth/react';
 
 const Primary = styled.div`
     background: var(--color-block-body);
@@ -147,40 +149,67 @@ const Contaier = styled.div`
 export type NavigationMenuProps = {
     open: boolean;
     toggleMenu: () => void;
+    initialMenuData?: any;
 };
-export const NavigationMenu: FunctionComponent<NavigationMenuProps> = ({ open, toggleMenu }) => {
+export const NavigationMenu: FunctionComponent<NavigationMenuProps> = ({ open, toggleMenu, initialMenuData }) => {
+    const { status: sessionStatus } = useSession();
     const [items, setItems] = useState<Array<{ id: string; title: string; href: string; level: number }>>([]);
+
+    const {
+        data: menu,
+        error: menuError,
+        mutate
+    } = useSWR(
+        [
+            'MenuApi',
+            {
+                slug: (sessionStatus !== 'authenticated' && 'unauthenticated-main-menu') || 'authenticated-main-menu'
+            }
+        ],
+        ([, props]) => MenuApi(props),
+        {
+            fallbackData: initialMenuData
+        }
+    );
+    if (menuError) console.error(menuError);
+
     useEffect(() => {
-        MenuApi().then((menu) => {
-            const res = menu.flat(1);
+        if (sessionStatus === 'loading') return;
 
-            setItems(
-                res
-                    .map((item) => ({
-                        id: item.id,
-                        title: item.label,
-                        href: item.path,
-                        level: item.level
-                    }))
-                    .map((item) => {
-                        // TODO: do this somewhere else
-                        if (item.href.includes('/nytt-losenord/')) return null as unknown as any;
+        mutate();
+    }, [sessionStatus]);
 
-                        // TODO: handle this properly.
-                        if (localStorage.getItem('auth_token')) {
-                            if (item.href.includes('/members/login/')) return null as unknown as any;
-                            else if (item.href.includes('/members/register/')) return null as unknown as any;
-                        } else {
-                            if (item.href.includes('/members/logout/')) return null as unknown as any;
-                            else if (item.href.includes('/nyheter/')) return null as unknown as any;
-                        }
+    useEffect(() => {
+        if (!menu) return;
 
-                        return item;
-                    })
-                    .filter((item) => item)
-            );
-        });
-    }, []);
+        const res = menu.flat(1);
+
+        setItems(
+            res
+                .map((item) => ({
+                    id: item.id,
+                    title: item.label,
+                    href: item.path,
+                    level: item.level
+                }))
+                .map((item) => {
+                    // TODO: do this somewhere else
+                    if (item.href.includes('/nytt-losenord/')) return null as unknown as any;
+
+                    // TODO: handle this properly.
+                    if (localStorage.getItem('auth_token')) {
+                        if (item.href.includes('/members/login/')) return null as unknown as any;
+                        else if (item.href.includes('/members/register/')) return null as unknown as any;
+                    } else {
+                        if (item.href.includes('/members/logout/')) return null as unknown as any;
+                        else if (item.href.includes('/nyheter/')) return null as unknown as any;
+                    }
+
+                    return item;
+                })
+                .filter((item) => item)
+        );
+    }, [menu]);
 
     return (
         <Contaier className={open ? 'open' : ''}>
@@ -192,7 +221,7 @@ export const NavigationMenu: FunctionComponent<NavigationMenuProps> = ({ open, t
                     </Toggle>
 
                     <Navigation>
-                        {items.map(({ id, title, href, level }, index) => (
+                        {items?.map(({ id, title, href, level }, index) => (
                             <NavigationItem
                                 key={id}
                                 onClick={toggleMenu}
