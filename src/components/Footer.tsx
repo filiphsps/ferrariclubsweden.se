@@ -33,7 +33,7 @@ const Trademark = styled.div`
 `;
 
 const Copyrights = styled.div`
-    padding: 0.75rem 1.5rem;
+    padding: 1rem 1.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -48,9 +48,9 @@ const Copyrights = styled.div`
     @media (max-width: 992px) {
         flex-direction: column;
         justify-content: center;
+        text-align: center;
         font-size: 0.65rem;
         line-height: 0.65rem;
-        gap: 0.25rem;
     }
 `;
 

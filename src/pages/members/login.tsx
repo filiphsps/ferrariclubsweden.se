@@ -29,8 +29,12 @@ const Content = styled.article`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 2rem;
+    padding: 1rem;
     background: var(--color-block-body);
+
+    @media (min-width: 992px) {
+        padding: 2rem;
+    }
 `;
 const ContentContainer = styled.section`
     display: flex;
