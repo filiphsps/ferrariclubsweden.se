@@ -16,7 +16,7 @@ const Contaier = styled.header`
     background: var(--color-block);
     color: var(--color-block-body);
     user-select: none;
-    transition: 300ms ease-in-out;
+    transition: 250ms ease-in-out;
 
     &.sticky {
         position: absolute;
@@ -81,7 +81,7 @@ const NavigationItem = styled.div`
     font-size: 1rem;
     font-family: 'Ferrari', sans-serif;
     letter-spacing: 0.05rem;
-    transition: 150ms;
+    transition: 250ms ease-in-out;
     cursor: pointer;
     text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.75);
 

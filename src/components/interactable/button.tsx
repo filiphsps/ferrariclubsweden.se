@@ -13,7 +13,7 @@ export const PrimaryButton = styled.button`
     border: none;
     text-align: center;
     text-transform: uppercase;
-    transition: 150ms;
+    transition: 250ms ease-in-out;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.45);
 
     &:hover {

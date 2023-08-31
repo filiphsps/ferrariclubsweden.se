@@ -59,7 +59,7 @@ const Toggle = styled.div`
     line-height: 2.5rem;
     font-size: 2.5rem;
     cursor: pointer;
-    transition: 150ms ease-in-out;
+    transition: 250ms ease-in-out
     opacity: 0.75;
     translate: -0.25rem 0px;
 
@@ -83,7 +83,7 @@ const NavigationItem = styled.div<{ level: number }>`
     padding-left: ${(props) => `${2 * props.level}rem`};
     text-transform: uppercase;
     font-weight: 700;
-    transition: 150ms;
+    transition: 250ms ease-in-out;
     color: ${(props) => (props.level === 0 ? 'var(--color-body)' : 'var(--color-body-lighter)')};
 
     a {
