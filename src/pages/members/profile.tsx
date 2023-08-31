@@ -11,6 +11,10 @@ const Container = styled.div`
     height: 100%;
     max-width: var(--size-page-width);
     margin: 0px auto;
+
+    @media (min-width: 992px) {
+        padding: 2rem 0;
+    }
 `;
 
 const Content = styled.div`

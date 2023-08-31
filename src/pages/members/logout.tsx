@@ -1,7 +1,7 @@
-import { FunctionComponent } from 'react';
 import { NextSeo } from 'next-seo';
 import { Page } from '@/components/Page';
 import { Title } from '@/components/Title';
+import { signOut } from 'next-auth/react';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -39,7 +39,10 @@ const ContentContainer = styled.section`
 `;
 
 interface MembersLogoutPageProps {}
-const MembersLogoutPage: FunctionComponent<MembersLogoutPageProps> = () => {
+const MembersLogoutPage = ({}: MembersLogoutPageProps) => {
+    // Ugly, probably shouldn't be done like this
+    signOut({ callbackUrl: '/' });
+
     return (
         <Page>
             <NextSeo title="Logga Ut" />

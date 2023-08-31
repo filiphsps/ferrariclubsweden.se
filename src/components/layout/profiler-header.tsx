@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { signOut, useSession } from 'next-auth/react';
 
+import { Button } from '../Button';
 import { Session } from '@/api/auth';
 import styled from 'styled-components';
 
@@ -41,7 +42,6 @@ const Details = styled.div`
 const Name = styled.div`
     font-size: 1.25rem;
     font-weight: 600;
-    //text-transform: uppercase;
 
     @media (min-width: 992px) {
         font-size: 1.5rem;
@@ -50,7 +50,6 @@ const Name = styled.div`
 const Email = styled.div`
     font-size: 0.75rem;
     font-weight: 500;
-    //text-transform: uppercase;
 
     @media (min-width: 992px) {
         font-size: 1rem;
@@ -75,9 +74,12 @@ const Actions = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-`;
-const Action = styled.button`
-    text-transform: uppercase;
+    align-items: start;
+    gap: 0.5rem;
+
+    @media (min-width: 992px) {
+        align-items: end;
+    }
 `;
 
 type ProfileHeaderProps = {};
@@ -104,7 +106,9 @@ const ProfileHeader = ({}: ProfileHeaderProps) => {
                 </Details>
             </About>
             <Actions>
-                <Action onClick={() => signOut()}>Logga ut</Action>
+                <Button title="Logga ut" onClick={() => signOut({ redirect: true, callbackUrl: '/' })}>
+                    Logga ut
+                </Button>
             </Actions>
         </Contaier>
     );
