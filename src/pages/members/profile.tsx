@@ -1,10 +1,12 @@
+import { signOut, useSession } from 'next-auth/react';
+
 import { NextSeo } from 'next-seo';
 import { Page } from '@/components/Page';
 import { PageHeader } from '@/components/layout/page-header';
+import { PrimaryButton } from '@/components/interactable/button';
 import { ProfileHeader } from '@/components/layout/profiler-header';
 import { Session } from '@/api/auth';
 import styled from 'styled-components';
-import { useSession } from 'next-auth/react';
 
 const Container = styled.div`
     width: 100%;
@@ -37,7 +39,19 @@ const MembersProfilePage = ({}: MembersProfilePageProps) => {
             <NextSeo title="Din Profil" />
 
             <Container>
-                <PageHeader title="Din Profil" />
+                <PageHeader
+                    title="Din Profil"
+                    actions={
+                        <>
+                            <PrimaryButton
+                                title="Logga ut"
+                                onClick={() => signOut({ redirect: true, callbackUrl: '/' })}
+                            >
+                                Logga ut
+                            </PrimaryButton>
+                        </>
+                    }
+                />
                 <ProfileHeader />
 
                 <Content></Content>

@@ -37,7 +37,7 @@ const Avatar = styled.div`
 `;
 const Meta = styled.div`
     h1 {
-        font-family: 'Poppins';
+        font-family: var(--font-secondary);
         font-size: 1rem;
         line-height: 1rem;
     }

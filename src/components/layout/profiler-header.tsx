@@ -1,16 +1,14 @@
-/* eslint-disable @next/next/no-img-element */
-import { signOut, useSession } from 'next-auth/react';
-
 import { Avatar } from '@/components/user/avatar';
 import { FiEdit } from 'react-icons/fi';
 import Link from 'next/link';
-import { PrimaryButton } from '@/components/interactable/button';
 import { Session } from '@/api/auth';
 import styled from 'styled-components';
+import { useSession } from 'next-auth/react';
 
 const Contaier = styled.section`
     display: grid;
-    grid-template-columns: 1fr;
+    //grid-template-columns: 1fr;
+    grid-template-columns: 1fr auto;
     gap: 1rem;
     padding: 1rem;
     margin-bottom: 1rem;
@@ -35,16 +33,18 @@ const About = styled.div`
 const Details = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 0rem;
+    gap: 0.15rem;
     color: var(--color-body-lighter);
 
     @media (min-width: 992px) {
-        gap: 0.15rem;
+        gap: 0.25rem;
     }
 `;
 const Name = styled.div`
+    color: var(--color-block);
     font-size: 1.25rem;
     font-weight: 600;
+    text-transform: uppercase;
 
     @media (min-width: 992px) {
         font-size: 1.5rem;
@@ -53,6 +53,7 @@ const Name = styled.div`
 const Email = styled.div`
     font-size: 0.75rem;
     font-weight: 500;
+    text-transform: uppercase;
 
     @media (min-width: 992px) {
         font-size: 1rem;
@@ -127,11 +128,7 @@ const ProfileHeader = ({}: ProfileHeaderProps) => {
                     <Email>{user.email}</Email>
                 </Details>
             </About>
-            <Actions>
-                <PrimaryButton title="Logga ut" onClick={() => signOut({ redirect: true, callbackUrl: '/' })}>
-                    Logga ut
-                </PrimaryButton>
-            </Actions>
+            <Actions></Actions>
         </Contaier>
     );
 };

@@ -8,9 +8,9 @@ import Router, { useRouter } from 'next/router';
 import { StyleSheetManager, ThemeProvider } from 'styled-components';
 
 import Head from 'next/head';
+import { Montserrat } from 'next/font/google';
 import NProgress from 'nprogress';
 import { PageProvider } from '@/components/PageProvider';
-import { Poppins } from 'next/font/google';
 import SEO from 'nextseo.config';
 import { SessionProvider } from 'next-auth/react';
 
@@ -21,7 +21,7 @@ Router.events.on('routeChangeError', (error) => {
     NProgress.done();
 });
 
-const secondaryFont = Poppins({
+const secondaryFont = Montserrat({
     weight: ['400', '500', '600', '700'],
     subsets: ['latin'],
     display: 'swap',
