@@ -43,7 +43,7 @@ const Details = styled.div`
 const Name = styled.div`
     color: var(--color-block);
     font-size: 1.25rem;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
 
     @media (min-width: 992px) {

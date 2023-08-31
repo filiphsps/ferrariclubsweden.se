@@ -1,5 +1,6 @@
 import type { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 
+import { Comments } from '@/components/blog/comments';
 import ErrorPage from 'next/error';
 import { NextSeo } from 'next-seo';
 import { Page } from '@/components/Page';
@@ -13,15 +14,34 @@ import { useEffect } from 'react';
 import useSWR from 'swr';
 import { useSession } from 'next-auth/react';
 
-const DynamicContent = styled.div``;
+const DynamicContent = styled.article`
+    a {
+        color: var(--color-primary);
+    }
+`;
+
+const Section = styled.section``;
+const SectionTitle = styled.div`
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border-top: 0.15rem solid var(--color-section-header);
+    color: var(--color-body-lighter);
+    background: var(--color-section-header);
+    font-size: 1.25rem;
+    font-weight: 400;
+    text-transform: uppercase;
+`;
+const SectionContent = styled.div`
+    padding: 0 0.5rem;
+`;
 
 const NewsPostPage = ({ post: initialPostData }: InferGetStaticPropsType<typeof getStaticProps>) => {
-    const { status: sessionStatus } = useSession({ required: true });
+    const { status: sessionStatus } = useSession({ required: process.env.NODE_ENV === 'production' });
 
     const {
         data: post,
         error: postError,
-        mutate
+        mutate: mutatePost
     } = useSWR(
         [
             'PostsApi',
@@ -38,7 +58,7 @@ const NewsPostPage = ({ post: initialPostData }: InferGetStaticPropsType<typeof 
     useEffect(() => {
         if (sessionStatus === 'loading') return;
 
-        mutate();
+        mutatePost();
     }, [sessionStatus]);
 
     if (postError) return <ErrorPage statusCode={postError?.statusCode || 404} title={postError?.message} />;
@@ -58,6 +78,17 @@ const NewsPostPage = ({ post: initialPostData }: InferGetStaticPropsType<typeof 
                                 __html: post.content
                             }}
                         />
+                    )}
+
+                    {post?.commentCount && (
+                        <Section>
+                            <SectionTitle>
+                                {post.commentCount || 0} Kommentar{post.commentCount !== 1 && 'er'}
+                            </SectionTitle>
+                            <SectionContent>
+                                <Comments slug={post.slug} />
+                            </SectionContent>
+                        </Section>
                     )}
                 </PageContent>
 

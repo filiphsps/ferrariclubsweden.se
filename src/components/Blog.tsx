@@ -52,7 +52,7 @@ export const Blog: FunctionComponent<BlogeProps> = ({}) => {
                         </Title>
                         <Content
                             dangerouslySetInnerHTML={{
-                                __html: excerpt
+                                __html: excerpt || ''
                             }}
                         />
                     </Post>

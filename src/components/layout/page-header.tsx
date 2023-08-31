@@ -2,9 +2,6 @@ import type { ReactNode } from 'react';
 import styled from 'styled-components';
 
 const Contaier = styled.section`
-    z-index: 10;
-    position: sticky;
-    top: 0;
     display: grid;
     grid-template-columns: 1fr auto;
     align-items: center;
@@ -14,7 +11,6 @@ const Contaier = styled.section`
     border-bottom: 0.15rem solid var(--color-light-block);
 
     @media (min-width: 992px) {
-        position: relative;
         align-items: end;
         padding: 1rem;
         margin-bottom: 1rem;
