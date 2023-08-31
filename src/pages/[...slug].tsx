@@ -1,7 +1,6 @@
-import { GetStaticPaths, GetStaticProps } from 'next';
+import type { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 
 import ErrorPage from 'next/error';
-import { FunctionComponent } from 'react';
 import { MuffinComponents } from '@/components/MuffinComponents';
 import { NextSeo } from 'next-seo';
 import { Page } from '@/components/Page';
@@ -10,8 +9,9 @@ import { PostApi } from '@/api/post';
 import { Title } from '@/components/typography/title';
 import { getCanonicalPath } from '@/api/client';
 import styled from 'styled-components';
-import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import useSWR from 'swr';
+import { useSession } from 'next-auth/react';
 
 const Container = styled.div`
     width: 100%;
@@ -37,23 +37,40 @@ const ContentContainer = styled.div`
     }
 `;
 
-interface CustomPageProps {
-    page?: any; // FIXME: PageModel
-}
-const CustomPage: FunctionComponent<CustomPageProps> = ({ page }) => {
-    const router = useRouter();
-    const { data, error } = useSWR([router.asPath], () => PageApi({ uri: router.asPath }), {
-        fallbackData: page
-    });
+const CustomPage = ({ page: initialPageData }: InferGetStaticPropsType<typeof getStaticProps>) => {
+    const { status: sessionStatus } = useSession();
 
-    if (!data || error) return <ErrorPage statusCode={(error && error?.statusCode) || 404} title={error?.message} />;
+    const {
+        data: page,
+        error: pageError,
+        mutate
+    } = useSWR(
+        [
+            'PageApi',
+            {
+                uri: initialPageData?.uri
+            }
+        ],
+        ([, props]) => PageApi(props),
+        {
+            fallbackData: initialPageData
+        }
+    );
+    useEffect(() => {
+        if (sessionStatus === 'loading') return;
 
-    // TODO: We should get the page with auth
-    const { title, mfnItems } = data;
+        mutate();
+    }, [sessionStatus]);
+
+    if (pageError) return <ErrorPage statusCode={pageError?.statusCode || 404} title={pageError?.message} />;
+
+    if (!page) return null; // TODO: Loading page
+
+    const { title, mfnItems, content, excerpt, uri } = page;
 
     return (
         <Page>
-            <NextSeo title={title} />
+            <NextSeo title={title} description={excerpt} canonical={`https://www.ferrariclubsweden.se${uri}`} />
 
             <Container>
                 {!mfnItems ? <Title>{title}</Title> : ''}
@@ -61,8 +78,7 @@ const CustomPage: FunctionComponent<CustomPageProps> = ({ page }) => {
                 <ContentContainer
                     dangerouslySetInnerHTML={{
                         // TODO: Handle emails in content?
-                        // TODO: Replace the api link somewhere else
-                        __html: data.content || ''
+                        __html: content || ''
                     }}
                 />
             </Container>

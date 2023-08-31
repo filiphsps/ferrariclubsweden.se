@@ -8,8 +8,8 @@ export type WPPage = {
     uri: string;
     slug: string;
     content: string;
+    excerpt: string;
     mfnItems: string;
-    status: 'published';
 };
 
 interface PageApiProps {
@@ -34,8 +34,8 @@ export const PageApi = async ({ uri }: PageApiProps): Promise<WPPage> => {
                             uri
                             slug
                             content
+                            excerpt
                             mfnItems
-                            status
                         }
                     }
                 `

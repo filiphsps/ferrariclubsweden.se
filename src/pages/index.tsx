@@ -111,7 +111,16 @@ interface IndexPageProps {}
 const IndexPage: FunctionComponent<IndexPageProps> = () => {
     return (
         <Page>
-            <NextSeo title="Hem" />
+            <NextSeo
+                titleTemplate="%s"
+                title="Ferrari Club Sweden"
+                description={
+                    'Ferrari Club Sweden startade som “Ferraristi Svezia” och grundades 1973 som den sjunde officiella Ferrariklubben i världen. ' +
+                    'Vi är även medlemmar i Motorhistoriska Riksförbundet, MHRF vilket möjliggör entusiastförsäkringar för medlemmar med klassiska bilar. ' +
+                    'Klubben arrangerar många aktiviteter så som sociala event, utställningar, körningar mm. Samarbetspartner'
+                }
+                canonical="https://www.ferrariclubsweden.se/"
+            />
 
             <Header>
                 <Carousel

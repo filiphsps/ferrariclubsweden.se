@@ -2,6 +2,8 @@
 import type { DocumentContext, DocumentInitialProps } from 'next/document';
 import NextDocument, { Head, Html, Main, NextScript } from 'next/document';
 
+import { Config } from '@/utils/config';
+import Script from 'next/script';
 import { ServerStyleSheet } from 'styled-components';
 
 class Document extends NextDocument {
@@ -31,6 +33,9 @@ class Document extends NextDocument {
         return (
             <Html lang="en">
                 <Head>
+                    <link rel="preconnect" href="https://api.ferrariclubsweden.se" crossOrigin="" />
+                    <link rel="preconnect" href="https://www.gravatar.com" crossOrigin="" />
+
                     <meta name="format-detection" content="telephone=no, date=no, email=no, address=no" />
 
                     <link
@@ -51,6 +56,16 @@ class Document extends NextDocument {
                 <body>
                     <Main />
                     <NextScript />
+
+                    {Config.GTM && process.env.NODE_ENV !== 'development' && (
+                        <Script id="gtm" strategy="afterInteractive">
+                            {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                            })(window,document,'script','dataLayer','${Config.GTM}');`}
+                        </Script>
+                    )}
                 </body>
             </Html>
         );

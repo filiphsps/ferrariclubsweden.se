@@ -1,5 +1,6 @@
 import type { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 
+import ErrorPage from 'next/error';
 import { NextSeo } from 'next-seo';
 import { Page } from '@/components/Page';
 import { PageContainer } from '@/components/layout/page-container';
@@ -15,7 +16,7 @@ import { useSession } from 'next-auth/react';
 const DynamicContent = styled.div``;
 
 const NewsPostPage = ({ post: initialPostData }: InferGetStaticPropsType<typeof getStaticProps>) => {
-    const { status: sessionStatus, data: session } = useSession({ required: true });
+    const { status: sessionStatus } = useSession({ required: true });
 
     const {
         data: post,
@@ -40,6 +41,8 @@ const NewsPostPage = ({ post: initialPostData }: InferGetStaticPropsType<typeof 
         mutate();
     }, [sessionStatus]);
 
+    if (postError) return <ErrorPage statusCode={postError?.statusCode || 404} title={postError?.message} />;
+
     return (
         <Page>
             <NextSeo title={`${post.title} | Nyheter`} />
@@ -52,7 +55,6 @@ const NewsPostPage = ({ post: initialPostData }: InferGetStaticPropsType<typeof 
                         <DynamicContent
                             dangerouslySetInnerHTML={{
                                 // TODO: Handle emails in content?
-                                // TODO: Replace the api link somewhere else
                                 __html: post.content
                             }}
                         />
