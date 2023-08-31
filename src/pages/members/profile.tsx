@@ -1,29 +1,26 @@
 import { signOut, useSession } from 'next-auth/react';
 
+import { Card } from '@/components/Card';
 import { NextSeo } from 'next-seo';
 import { Page } from '@/components/Page';
+import { PageContainer } from '@/components/layout/page-container';
+import { PageContent } from '@/components/layout/page-content';
 import { PageHeader } from '@/components/layout/page-header';
 import { PrimaryButton } from '@/components/interactable/button';
 import { ProfileHeader } from '@/components/layout/profiler-header';
 import { Session } from '@/api/auth';
 import styled from 'styled-components';
 
-const Container = styled.div`
-    width: 100%;
-    height: 100%;
-    max-width: var(--size-page-width);
-    margin: 0px auto;
-
-    @media (min-width: 992px) {
-        padding: 2rem 0;
-    }
-`;
-
-const Content = styled.div`
+const CardContainer = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    padding: 1rem;
+    justify-content: center;
+    align-items: center;
+
+    @media (min-width: 992px) {
+        justify-content: start;
+        align-items: start;
+    }
 `;
 
 type MembersProfilePageProps = {};
@@ -38,7 +35,7 @@ const MembersProfilePage = ({}: MembersProfilePageProps) => {
         <Page>
             <NextSeo title="Din Profil" />
 
-            <Container>
+            <PageContainer>
                 <PageHeader
                     title="Din Profil"
                     actions={
@@ -54,8 +51,14 @@ const MembersProfilePage = ({}: MembersProfilePageProps) => {
                 />
                 <ProfileHeader />
 
-                <Content></Content>
-            </Container>
+                <PageContent>
+                    {!user.isRestricted && (
+                        <CardContainer>
+                            <Card />
+                        </CardContainer>
+                    )}
+                </PageContent>
+            </PageContainer>
         </Page>
     );
 };

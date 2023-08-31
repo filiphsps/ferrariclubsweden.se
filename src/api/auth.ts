@@ -13,6 +13,8 @@ export type User = {
     avatar?: {
         url?: string | null;
     } | null;
+    registeredDate?: string | null;
+    isRestricted?: boolean;
 };
 
 export type Session = NextAuthSession & {
@@ -70,6 +72,8 @@ const LOGIN = gql`
                 name
                 firstName
                 lastName
+                isRestricted
+                registeredDate
 
                 avatar {
                     url
