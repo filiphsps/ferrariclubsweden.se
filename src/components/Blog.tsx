@@ -1,8 +1,10 @@
-import { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, useEffect } from 'react';
 
 import Link from 'next/link';
-import { PostApi } from '@/api/post';
+import { PostsApi } from '@/api/post';
 import styled from 'styled-components';
+import useSWR from 'swr';
+import { useSession } from 'next-auth/react';
 
 const Contaier = styled.div`
     margin: 0px;
@@ -23,12 +25,22 @@ const Content = styled.p`
 
 export type BlogeProps = {};
 export const Blog: FunctionComponent<BlogeProps> = ({}) => {
-    const [posts, setPosts] = useState<any>(null);
+    const { status: sessionStatus } = useSession();
+
+    const {
+        data: posts,
+        error: postsError,
+        mutate
+    } = useSWR(['PostApi', {}], ([, props]) => PostsApi(props), {
+        //fallbackData: initialMenuData
+    });
+    if (postsError) console.error(postsError);
+
     useEffect(() => {
-        PostApi({}).then((posts) => {
-            setPosts(posts);
-        });
-    }, []);
+        if (sessionStatus === 'loading') return;
+
+        mutate();
+    }, [sessionStatus]);
 
     return (
         <Contaier>

@@ -206,21 +206,6 @@ export const NavigationMenu = ({ open, closeMenu, initialMenuData }: NavigationM
                     href: item.path,
                     level: item.level
                 }))
-                .map((item) => {
-                    // TODO: do this somewhere else
-                    if (item.href.includes('/nytt-losenord/')) return null as unknown as any;
-
-                    // TODO: handle this properly.
-                    if (localStorage.getItem('auth_token')) {
-                        if (item.href.includes('/members/login/')) return null as unknown as any;
-                        else if (item.href.includes('/members/register/')) return null as unknown as any;
-                    } else {
-                        if (item.href.includes('/members/logout/')) return null as unknown as any;
-                        else if (item.href.includes('/nyheter/')) return null as unknown as any;
-                    }
-
-                    return item;
-                })
                 .filter((item) => item)
         );
     }, [menu]);
