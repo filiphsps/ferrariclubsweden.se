@@ -11,7 +11,7 @@ import { Page } from '../components/Page';
 import Slide1 from '../../public/img/carousel/slide-1.jpg';
 import Slide2 from '../../public/img/carousel/slide-2.jpg';
 import Slide3 from '../../public/img/carousel/slide-3.jpg';
-import { Title } from '../components/Title';
+import { Title } from '@/components/typography/title';
 import styled from 'styled-components';
 
 /*const Slider = styled(Carousel)`
@@ -68,7 +68,7 @@ const HeaderContentContainer = styled.div`
         translate: 0px 2rem;
     }
 
-    h1 {
+    ${Title} {
         font-family: 'Ferrari', sans-serif;
         font-size: 3.5rem;
         font-weight: 700;
@@ -76,6 +76,7 @@ const HeaderContentContainer = styled.div`
         line-height: 3.5rem;
         text-transform: uppercase;
         text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.75);
+        color: var(--color-light-background);
 
         @media (max-width: 992px) {
             font-size: 1.75rem;

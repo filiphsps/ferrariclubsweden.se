@@ -5,7 +5,8 @@ const Contaier = styled.h2`
     margin: 0px;
     font-size: 1rem;
     line-height: 1.5rem;
-    font-weight: 600;
+    font-weight: 500;
+    font-family: var(--font-secondary);
     color: var(--color-body-lighter);
 `;
 

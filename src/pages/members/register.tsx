@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { NextSeo } from 'next-seo';
 import { Page } from '@/components/Page';
 import { SubTitle } from '@/components/SubTitle';
-import { Title } from '@/components/Title';
+import { Title } from '@/components/typography/title';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -30,14 +30,15 @@ const Content = styled.article`
 const ContentContainer = styled.section`
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 2rem;
     max-width: 28rem;
     width: 100%;
+`;
 
-    h1 {
-        text-transform: unset;
-        font-family: 'Poppins', sans-serif;
-    }
+const Header = styled.section`
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
 `;
 
 const Sidebar = styled.div`
@@ -67,18 +68,18 @@ const MembersRegisterPage: FunctionComponent<MembersRegisterPageProps> = () => {
                 </Sidebar>
                 <Content>
                     <ContentContainer>
-                        <div>
+                        <Header>
                             <Title>Bli Medlem</Title>
                             <SubTitle>
                                 Medlems registrering är för närvarande avaktiverat under migrationen till ny webbsida.
                                 Kontakta <a href="mailto:janne@ferrariclubsweden">janne@ferrariclubsweden</a>.
                             </SubTitle>
-                        </div>
+                        </Header>
 
                         {/*<Form>
                             <Input placeholder="Email" type="email" />
                             <Input placeholder="Lösenord" type="password" />
-                            <Button type="button">Bli Medlem</Button>
+                            <PrimaryButton type="button">Bli Medlem</PrimaryButton>
                         </Form>
 
                         <Notice>

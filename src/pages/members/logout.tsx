@@ -1,6 +1,6 @@
 import { NextSeo } from 'next-seo';
 import { Page } from '@/components/Page';
-import { Title } from '@/components/Title';
+import { Title } from '@/components/typography/title';
 import { signOut } from 'next-auth/react';
 import styled from 'styled-components';
 
@@ -27,15 +27,10 @@ const Content = styled.article`
 const ContentContainer = styled.section`
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 2rem;
     max-width: 28rem;
     width: 100%;
     text-align: center;
-
-    h1 {
-        text-transform: unset;
-        font-family: 'Poppins', sans-serif;
-    }
 `;
 
 interface MembersLogoutPageProps {}

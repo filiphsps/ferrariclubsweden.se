@@ -1,14 +1,14 @@
 import type { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 
 import Background from '../../../public/img/carousel/slide-3.jpg';
-import { Button } from '@/components/Button';
 import Image from 'next/image';
 import { Input } from '@/components/Input';
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 import { Page } from '@/components/Page';
+import { PrimaryButton } from '@/components/interactable/button';
 import { SubTitle } from '@/components/SubTitle';
-import { Title } from '@/components/Title';
+import { Title } from '@/components/typography/title';
 import { getCsrfToken } from 'next-auth/react';
 import styled from 'styled-components';
 
@@ -39,25 +39,18 @@ const Content = styled.article`
 const ContentContainer = styled.section`
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 2rem;
     max-width: 28rem;
     width: 100%;
-
-    h1 {
-        text-transform: unset;
-        font-family: 'Poppins', sans-serif;
-    }
 `;
+
 const Form = styled.form`
     display: flex;
     flex-direction: column;
-
-    input {
-        margin-bottom: 0.5rem;
-    }
+    gap: 0.5rem;
 
     button {
-        margin-top: 1rem;
+        margin-top: 0.5rem;
     }
 `;
 
@@ -76,10 +69,10 @@ const Sidebar = styled.div`
     }
 `;
 
-const Notice = styled.footer`
+const Header = styled.section`
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.75rem;
 `;
 
 const Actions = styled.section`
@@ -89,20 +82,24 @@ const Actions = styled.section`
 `;
 const Action = styled.div`
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
-    gap: 0.25rem;
+    gap: 0.5rem;
     text-transform: uppercase;
     color: var(--color-body-lighter);
 
+    font-size: 0.75rem;
+    font-weight: 500;
+
     p {
         margin: 0;
-        font-weight: 600;
+        font-weight: inherit;
+        font-size: inherit;
         color: inherit;
     }
 
     a {
-        font-weight: 700;
+        font-weight: inherit;
         color: inherit;
 
         &:hover {
@@ -119,15 +116,12 @@ const MembersLoginPage = ({ csrfToken }: InferGetServerSidePropsType<typeof getS
             <Container>
                 <Content>
                     <ContentContainer>
-                        <Notice>
-                            <Title>Välkommen tillbaka!</Title>
-                            <SubTitle>Kul att du är här igen! Logga in genom att fylla i fälten nedan.</SubTitle>
-
+                        <Header>
+                            <Title>Logga in</Title>
                             <SubTitle>
-                                Medlems login är för närvarande (delvis) avaktiverat under migrationen till ny webbsida.
-                                Kontakta <a href="mailto:janne@ferrariclubsweden">janne@ferrariclubsweden</a>.
+                                Välkommen tillbaka, vad kul att du är här igen! Logga in genom att fylla i fälten nedan.
                             </SubTitle>
-                        </Notice>
+                        </Header>
 
                         <Form method="post" action="/api/auth/callback/credentials">
                             <Input name="csrfToken" type="hidden" defaultValue={csrfToken} />
@@ -135,7 +129,7 @@ const MembersLoginPage = ({ csrfToken }: InferGetServerSidePropsType<typeof getS
                             <Input name="username" placeholder="E-mail eller Användarenamn" type="text" />
                             <Input name="password" placeholder="Lösenord" type="password" />
 
-                            <Button type="submit">Logga in</Button>
+                            <PrimaryButton type="submit">Logga in</PrimaryButton>
                         </Form>
 
                         <Actions>

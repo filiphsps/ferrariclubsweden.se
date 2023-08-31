@@ -7,7 +7,7 @@ import { NextSeo } from 'next-seo';
 import { Page } from '@/components/Page';
 import { PageApi } from '@/api/page';
 import { PostApi } from '@/api/post';
-import { Title } from '@/components/Title';
+import { Title } from '@/components/typography/title';
 import { getCanonicalPath } from '@/api/client';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';

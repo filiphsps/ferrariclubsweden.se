@@ -4,12 +4,12 @@ export const Input = styled.input`
     appearance: none;
     -webkit-appearance: none;
     display: block;
-    padding: 0.75rem 0px;
-    border-bottom: 0.1rem solid var(--color-light-block);
-    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    color: var(--color-block-body);
+    border: 0.05rem solid var(--color-light-block);
     font-weight: 500;
     outline: none;
-    border-radius: none;
+    border-radius: 0.5rem;
     background: transparent;
 
     &:active,

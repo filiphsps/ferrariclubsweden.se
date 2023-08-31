@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { signOut, useSession } from 'next-auth/react';
 
-import { Button } from '../Button';
+import { PrimaryButton } from '../interactable/button';
 import { Session } from '@/api/auth';
 import styled from 'styled-components';
 
@@ -106,9 +106,9 @@ const ProfileHeader = ({}: ProfileHeaderProps) => {
                 </Details>
             </About>
             <Actions>
-                <Button title="Logga ut" onClick={() => signOut({ redirect: true, callbackUrl: '/' })}>
+                <PrimaryButton title="Logga ut" onClick={() => signOut({ redirect: true, callbackUrl: '/' })}>
                     Logga ut
-                </Button>
+                </PrimaryButton>
             </Actions>
         </Contaier>
     );

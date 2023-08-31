@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Button = styled.button`
+const PrimaryButton = styled.button`
     appearance: none;
     -webkit-appearance: none;
     display: block;
@@ -20,3 +20,5 @@ export const Button = styled.button`
         background: var(--color-primary);
     }
 `;
+
+export { PrimaryButton };
