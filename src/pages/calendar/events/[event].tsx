@@ -3,21 +3,14 @@ import * as cheerio from 'cheerio';
 
 import { GetStaticPaths, GetStaticProps } from 'next';
 
-import { FiChevronLeft } from 'react-icons/fi';
 import { FunctionComponent } from 'react';
-import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 import { Page } from '@/components/Page';
+import { PageContainer } from '@/components/layout/page-container';
+import { PageContent } from '@/components/layout/page-content';
+import { PageHeader } from '@/components/layout/page-header';
+import { ReturnFooter } from '@/components/blog/return-footer';
 import styled from 'styled-components';
-
-const Container = styled.div`
-    width: 100%;
-    height: 100%;
-    max-width: var(--size-page-width);
-
-    margin: 0px auto;
-    padding: 2rem 1rem 1rem 1rem;
-`;
 
 const ContentContainer = styled.section`
     a {
@@ -35,13 +28,13 @@ const ContentContainer = styled.section`
 
         .mec-single-title {
             font-family: var(--font-secondary);
-            font-size: clamp(2rem, 8vw, 5rem);
+            font-size: 2rem;
             line-height: 1;
             letter-spacing: 0;
             margin-bottom: 1rem;
 
             @media (min-width: 992px) {
-                font-size: 2.25rem;
+                font-size: 2.5rem;
             }
         }
 
@@ -83,11 +76,21 @@ const ContentContainer = styled.section`
 
                 img {
                     max-width: 100%;
+                    object-fit: cover;
+
+                    @media (max-width: 992px) {
+                        width: 100%;
+                    }
                 }
             }
 
             .mec-event-meta {
                 margin-bottom: 0;
+
+                @media (min-width: 992px) {
+                    position: sticky;
+                    top: 1rem;
+                }
 
                 &.mec-frontbox {
                     padding: 1rem;
@@ -109,36 +112,6 @@ const ContentContainer = styled.section`
     }
 `;
 
-const Footer = styled.section`
-    --action-height: 2rem;
-    height: var(--action-height);
-    margin: 0 0 1rem 0;
-`;
-const ReturnAction = styled(Link)`
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    height: var(--action-height);
-
-    line-height: 1;
-    font-size: 0.95rem;
-    font-family: var(--font-primary);
-    text-transform: uppercase;
-    font-weight: 500;
-
-    color: var(--color-body-lighter);
-
-    svg,
-    span {
-        display: block;
-    }
-
-    svg {
-        font-size: 0.95rem;
-        margin: -0.05rem 0 0 -0.3rem;
-    }
-`;
-
 interface EventPageProps {
     id: string;
     title: string;
@@ -149,20 +122,19 @@ const EventPage: FunctionComponent<EventPageProps> = ({ title, body }) => {
         <Page>
             <NextSeo title={`${title} | Event`} />
 
-            <Container>
-                <ContentContainer
-                    dangerouslySetInnerHTML={{
-                        __html: body || ''
-                    }}
-                />
+            <PageContainer>
+                <PageHeader title={title} />
 
-                <Footer>
-                    <ReturnAction href="/calendar/">
-                        <FiChevronLeft />
-                        <span>Tillbaka</span>
-                    </ReturnAction>
-                </Footer>
-            </Container>
+                <PageContent>
+                    <ContentContainer
+                        dangerouslySetInnerHTML={{
+                            __html: body || ''
+                        }}
+                    />
+                </PageContent>
+
+                <ReturnFooter path="/calendar/" />
+            </PageContainer>
         </Page>
     );
 };
@@ -178,6 +150,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const target = await fetch(`https://api.ferrariclubsweden.se/events/${id}?iframe`).then((res) => res.text());
     const dom = cheerio.load(target);
     const title = dom('title').text().replaceAll('–', '-').split(' - ').at(0);
+
+    dom('h1').remove();
     const body = dom('#main-content').html()?.replaceAll(`href="http://"`, 'href="#"');
 
     return {

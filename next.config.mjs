@@ -33,22 +33,27 @@ const config = {
             {
                 source: '/login',
                 destination: '/members/login/',
-                permanent: false
+                permanent: true
             },
             {
                 source: '/logga-ut',
                 destination: '/members/logout/',
-                permanent: false
+                permanent: true
+            },
+            {
+                source: '/bli-medlem',
+                destination: '/members/register/',
+                permanent: true
             },
             {
                 source: '/medlemsskap',
                 destination: '/members/register/',
-                permanent: false
+                permanent: true
             },
             {
                 source: '/medlemmar',
-                destination: '/',
-                permanent: false
+                destination: '/members/',
+                permanent: true
             },
             {
                 source: '/events/:event*',
@@ -58,7 +63,12 @@ const config = {
             {
                 source: '/kalender',
                 destination: '/calendar/',
-                permanent: false
+                permanent: true
+            },
+            {
+                source: '/nyheter',
+                destination: '/news/',
+                permanent: true
             },
             {
                 source: '/fonm',

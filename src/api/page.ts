@@ -1,4 +1,5 @@
-import Client from './client';
+import Client, { replaceWithCanonicalDomain } from './client';
+
 import { gql } from '@apollo/client';
 
 export type WPPage = {
@@ -41,9 +42,7 @@ export const PageApi = async ({ uri }: PageApiProps): Promise<WPPage> => {
             });
 
             if (errors || error) {
-                return reject({
-                    statusCode: 500
-                });
+                throw errors || error;
             } else if (!data.page) {
                 return reject({
                     statusCode: 404,
@@ -54,14 +53,7 @@ export const PageApi = async ({ uri }: PageApiProps): Promise<WPPage> => {
             const page = data.page;
             return resolve({
                 ...page,
-                content: ((page?.content as string) || '')
-                    .replaceAll('http://', 'https://')
-                    .replaceAll('ferrariclubsweden.com', 'ferrariclubsweden.se')
-                    .replaceAll('https://www.ferrariclubsweden.se/', '/')
-                    .replaceAll('https://api.ferrariclubsweden.se/wordpress2016/', '/wp/')
-                    .replaceAll('https://api.ferrariclubsweden.se/', '/wp/')
-                    .replaceAll('/api/events/', '/events/')
-                    .replaceAll('/wp/events/', '/events/'),
+                content: replaceWithCanonicalDomain((page?.content as string) || ''),
                 mfnItems: ((page?.mfnItems as string) || '')
                     .replaceAll('http:', 'https:')
                     .replaceAll('ferrariclubsweden.com', 'ferrariclubsweden.se')

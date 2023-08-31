@@ -18,7 +18,7 @@ const Contaier = styled.div`
 type AvatarProps = {
     size: string;
 };
-const Avatar = ({ size }: AvatarProps) => {
+export const Avatar = ({ size }: AvatarProps) => {
     const { data } = useSession();
     if (!data) return null;
 
@@ -31,6 +31,7 @@ const Avatar = ({ size }: AvatarProps) => {
 
     return (
         <Contaier
+            title={user.name!}
             style={{
                 width: size,
                 height: size
@@ -40,5 +41,3 @@ const Avatar = ({ size }: AvatarProps) => {
         </Contaier>
     );
 };
-
-export { Avatar };

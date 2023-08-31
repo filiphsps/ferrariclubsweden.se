@@ -1,20 +1,37 @@
-import { GQLFetcher } from './client';
+import { GQLFetcher, replaceWithCanonicalDomain } from './client';
+
 import { gql } from '@apollo/client';
 
-interface PostApiProps {
+type Post = {
+    id: string;
+    slug: string;
     uri: string;
-}
+    title: string;
+    date: string;
+    content: string;
+    excerpt: string;
+};
+
+type PostApiProps = {
+    slug: string;
+};
 // FIXME: Postodel
-export const PostApi = async ({ uri }: PostApiProps): Promise<any> => {
+export const PostApi = async ({ slug }: PostApiProps): Promise<Post> => {
     return new Promise(async (resolve, reject) => {
+        if (!slug)
+            return reject({
+                statusCode: 400
+            });
+
         try {
-            const { data } = await (
+            const { data, errors, error } = await (
                 await GQLFetcher({})
             ).query({
                 query: gql`
                     query Post($id: ID!) {
-                        post(id: $id, idType: URI) {
+                        post(id: $id, idType: SLUG) {
                             id
+                            slug
                             uri
                             title
                             date
@@ -23,32 +40,46 @@ export const PostApi = async ({ uri }: PostApiProps): Promise<any> => {
                     }
                 `,
                 variables: {
-                    id: uri
+                    id: slug
                 }
             });
 
-            resolve(data.post);
+            if (errors || error) {
+                throw errors || error;
+            } else if (!data.post) {
+                return reject({
+                    statusCode: 404,
+                    message: 'Post not found'
+                });
+            }
+
+            return resolve({
+                ...data.post,
+                content: replaceWithCanonicalDomain(data.post.content)
+            });
         } catch (error) {
             console.error(error);
-            reject();
+            return reject({
+                statusCode: 500
+            });
         }
-        return;
     });
 };
 
-interface PostsApiProps {}
-export const PostsApi = async ({}: PostsApiProps): Promise<any> => {
+type PostsApiProps = {};
+export const PostsApi = async ({}: PostsApiProps): Promise<Post[]> => {
     return new Promise(async (resolve, reject) => {
         try {
-            const { data, errors } = await (
+            const { data, errors, error } = await (
                 await GQLFetcher({})
             ).query({
                 query: gql`
                     query Posts {
-                        posts(first: 100) {
+                        posts(where: { tag: "Ferrari" }) {
                             edges {
                                 node {
                                     id
+                                    slug
                                     uri
                                     title
                                     date
@@ -59,12 +90,21 @@ export const PostsApi = async ({}: PostsApiProps): Promise<any> => {
                     }
                 `
             });
+            console.log(data.posts);
 
-            console.log('!!', data?.posts, errors);
-            resolve(data.posts.edges);
-        } catch (error) {
+            if (errors || error) {
+                throw errors || error;
+            } else if (!data?.posts?.edges || !data?.posts?.edges.length) {
+                return resolve([]); // TODO: Is this correct? Should we reject?
+            }
+
+            console.log('!!', data?.posts, errors, error);
+            return resolve(data.posts.edges);
+        } catch (error: any) {
             console.error(error);
-            reject();
+            return reject({
+                statusCode: 500
+            });
         }
     });
 };

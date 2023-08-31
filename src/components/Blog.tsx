@@ -32,7 +32,7 @@ export const Blog: FunctionComponent<BlogeProps> = ({}) => {
         error: postsError,
         mutate
     } = useSWR(['PostApi', {}], ([, props]) => PostsApi(props), {
-        //fallbackData: initialMenuData
+        //fallbackData: initialPostsData
     });
     if (postsError) console.error(postsError);
 
@@ -44,16 +44,15 @@ export const Blog: FunctionComponent<BlogeProps> = ({}) => {
 
     return (
         <Contaier>
-            {posts?.map((edge: any) => {
-                let item = edge.node;
+            {posts?.map(({ slug, uri, title, excerpt }) => {
                 return (
-                    <Post key={item.id}>
+                    <Post key={slug}>
                         <Title>
-                            <Link href={item.uri}>{item.title}</Link>
+                            <Link href={uri}>{title}</Link>
                         </Title>
                         <Content
                             dangerouslySetInnerHTML={{
-                                __html: item.excerpt
+                                __html: excerpt
                             }}
                         />
                     </Post>

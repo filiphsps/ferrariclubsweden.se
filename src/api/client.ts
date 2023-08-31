@@ -12,8 +12,10 @@ export const redirects = [
     ['/bli-medlem/', '/members/register/'],
     ['/medlemsskap/', '/members/register/'],
     ['/medlemssida/', '/members/'],
+    ['/medlemmar/', '/members/'],
     ['/members/', '/members/profile/'],
-    ['/kalender/', '/calendar/']
+    ['/kalender/', '/calendar/'],
+    ['/nyheter/', '/news/']
 ];
 export const getCanonicalPath = (path: string) => {
     if (path === '/' || path === '#') return path;
@@ -24,6 +26,17 @@ export const getCanonicalPath = (path: string) => {
     }
 
     return path;
+};
+
+export const replaceWithCanonicalDomain = (content: string) => {
+    return content
+        .replaceAll('http://', 'https://')
+        .replaceAll('ferrariclubsweden.com', 'ferrariclubsweden.se')
+        .replaceAll('https://www.ferrariclubsweden.se/', '/')
+        .replaceAll('https://api.ferrariclubsweden.se/wordpress2016/', '/wp/')
+        .replaceAll('https://api.ferrariclubsweden.se/', '/wp/')
+        .replaceAll('/api/events/', '/events/')
+        .replaceAll('/wp/events/', '/events/');
 };
 
 export const GQLFetcher = async ({ headers }: any) => {

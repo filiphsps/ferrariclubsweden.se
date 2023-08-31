@@ -39,31 +39,12 @@ const ContentContainer = styled.div`
 
 interface CustomPageProps {
     page?: any; // FIXME: PageModel
-    post?: any; // FIXME: PostModel
 }
-const CustomPage: FunctionComponent<CustomPageProps> = ({ page, post }) => {
+const CustomPage: FunctionComponent<CustomPageProps> = ({ page }) => {
     const router = useRouter();
     const { data, error } = useSWR([router.asPath], () => PageApi({ uri: router.asPath }), {
         fallbackData: page
     });
-
-    if (post) {
-        const { title } = post;
-        return (
-            <Page>
-                <NextSeo title={title} />
-
-                <Container>
-                    <Title>{title}</Title>
-                    <div
-                        dangerouslySetInnerHTML={{
-                            __html: post.content
-                        }}
-                    ></div>
-                </Container>
-            </Page>
-        );
-    }
 
     if (!data || error) return <ErrorPage statusCode={(error && error?.statusCode) || 404} title={error?.message} />;
 
@@ -113,18 +94,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             uri
         });
 
-        if (!page) {
-            const post = await PostApi({
-                uri
-            });
-            return {
-                props: {
-                    post: post
-                },
-                revalidate: 10
-            };
-        }
-
         return {
             props: {
                 page: page
@@ -132,10 +101,26 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             revalidate: 10
         };
     } catch (error: any) {
-        if (error?.statusCode && error.statusCode === 404)
+        if (error?.statusCode && error.statusCode === 404) {
+            try {
+                const post = await PostApi({
+                    slug: slug[0]
+                });
+
+                if (!post) throw {};
+
+                return {
+                    props: {},
+                    redirect: {
+                        destination: `/news/${post.slug}/`
+                    }
+                };
+            } catch {}
+
             return {
                 notFound: true
             };
+        }
 
         throw error;
     }

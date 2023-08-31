@@ -24,7 +24,7 @@ const Content = styled.div`
     padding: 1rem;
 `;
 
-interface MembersProfilePageProps {}
+type MembersProfilePageProps = {};
 const MembersProfilePage = ({}: MembersProfilePageProps) => {
     const { data } = useSession({ required: true });
     if (!data) return null;
