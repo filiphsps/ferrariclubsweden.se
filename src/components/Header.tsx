@@ -1,6 +1,5 @@
-import { FiMenu, FiUser } from 'react-icons/fi';
-
 import { Avatar } from './user/avatar';
+import { FiMenu } from 'react-icons/fi';
 import { FunctionComponent } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -10,8 +9,9 @@ import styled from 'styled-components';
 import { useSession } from 'next-auth/react';
 
 const Contaier = styled.header`
+    z-index: 5;
     grid-area: header;
-    height: 5rem;
+    height: var(--block-header-height);
     padding: 0.5rem 1.5rem;
     background: var(--color-block);
     color: var(--color-block-body);
@@ -36,7 +36,7 @@ const Contaier = styled.header`
     }
 
     &.hide {
-        margin-top: -5rem;
+        margin-top: calc(var(--block-header-height) * -1);
     }
 `;
 const ContentWrapper = styled.div`

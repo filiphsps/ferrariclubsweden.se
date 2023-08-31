@@ -12,6 +12,8 @@
 }
 
 body {
+    --block-header-height: 5rem;
+    
     --color-primary: #cc0003;
     --color-primary-light: #c44d4f;
     --color-light-background: #e6e6e6;
