@@ -76,7 +76,7 @@ export const MenuApi = async ({ slug }: MenuApiProps): Promise<any[]> => {
                 },
                 ...item.childItems.nodes
                     .map((item: any) => [
-                        { ...item, childItems: undefined, level: 1 },
+                        { ...item, path: getCanonicalPathWrapper(item.path), childItems: undefined, level: 1 },
                         ...item.childItems.nodes.map((item: any) => ({
                             ...item,
                             path: getCanonicalPathWrapper(item.path),
