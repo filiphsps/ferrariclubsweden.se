@@ -1,5 +1,5 @@
 import { FiChevronRight, FiXCircle } from 'react-icons/fi';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import Link from 'next/link';
 import { MenuApi } from '@/api/menu';
@@ -8,21 +8,16 @@ import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import { useSession } from 'next-auth/react';
 
-const Primary = styled.div`
+const Primary = styled.section`
     background: var(--color-block-body);
     width: 100%;
     height: 100vh;
     height: 100dvh;
     max-height: 100vh;
     max-height: 100dvh;
-    overflow-y: auto;
+    overflow-y: scroll;
     overflow-x: hidden;
-
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    &::-webkit-scrollbar {
-        display: none;
-    }
+    padding: 0 0 2rem 0;
 
     @media (min-width: 992px) {
         width: 33vw;
@@ -102,15 +97,16 @@ const NavigationItem = styled.div<{ level: number }>`
 const Contaier = styled.div`
     z-index: 9999;
     position: fixed;
+    inset: 0;
     top: 130vh;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
     display: grid;
     grid-template-columns: 1fr;
     transition: 500ms ease-in-out top;
     user-select: none;
     background: var(--color-block);
+
+    height: 100vh;
+    max-height: 100vh;
 
     @keyframes MenuItemsSlideIn {
         0% {
@@ -131,7 +127,7 @@ const Contaier = styled.div`
     }
 
     &.open {
-        top: 0px;
+        top: 0;
 
         ${NavigationItem} {
             opacity: 0;
@@ -153,6 +149,7 @@ export type NavigationMenuProps = {
     initialMenuData?: any;
 };
 export const NavigationMenu = ({ open, closeMenu, initialMenuData }: NavigationMenuProps) => {
+    const ref = useRef<HTMLDivElement>(null);
     const router = useRouter();
     const { status: sessionStatus } = useSession();
     const [items, setItems] = useState<Array<{ id: string; title: string; href: string; level: number }>>([]);
@@ -181,8 +178,8 @@ export const NavigationMenu = ({ open, closeMenu, initialMenuData }: NavigationM
         mutate();
     }, [sessionStatus]);
 
+    // Close menu on route change.
     useEffect(() => {
-        // subscribe to routeChangeStart event
         const routerCloseMenu = () => {
             closeMenu();
         };
@@ -193,6 +190,15 @@ export const NavigationMenu = ({ open, closeMenu, initialMenuData }: NavigationM
         };
     }, []);
 
+    // Reset scroll upon state change.
+    useEffect(() => {
+        if (!ref?.current) return;
+
+        ref.current.scrollTop = 0;
+    }, [open]);
+
+    // Convert menu into the format we currently use.
+    // FIXME: Refactor the menu entirely.
     useEffect(() => {
         if (!menu) return;
 
@@ -212,7 +218,7 @@ export const NavigationMenu = ({ open, closeMenu, initialMenuData }: NavigationM
 
     return (
         <Contaier className={open ? 'open' : ''}>
-            <Primary>
+            <Primary ref={ref}>
                 <Header>Ferrari Club Sweden</Header>
                 <Content>
                     <Toggle onClick={() => closeMenu()}>

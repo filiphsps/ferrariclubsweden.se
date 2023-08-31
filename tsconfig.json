@@ -26,7 +26,8 @@
         "paths": {
             "@/components/*": ["src/components/*"],
             "@/hooks/*": ["src/hooks/*"],
-            "@/api/*": ["src/api/*"]
+            "@/api/*": ["src/api/*"],
+            "@/style/*": ["src/style/*"]
         }
     },
     "exclude": ["node_modules", "public"],

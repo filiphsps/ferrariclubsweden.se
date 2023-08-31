@@ -1,5 +1,6 @@
 import 'destyle.css';
-import '../style/base.css';
+import '@/style/base.css';
+import '@/style/scrollbar.css';
 
 import Router, { useRouter } from 'next/router';
 import { StyleSheetManager, ThemeProvider } from 'styled-components';

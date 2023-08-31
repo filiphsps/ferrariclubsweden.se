@@ -90,7 +90,6 @@ export const PostsApi = async ({}: PostsApiProps): Promise<Post[]> => {
                     }
                 `
             });
-            console.log(data.posts);
 
             if (errors || error) {
                 throw errors || error;
@@ -98,7 +97,6 @@ export const PostsApi = async ({}: PostsApiProps): Promise<Post[]> => {
                 return resolve([]); // TODO: Is this correct? Should we reject?
             }
 
-            console.log('!!', data?.posts, errors, error);
             return resolve(data.posts.edges);
         } catch (error: any) {
             console.error(error);

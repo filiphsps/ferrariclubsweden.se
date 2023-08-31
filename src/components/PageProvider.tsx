@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useCallback, useState } from 'react';
 
 import { Footer } from './Footer';
 import { Header } from './Header';
@@ -25,7 +25,6 @@ const ContentContainer = styled.main`
     height: 100%;
     width: 100%;
     max-width: 100vw;
-    transition: 300ms ease-in-out all; // FIXME: this is bad for performance
     transform: scale(1);
     background: var(--color-block-body);
 `;
@@ -48,20 +47,40 @@ export type PageProviderProps = {
 export const PageProvider: FunctionComponent<PageProviderProps> = ({ children }) => {
     const router = useRouter();
     const [menuOpen, setMenuOpen] = useState(false);
+    const [menuState, setMenuState] = useState<'animating' | 'idle'>('idle');
+
+    const setMenu = useCallback(
+        (open: boolean) => {
+            setMenuState('animating');
+            setMenuOpen(open);
+
+            setTimeout(() => {
+                setMenuState('idle');
+            }, 500);
+        },
+        [setMenuOpen, setMenuState]
+    );
 
     return (
         <Contaier className={menuOpen ? 'menu-open' : ''}>
             <Header
-                toggleMenu={() => setMenuOpen(!menuOpen)}
+                toggleMenu={() => setMenu(!menuOpen)}
                 navigationMenuOpen={menuOpen}
                 sticky={router.pathname === '/'}
             />
             <Content className={menuOpen ? 'menu-open' : ''}>
-                <ContentContainer>{children}</ContentContainer>
+                <ContentContainer
+                    style={{
+                        transition: (menuState === 'animating' && '300ms ease-in-out all') || undefined,
+                        overflow: (menuOpen && 'hidden') || undefined
+                    }}
+                >
+                    {children}
+                </ContentContainer>
             </Content>
             <Footer />
 
-            <NavigationMenu open={menuOpen} closeMenu={() => setMenuOpen(false)} />
+            <NavigationMenu open={menuOpen} closeMenu={() => setMenu(false)} />
         </Contaier>
     );
 };

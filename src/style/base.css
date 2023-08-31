@@ -13,7 +13,7 @@
 
 body {
     --block-header-height: 5rem;
-    
+
     --color-primary: #cc0003;
     --color-primary-light: #c44d4f;
     --color-light-background: #e6e6e6;
@@ -46,9 +46,6 @@ body {
 
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-
-    /* Always have this turned on to avoid the jumping jank */
-    overflow-y: scroll;
 }
 
 *,
@@ -57,25 +54,6 @@ body {
     -webkit-box-sizing: inherit;
     box-sizing: inherit;
 }
-
-/*body {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-
-    scrollbar-width: thin;
-    scrollbar-color: transparent var(--scrollbarBG);
-}
-body::-webkit-scrollbar {
-    width: 0.75rem;
-}
-body::-webkit-scrollbar-track {
-    background: transparent;
-}
-body::-webkit-scrollbar-thumb {
-    background-color: transparent ;
-    border-radius: 6px;
-    border: 3px solid transparent;
-}*/
 
 a:hover {
     color: var(--color-primary);
