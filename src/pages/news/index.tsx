@@ -1,33 +1,41 @@
+import type { GetStaticProps, InferGetStaticPropsType } from 'next';
+
+import ErrorPage from 'next/error';
 import { NextSeo } from 'next-seo';
 import { Page } from '@/components/Page';
+import { PageContainer } from '@/components/layout/page-container';
+import { PageContent } from '@/components/layout/page-content';
 import { PageHeader } from '@/components/layout/page-header';
+import { PostPreview } from '@/components/blog/post-preview';
 import { PostsApi } from '@/api/post';
 import styled from 'styled-components';
 import { useEffect } from 'react';
 import useSWR from 'swr';
 import { useSession } from 'next-auth/react';
 
-const Container = styled.div`
-    width: 100%;
-    height: 100%;
-    max-width: var(--size-page-width);
-    margin: 0px auto;
+const Posts = styled.section`
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    :last-child {
+        border-bottom: none;
+    }
 
     @media (min-width: 992px) {
-        padding: 2rem 0;
+        gap: 2.5rem;
     }
 `;
 
-type NewsPageProps = {};
-const NewsPage = ({}: NewsPageProps) => {
-    const { status: sessionStatus, data: session } = useSession({ required: true });
+const NewsPage = ({ posts: initialPostsData }: InferGetStaticPropsType<typeof getStaticProps>) => {
+    const { status: sessionStatus } = useSession({ required: true });
 
     const {
         data: posts,
         error: postsError,
         mutate
     } = useSWR(['PostsApi', {}], ([, props]) => PostsApi(props), {
-        //fallbackData: initialMenuData
+        fallbackData: initialPostsData
     });
 
     useEffect(() => {
@@ -36,15 +44,40 @@ const NewsPage = ({}: NewsPageProps) => {
         mutate();
     }, [sessionStatus]);
 
+    if (postsError) return <ErrorPage statusCode={postsError?.statusCode || 404} title={postsError?.message} />;
+
     return (
         <Page>
             <NextSeo title="Nyheter" />
 
-            <Container>
+            <PageContainer>
                 <PageHeader title="Nyheter" />
-            </Container>
+
+                <PageContent>
+                    <Posts>
+                        {posts.map((post) => (
+                            <PostPreview key={post.id} data={post} />
+                        ))}
+                    </Posts>
+                </PageContent>
+            </PageContainer>
         </Page>
     );
+};
+
+export const getStaticProps: GetStaticProps = async ({}) => {
+    try {
+        const posts = await PostsApi({});
+
+        return {
+            props: {
+                posts
+            },
+            revalidate: 10
+        };
+    } catch (error: any) {
+        throw error;
+    }
 };
 
 export default NewsPage;

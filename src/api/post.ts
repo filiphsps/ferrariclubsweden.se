@@ -179,7 +179,7 @@ export const PostsApi = async ({}: PostsApiProps): Promise<WPPost[]> => {
                 return resolve([]); // TODO: Is this correct? Should we reject?
             }
 
-            return resolve(data.posts.edges);
+            return resolve(data.posts.edges.map((item: any) => item.node));
         } catch (error: any) {
             console.error(error);
             return reject({
