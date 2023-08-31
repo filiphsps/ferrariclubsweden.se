@@ -1,5 +1,6 @@
 import { FiMenu, FiUser } from 'react-icons/fi';
 
+import { Avatar } from './user/avatar';
 import { FunctionComponent } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -104,10 +105,15 @@ const MenuToggle = styled.div`
 `;
 const AccountToggle = styled(MenuToggle)`
     justify-content: flex-end;
+`;
 
-    @media (min-width: 992px) {
-        display: none;
-    }
+const ProfileLink = styled.div`
+    overflow: hidden;
+    width: 2.25rem;
+    height: 2.25rem;
+    background: var(--color-light-background);
+    border: 0.15rem solid var(--color-light-background);
+    border-radius: 100%;
 `;
 
 const HeaderLogo = styled(Image)`
@@ -139,14 +145,9 @@ export const Header: FunctionComponent<HeaderProps> = ({ toggleMenu, sticky, nav
                             <HeaderLogo src={LogoImage} alt="Ferrari Club Sweden" />
                         </Link>
                     </Logo>
-                    <Actions>
-                        {(session?.isLoggedIn && (
-                            <>
-                                <NavigationItem>
-                                    <Link href="/members/profile/">Medlemssida</Link>
-                                </NavigationItem>
-                            </>
-                        )) || (
+
+                    {!session?.isLoggedIn && (
+                        <Actions>
                             <>
                                 <NavigationItem>
                                     <Link href="/members/login/">Logga In</Link>
@@ -155,13 +156,17 @@ export const Header: FunctionComponent<HeaderProps> = ({ toggleMenu, sticky, nav
                                     <Link href="/members/register/">Bli Medlem</Link>
                                 </NavigationItem>
                             </>
-                        )}
-                    </Actions>
+                        </Actions>
+                    )}
 
                     <AccountToggle>
-                        <Link href="/members/profile/">
-                            <FiUser />
-                        </Link>
+                        {session?.isLoggedIn && (
+                            <ProfileLink>
+                                <Link href="/members/profile/">
+                                    <Avatar size="2rem" />
+                                </Link>
+                            </ProfileLink>
+                        )}
                     </AccountToggle>
                 </Content>
             </ContentWrapper>

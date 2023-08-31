@@ -61,7 +61,7 @@ export const PageProvider: FunctionComponent<PageProviderProps> = ({ children })
             </Content>
             <Footer />
 
-            <NavigationMenu open={menuOpen} toggleMenu={() => setMenuOpen(!menuOpen)} />
+            <NavigationMenu open={menuOpen} closeMenu={() => setMenuOpen(false)} />
         </Contaier>
     );
 };

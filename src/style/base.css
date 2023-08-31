@@ -16,9 +16,9 @@ body {
     --color-primary-light: #c44d4f;
     --color-light-background: #e6e6e6;
     --color-light-block: #d1d1d1;
-    --color-block: #1b1b1b;
+    --color-block: #222;
     --color-block-body: #fafafa;
-    --color-body: #0e0e0e;
+    --color-body: #000;
     --color-body-lighter: #626262;
 
     --size-page-width: 1024px;

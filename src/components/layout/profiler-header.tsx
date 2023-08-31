@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import { signOut, useSession } from 'next-auth/react';
 
-import { PrimaryButton } from '../interactable/button';
+import { Avatar } from '@/components/user/avatar';
+import { PrimaryButton } from '@/components/interactable/button';
 import { Session } from '@/api/auth';
 import styled from 'styled-components';
 
@@ -56,20 +57,6 @@ const Email = styled.div`
     }
 `;
 
-const Avatar = styled.div`
-    position: relative;
-    width: 3.5rem;
-    height: 3.5rem;
-    border-radius: 100%;
-    overflow: hidden;
-
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-    }
-`;
-
 const Actions = styled.div`
     display: flex;
     flex-direction: column;
@@ -90,16 +77,10 @@ const ProfileHeader = ({}: ProfileHeaderProps) => {
     const { user } = data as Session;
     if (!user) return null;
 
-    const avatar = `${
-        (user.avatar?.url && user.avatar?.url!.split('?').at(0)!) || '//www.gravatar.com/avatar/default.jpg'
-    }?d=identicon`;
-
     return (
         <Contaier>
             <About>
-                <Avatar>
-                    <img alt="Profilbild" src={avatar} />
-                </Avatar>
+                <Avatar size="3.5rem" />
                 <Details>
                     <Name>{user.name}</Name>
                     <Email>{user.email}</Email>

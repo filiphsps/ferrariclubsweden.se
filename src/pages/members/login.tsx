@@ -1,4 +1,5 @@
 import type { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
+import { getCsrfToken, useSession } from 'next-auth/react';
 
 import Background from '../../../public/img/carousel/slide-3.jpg';
 import Image from 'next/image';
@@ -9,8 +10,9 @@ import { Page } from '@/components/Page';
 import { PrimaryButton } from '@/components/interactable/button';
 import { SubTitle } from '@/components/SubTitle';
 import { Title } from '@/components/typography/title';
-import { getCsrfToken } from 'next-auth/react';
 import styled from 'styled-components';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 const Container = styled.div`
     display: grid;
@@ -109,6 +111,16 @@ const Action = styled.div`
 `;
 
 const MembersLoginPage = ({ csrfToken }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+    const router = useRouter();
+    const { data, status } = useSession();
+
+    useEffect(() => {
+        if (status === 'loading') return;
+        if (!data?.user || !(data as any)?.isLoggedIn) return;
+
+        router.push('/members');
+    }, [status, data]);
+
     return (
         <Page>
             <NextSeo title="Logga In" />
@@ -129,7 +141,9 @@ const MembersLoginPage = ({ csrfToken }: InferGetServerSidePropsType<typeof getS
                             <Input name="username" placeholder="E-mail eller Användarenamn" type="text" />
                             <Input name="password" placeholder="Lösenord" type="password" />
 
-                            <PrimaryButton type="submit">Logga in</PrimaryButton>
+                            <PrimaryButton type="submit" disabled={status === 'loading'}>
+                                Logga in
+                            </PrimaryButton>
                         </Form>
 
                         <Actions>

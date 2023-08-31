@@ -1,9 +1,10 @@
 import { FiChevronRight, FiXCircle } from 'react-icons/fi';
-import { FunctionComponent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Link from 'next/link';
 import { MenuApi } from '@/api/menu';
 import styled from 'styled-components';
+import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import { useSession } from 'next-auth/react';
 
@@ -148,10 +149,11 @@ const Contaier = styled.div`
 
 export type NavigationMenuProps = {
     open: boolean;
-    toggleMenu: () => void;
+    closeMenu: () => void;
     initialMenuData?: any;
 };
-export const NavigationMenu: FunctionComponent<NavigationMenuProps> = ({ open, toggleMenu, initialMenuData }) => {
+export const NavigationMenu = ({ open, closeMenu, initialMenuData }: NavigationMenuProps) => {
+    const router = useRouter();
     const { status: sessionStatus } = useSession();
     const [items, setItems] = useState<Array<{ id: string; title: string; href: string; level: number }>>([]);
 
@@ -178,6 +180,18 @@ export const NavigationMenu: FunctionComponent<NavigationMenuProps> = ({ open, t
 
         mutate();
     }, [sessionStatus]);
+
+    useEffect(() => {
+        // subscribe to routeChangeStart event
+        const routerCloseMenu = () => {
+            closeMenu();
+        };
+        router.events.on('routeChangeStart', routerCloseMenu);
+
+        return () => {
+            router.events.off('routeChangeStart', routerCloseMenu);
+        };
+    }, []);
 
     useEffect(() => {
         if (!menu) return;
@@ -216,7 +230,7 @@ export const NavigationMenu: FunctionComponent<NavigationMenuProps> = ({ open, t
             <Primary>
                 <Header>Ferrari Club Sweden</Header>
                 <Content>
-                    <Toggle onClick={toggleMenu}>
+                    <Toggle onClick={() => closeMenu()}>
                         <FiXCircle />
                     </Toggle>
 
@@ -224,7 +238,6 @@ export const NavigationMenu: FunctionComponent<NavigationMenuProps> = ({ open, t
                         {items?.map(({ id, title, href, level }, index) => (
                             <NavigationItem
                                 key={id}
-                                onClick={toggleMenu}
                                 level={level}
                                 style={{
                                     animationDelay: `${200 + 50 * index}ms`

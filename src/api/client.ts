@@ -9,6 +9,7 @@ const httpLink = createHttpLink({
 export const redirects = [
     ['/logga-ut/', '/members/logout/'],
     ['/login/', '/members/login/'],
+    ['/bli-medlem/', '/members/register/'],
     ['/medlemsskap/', '/members/register/'],
     ['/medlemssida/', '/members/'],
     ['/members/', '/members/profile/'],

@@ -24,6 +24,7 @@ const Trademark = styled.div`
     align-items: center;
     text-align: center;
     font-size: 0.75rem;
+    line-height: 1.5;
     opacity: 0.75;
 
     span {
@@ -37,25 +38,26 @@ const Copyrights = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 1rem;
+    gap: 0.25rem;
     font-size: 0.65rem;
-    line-height: 1rem;
     text-transform: uppercase;
     opacity: 0.75;
     background: var(--color-body);
     font-family: 'Ferrari';
 
+    span {
+        line-height: 1.25;
+    }
+
     @media (max-width: 992px) {
         flex-direction: column;
         justify-content: center;
         text-align: center;
-        font-size: 0.65rem;
-        line-height: 0.65rem;
     }
 `;
 
 export type FooterProps = {};
-export const Footer: FunctionComponent<FooterProps> = () => {
+export const Footer = ({}: FooterProps) => {
     return (
         <Contaier>
             <Content>
@@ -69,10 +71,10 @@ export const Footer: FunctionComponent<FooterProps> = () => {
                 </Trademark>
             </Content>
             <Copyrights>
-                <span>&copy; {new Date().getFullYear()} Ferrari Club Sweden - All rights reserved.</span>
                 <span>
-                    Website built and maintained by <Link href="https://nordcom.io/">Nordcom Group Inc.</Link>
+                    A Website by <Link href="https://nordcom.io/">Nordcom Group Inc.</Link>
                 </span>
+                <span>&copy; 1972-{new Date().getFullYear()} Ferrari Club Sweden.</span>
             </Copyrights>
         </Contaier>
     );
