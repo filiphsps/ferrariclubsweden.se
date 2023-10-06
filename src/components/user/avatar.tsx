@@ -26,7 +26,7 @@ export const Avatar = ({ size }: AvatarProps) => {
     if (!user) return null;
 
     const avatar = `${
-        (user.avatar?.url && user.avatar?.url!.split('?').at(0)!) || '//www.gravatar.com/avatar/default.jpg'
+        /*(user.avatar?.url && user.avatar?.url!.split('?').at(0)!) ||*/ '//www.gravatar.com/avatar/default.jpg'
     }?d=identicon`;
 
     return (
