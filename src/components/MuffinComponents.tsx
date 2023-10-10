@@ -272,6 +272,9 @@ export type MuffinItemProps = {
 };
 const MuffinItem: FunctionComponent<MuffinItemProps> = ({ data }) => {
     const { fields } = data;
+    if (!fields)
+        return null;
+    
     switch (data.type) {
         case 'placeholder':
             return null;
@@ -284,14 +287,14 @@ const MuffinItem: FunctionComponent<MuffinItemProps> = ({ data }) => {
                     )}`}
                 >
                     <ColumnInner
-                        css={fields.style || ''}
+                        css={fields?.style || ''}
                         style={{
-                            padding: fields.padding || '0px'
+                            padding: fields?.padding || '0px'
                         }}
                         dangerouslySetInnerHTML={{
                             __html: `<div class="image_frame align-${
-                                fields.align
-                            }"><div class="image_wrapper"><img src="${(fields as any).src}"/></div></div>`
+                                fields?.align
+                            }"><div class="image_wrapper"><img src="${(fields as any)?.src}"/></div></div>`
                         }}
                     ></ColumnInner>
                 </Column>
@@ -305,23 +308,23 @@ const MuffinItem: FunctionComponent<MuffinItemProps> = ({ data }) => {
                     )}`}
                 >
                     <ColumnInner
-                        css={fields.style || ''}
+                        css={fields?.style || ''}
                         style={{
-                            padding: fields.padding || '0px'
+                            padding: fields?.padding || '0px'
                         }}
                         dangerouslySetInnerHTML={{
                             __html: `<div class="photo_box"><div class="image_frame align-${
-                                fields.align
-                            }"><div class="image_wrapper"><img src="${(fields as any).image}"/></div></div></div>`
+                                fields?.align
+                            }"><div class="image_wrapper"><img src="${(fields as any)?.image}"/></div></div></div>`
                         }}
                     ></ColumnInner>
                 </Column>
             );
         case 'column': {
-            const content = data.fields.content || '';
+            const content = data.fields?.content || '';
             const parser = new BBCodeParser({
                 '\\[divider height="(.+?)"\\]': '<hr style="height: $1px" />',
-                '\\[image src="(.+?)"(.+?)\\]': `<div class="image_frame align-${fields.align}"><div class="image_wrapper"><img src="$1" /></div></div>`
+                '\\[image src="(.+?)"(.+?)\\]': `<div class="image_frame align-${fields?.align}"><div class="image_wrapper"><img src="$1" /></div></div>`
             });
 
             return (
@@ -332,13 +335,13 @@ const MuffinItem: FunctionComponent<MuffinItemProps> = ({ data }) => {
                     )}`}
                 >
                     <ColumnInner
-                        css={fields.style || ''}
+                        css={fields?.style || ''}
                         style={{
-                            padding: fields.padding || '0px'
+                            padding: fields?.padding || '0px'
                         }}
                     >
                         <ColumnAttr
-                            align={fields.align}
+                            align={fields?.align}
                             dangerouslySetInnerHTML={{
                                 __html: parser.parse(content)
                             }}
@@ -356,9 +359,9 @@ const MuffinItem: FunctionComponent<MuffinItemProps> = ({ data }) => {
                     )}`}
                 >
                     <ColumnInner
-                        css={fields.style || ''}
+                        css={fields?.style || ''}
                         style={{
-                            padding: fields.padding || '0px'
+                            padding: fields?.padding || '0px'
                         }}
                     >
                         <Blog />
