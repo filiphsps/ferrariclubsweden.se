@@ -272,9 +272,16 @@ export type MuffinItemProps = {
 };
 const MuffinItem: FunctionComponent<MuffinItemProps> = ({ data }) => {
     const { fields } = data;
-    if (!fields)
+    if (!fields) {
+        try {
+            console.warn(`No fields for ${data?.type} component. ${JSON.stringify(data, null, 4)}}`);
+        } catch {
+            console.warn(`No fields for ${data?.type} component.`);
+        }
+
         return null;
-    
+    }
+
     switch (data.type) {
         case 'placeholder':
             return null;
@@ -292,9 +299,9 @@ const MuffinItem: FunctionComponent<MuffinItemProps> = ({ data }) => {
                             padding: fields?.padding || '0px'
                         }}
                         dangerouslySetInnerHTML={{
-                            __html: `<div class="image_frame align-${
-                                fields?.align
-                            }"><div class="image_wrapper"><img src="${(fields as any)?.src}"/></div></div>`
+                            __html: `<div class="image_frame align-${fields?.align}"><div class="image_wrapper"><img src="${(
+                                fields as any
+                            )?.src}"/></div></div>`
                         }}
                     ></ColumnInner>
                 </Column>
@@ -313,9 +320,9 @@ const MuffinItem: FunctionComponent<MuffinItemProps> = ({ data }) => {
                             padding: fields?.padding || '0px'
                         }}
                         dangerouslySetInnerHTML={{
-                            __html: `<div class="photo_box"><div class="image_frame align-${
-                                fields?.align
-                            }"><div class="image_wrapper"><img src="${(fields as any)?.image}"/></div></div></div>`
+                            __html: `<div class="photo_box"><div class="image_frame align-${fields?.align}"><div class="image_wrapper"><img src="${(
+                                fields as any
+                            )?.image}"/></div></div></div>`
                         }}
                     ></ColumnInner>
                 </Column>
