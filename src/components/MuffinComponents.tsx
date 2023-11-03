@@ -7,7 +7,7 @@ const Wrapper = styled.div`
     margin-top: -50px;
 `;
 
-const Section = styled.section<{ hide?: boolean }>`
+const Section = styled.section<{ $hide?: boolean }>`
     position: relative;
     box-sizing: border-box;
 
@@ -39,7 +39,7 @@ const Section = styled.section<{ hide?: boolean }>`
         }
     }
 
-    ${(props) => (props.hide ? 'display: none !important;' : '')}
+    ${({ $hide }) => ($hide ? 'display: none !important;' : '')}
 `;
 const SectionWrapper = styled.div`
     display: flex;
@@ -193,20 +193,21 @@ interface MuffinWrap {
     };
     items?: MuffinItem[];
 }
-interface MuffinItem {
+
+type MuffinItemAttributes = {
+    content: string;
+    title: string;
+    padding?: string;
+    style?: string;
+    align: 'left' | 'center' | 'right';
+};
+type MuffinItem = {
     uid: string;
-    type: 'placeholder' | 'column' | 'image' | 'accordion' | 'photo_box' | 'blog' | 'divider';
+    type: 'placeholder' | 'column' | 'image' | 'accordion' | 'photo_box' | 'blog' | 'divider' | 'placeholder';
     size: string;
     tablet_size: string;
     mobile_size: string;
-    fields: {
-        content: string;
-        title: string;
-        padding?: string;
-        style?: string;
-        align: 'left' | 'center' | 'right';
-    };
-}
+} & ({ attr: MuffinItemAttributes } | { fields: MuffinItemAttributes });
 
 export type MuffinComponentsProps = {
     data: MuffinEntry[];
@@ -234,7 +235,7 @@ const MuffinSection: FunctionComponent<MuffinSectionProps> = ({ data }) => {
                 paddingTop: attr?.padding_top ? `${attr.padding_top}px` : '0px',
                 paddingBottom: attr?.padding_bottom ? `${attr.padding_bottom}px` : '0px'
             }}
-            hide={attr?.hide === '1' || undefined}
+            $hide={attr?.hide === '1' || undefined}
         >
             <SectionWrapper>
                 {Array.isArray(data.wraps) &&
@@ -271,8 +272,10 @@ export type MuffinItemProps = {
     data: MuffinItem;
 };
 const MuffinItem: FunctionComponent<MuffinItemProps> = ({ data }) => {
-    const { fields } = data;
-    if (!fields) {
+    const { type } = data;
+    if (['placeholder', 'divider'].includes(type)) return null;
+
+    if (!(data as any)?.fields && !(data as any)?.attr) {
         try {
             console.warn(`No fields for ${data?.type} component. ${JSON.stringify(data, null, 4)}}`);
         } catch {
@@ -282,7 +285,9 @@ const MuffinItem: FunctionComponent<MuffinItemProps> = ({ data }) => {
         return null;
     }
 
-    switch (data.type) {
+    const attributes: MuffinItemAttributes = (data as any)?.fields || (data as any)?.attr;
+
+    switch (type) {
         case 'placeholder':
             return null;
         case 'image':
@@ -294,13 +299,13 @@ const MuffinItem: FunctionComponent<MuffinItemProps> = ({ data }) => {
                     )}`}
                 >
                     <ColumnInner
-                        css={fields?.style || ''}
+                        css={attributes.style || ''}
                         style={{
-                            padding: fields?.padding || '0px'
+                            padding: attributes.padding || '0px'
                         }}
                         dangerouslySetInnerHTML={{
-                            __html: `<div class="image_frame align-${fields?.align}"><div class="image_wrapper"><img src="${(
-                                fields as any
+                            __html: `<div class="image_frame align-${attributes?.align}"><div class="image_wrapper"><img src="${(
+                                attributes as any
                             )?.src}"/></div></div>`
                         }}
                     ></ColumnInner>
@@ -315,23 +320,23 @@ const MuffinItem: FunctionComponent<MuffinItemProps> = ({ data }) => {
                     )}`}
                 >
                     <ColumnInner
-                        css={fields?.style || ''}
+                        css={attributes?.style || ''}
                         style={{
-                            padding: fields?.padding || '0px'
+                            padding: attributes?.padding || '0px'
                         }}
                         dangerouslySetInnerHTML={{
-                            __html: `<div class="photo_box"><div class="image_frame align-${fields?.align}"><div class="image_wrapper"><img src="${(
-                                fields as any
+                            __html: `<div class="photo_box"><div class="image_frame align-${attributes?.align}"><div class="image_wrapper"><img src="${(
+                                attributes as any
                             )?.image}"/></div></div></div>`
                         }}
                     ></ColumnInner>
                 </Column>
             );
         case 'column': {
-            const content = data.fields?.content || '';
+            const content = attributes?.content || '';
             const parser = new BBCodeParser({
                 '\\[divider height="(.+?)"\\]': '<hr style="height: $1px" />',
-                '\\[image src="(.+?)"(.+?)\\]': `<div class="image_frame align-${fields?.align}"><div class="image_wrapper"><img src="$1" /></div></div>`
+                '\\[image src="(.+?)"(.+?)\\]': `<div class="image_frame align-${attributes?.align}"><div class="image_wrapper"><img src="$1" /></div></div>`
             });
 
             return (
@@ -342,13 +347,13 @@ const MuffinItem: FunctionComponent<MuffinItemProps> = ({ data }) => {
                     )}`}
                 >
                     <ColumnInner
-                        css={fields?.style || ''}
+                        css={attributes?.style || ''}
                         style={{
-                            padding: fields?.padding || '0px'
+                            padding: attributes?.padding || '0px'
                         }}
                     >
                         <ColumnAttr
-                            align={fields?.align}
+                            align={attributes?.align}
                             dangerouslySetInnerHTML={{
                                 __html: parser.parse(content)
                             }}
@@ -366,9 +371,9 @@ const MuffinItem: FunctionComponent<MuffinItemProps> = ({ data }) => {
                     )}`}
                 >
                     <ColumnInner
-                        css={fields?.style || ''}
+                        css={attributes?.style || ''}
                         style={{
-                            padding: fields?.padding || '0px'
+                            padding: attributes?.padding || '0px'
                         }}
                     >
                         <Blog />
@@ -377,6 +382,7 @@ const MuffinItem: FunctionComponent<MuffinItemProps> = ({ data }) => {
             );
         }
         case 'divider':
+        case 'placeholder':
             // TODO
             return null;
         default:
