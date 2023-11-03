@@ -3,32 +3,59 @@ import manifest from './package.json' assert { type: 'json' };
 /** @type {import('next').NextConfig} */
 const config = {
     poweredByHeader: false,
-    generateEtags: false,
     reactStrictMode: true,
     trailingSlash: true,
     swcMinify: true,
     productionBrowserSourceMaps: false,
     compress: true,
     experimental: {
-        esmExternals: true
+        esmExternals: true,
+        optimizePackageImports: [
+            '@apollo/client',
+            'cheerio',
+            'react-icons',
+        ],
+        scrollRestoration: true,
     },
     images: {
-        minimumCacheTTL: 60,
-        scrollRestoration: true,
-        domains: ['www.ferrariclubsweden.se', 'api.ferrariclubsweden.se', 'www.gravatar.com'],
+        minimumCacheTTL: 60 * 6,
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: '**.ferrariclubsweden.se'
+            },
+            {
+                protocol: 'https',
+                hostname: '**.gravatar.com'
+            },
+            {
+                protocol: 'https',
+                hostname: '**.github.io'
+            }
+        ],
+        formats: ['image/webp', 'image/avif'],
         deviceSizes: [650, 900, 1280, 1920],
         imageSizes: [16, 32, 48, 64, 96, 128, 256, 384]
     },
     compiler: {
-        styledComponents: true
+        styledComponents: true,
+        ...((process.env.NODE_ENV === 'production' && {
+            removeConsole: {
+                exclude: ['warn', 'error']
+            }
+        }) ||
+            {})
     },
     eslint: {
         ignoreDuringBuilds: true
     },
+
     env: {
         DOMAIN: process.env.DOMAIN || 'www.ferrariclubsweden.se',
         VERSION: manifest.version
     },
+    serverRuntimeConfig: {},
+
     async redirects() {
         return [
             {
@@ -115,6 +142,7 @@ const config = {
             ]
         };
     },
+
     pageExtensions: ['ts', 'tsx']
 };
 
