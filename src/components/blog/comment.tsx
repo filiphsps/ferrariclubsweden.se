@@ -1,5 +1,5 @@
 import { UserAvatar } from '../user/user-avatar';
-import { WPPostComment } from '@/api/post';
+import type { WPPostComment } from '@/api/post';
 import styled from 'styled-components';
 
 const Contaier = styled.section`

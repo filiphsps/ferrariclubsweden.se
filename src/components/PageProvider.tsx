@@ -1,4 +1,5 @@
-import { FunctionComponent, useCallback, useState } from 'react';
+import type { FunctionComponent } from 'react';
+import { useCallback, useState } from 'react';
 
 import { Footer } from './Footer';
 import { Header } from './Header';

@@ -8,7 +8,7 @@ import { PageContent } from '@/components/layout/page-content';
 import { PageHeader } from '@/components/layout/page-header';
 import { PrimaryButton } from '@/components/interactable/button';
 import { ProfileHeader } from '@/components/layout/profiler-header';
-import { Session } from '@/api/auth';
+import type { Session } from '@/api/auth';
 import styled from 'styled-components';
 
 const CardContainer = styled.div`

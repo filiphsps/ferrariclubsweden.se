@@ -1,6 +1,6 @@
 import { GQLFetcher, replaceWithCanonicalDomain } from './client';
 
-import { User } from './auth';
+import type { User } from './auth';
 import { gql } from '@apollo/client';
 
 export type WPPost = {

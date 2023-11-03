@@ -1,11 +1,12 @@
-import { DocumentNode, gql } from '@apollo/client';
-
+import type { DocumentNode } from '@apollo/client';
 import { GQLFetcher } from './client';
+import { gql } from '@apollo/client';
 
 interface CurrentUserApiProps {
     id: string;
     fields: DocumentNode;
 }
+// eslint-disable-next-line unused-imports/no-unused-vars
 export const CurrentUserApi = async ({ id, fields }: CurrentUserApiProps) => {
     const query = gql`
         query user($id: ID!) {

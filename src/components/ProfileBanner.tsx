@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 import Image from 'next/image';
 import MissingAvatarImage from '../../public/img/missing-avatar.png';
 import { SubTitle } from './SubTitle';

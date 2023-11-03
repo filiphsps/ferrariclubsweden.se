@@ -1,4 +1,5 @@
-import { FunctionComponent, useEffect } from 'react';
+import type { FunctionComponent } from 'react';
+import { useEffect } from 'react';
 
 import Link from 'next/link';
 import { PostsApi } from '@/api/post';

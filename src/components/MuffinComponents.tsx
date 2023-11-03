@@ -1,6 +1,6 @@
 import BBCodeParser from 'js-bbcode-parser/src/index.js';
 import { Blog } from './Blog';
-import { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`

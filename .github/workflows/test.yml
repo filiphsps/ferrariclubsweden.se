@@ -1,14 +1,29 @@
-name: Lint & Build
-on: [push]
+name: CI
+
+on:
+    pull_request:
+    push:
+        branches:
+            - master
+            - staging
+
+env:
+    CI: true
 
 jobs:
-    test:
+    test_and_lint:
+        name: 🔬+📋 Test+Lint
+        timeout-minutes: 5
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v4
-            - uses: actions/setup-node@v3
-              with:
-                  node-version: 16
-            - run: npm install
-            - run: npm run lint
-            - run: npm run build
+            - name: 🕶️ Checkout repository
+              uses: actions/checkout@v4
+
+            - name: 🚀 Bootstrap
+              uses: ./.github/common/bootstrap
+
+            - name: 🧪 Test
+              run: npm run test
+
+            - name: 📋 Lint
+              run: npm run lint

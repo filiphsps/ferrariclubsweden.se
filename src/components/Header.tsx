@@ -1,10 +1,10 @@
 import { Avatar } from './user/avatar';
 import { FiMenu } from 'react-icons/fi';
-import { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import LogoImage from '../../public/img/logo.png';
-import { Session } from '@/api/auth';
+import type { Session } from '@/api/auth';
 import styled from 'styled-components';
 import { useSession } from 'next-auth/react';
 

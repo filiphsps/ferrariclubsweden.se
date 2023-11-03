@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Logo from '../../public/img/logo.png';
-import { Session } from '@/api/auth';
+import type { Session } from '@/api/auth';
 import styled from 'styled-components';
 import { useSession } from 'next-auth/react';
 

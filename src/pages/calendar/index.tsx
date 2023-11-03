@@ -1,8 +1,9 @@
 /* eslint-disable @next/next/no-css-tags */
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
-import { PageApi, WPPage } from '@/api/page';
+import type { WPPage } from '@/api/page';
+import { PageApi } from '@/api/page';
 
-import { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 import { MuffinComponents } from '@/components/MuffinComponents';
 import { NextSeo } from 'next-seo';
 import { Page } from '@/components/Page';

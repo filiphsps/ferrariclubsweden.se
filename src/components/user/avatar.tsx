@@ -1,4 +1,4 @@
-import { Session } from '@/api/auth';
+import type { Session } from '@/api/auth';
 import styled from 'styled-components';
 /* eslint-disable @next/next/no-img-element */
 import { useSession } from 'next-auth/react';

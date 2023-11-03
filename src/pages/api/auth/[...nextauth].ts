@@ -1,4 +1,5 @@
-import { AuthRefreshTokenApi, AuthWithPasswordApi, SendPasswordResetEmailApi, Session } from '@/api/auth';
+import type { Session } from '@/api/auth';
+import { AuthRefreshTokenApi, AuthWithPasswordApi, SendPasswordResetEmailApi } from '@/api/auth';
 
 import CredentialsProvider from 'next-auth/providers/credentials';
 import NextAuth from 'next-auth';

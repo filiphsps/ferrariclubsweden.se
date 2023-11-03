@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-css-tags */
 import * as cheerio from 'cheerio';
 
-import { GetStaticPaths, GetStaticProps } from 'next';
+import type { GetStaticPaths, GetStaticProps } from 'next';
 
-import { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 import { NextSeo } from 'next-seo';
 import { Page } from '@/components/Page';
 import { PageContainer } from '@/components/layout/page-container';

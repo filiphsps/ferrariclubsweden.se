@@ -1,5 +1,5 @@
 import Background from '../../../public/img/carousel/slide-1.jpg';
-import { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 import Image from 'next/image';
 import { NextSeo } from 'next-seo';
 import { Page } from '@/components/Page';

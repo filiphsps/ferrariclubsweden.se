@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { WPPost } from '@/api/post';
+import type { WPPost } from '@/api/post';
 import styled from 'styled-components';
 
 const Contaier = styled.article`

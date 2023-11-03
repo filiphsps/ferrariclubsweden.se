@@ -1,7 +1,7 @@
 import { Avatar } from '@/components/user/avatar';
 import { FiEdit } from 'react-icons/fi';
 import Link from 'next/link';
-import { Session } from '@/api/auth';
+import type { Session } from '@/api/auth';
 import styled from 'styled-components';
 import { useSession } from 'next-auth/react';
 

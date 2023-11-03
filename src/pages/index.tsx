@@ -2,7 +2,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 import { Carousel } from 'react-responsive-carousel';
 import { FiChevronDown } from 'react-icons/fi';
-import { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 import Image from 'next/image';
 import { ImageBlocks } from '@/components/ImageBlocks';
 import Link from 'next/link';
