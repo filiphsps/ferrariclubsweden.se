@@ -1,8 +1,11 @@
 {
+    "$schema": "https://openapi.vercel.sh/vercel.json",
     "version": 2,
-    "trailingSlash": true,
     "public": false,
+    "trailingSlash": true,
+    "framework": "nextjs",
     "github": {
-        "enabled": true
+        "enabled": true,
+        "autoJobCancelation": true
     }
 }
