@@ -55,7 +55,7 @@
         "supports css-grid"
     ],
     "dependencies": {
-        "@apollo/client": "3.8.7",
+        "@apollo/client": "3.8.10",
         "cheerio": "1.0.0-rc.12",
         "destyle.css": "4.0.0",
         "graphql": "16.8.1",
